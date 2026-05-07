@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<HTML>
+  <head>
+    <style>
+      .popup {
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        width: 583px;
+        height: 360px;
+        background: #c0c0c0;
+        border: 2px solid black;
+        box-shadow: 4px 4px 0px black;
+        font-family: Arial;
+      }
+      
+      .titlebar {
+        background: red;
+        color: white;
+        padding: 4px;
+        font-weight: bold;
+      }
+      .skill_menu{
+        width: 500px;
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-left: 7px;
+        padding-right: 7px;
+        justify-content: space-between;
+        background-color: gray;
+      }
+      .content{
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: #444;
+      }
+      button{
+        width: 30px;
+        height: 30px;
+        background-color: #333;
+      }
+      .sp_space{
+        width: 150px;
+        height: 50px;
+        background-color: #444;
+      }
+    </style>
+  </head>
+  <body onload="load_data()">
+    <div id="Box" class="popup">
+      <div class="titlebar">Skill</div>
+      <div class="skill_menu">
+          <h2>Strength</h2>
+          <div class="content">
+            <button onclick="Decrease_Strength()">&lt;</button>
+            <h2 id="Strength">0</h2>
+            <button onclick="Upgrade_Strength()">&gt;</button>
+          </div>
+      </div>
+      <div class="skill_menu">
+          <h2>Hp</h2>
+          <div class="content">
+            <button onclick="Decrease_Hp()">&lt;</button>
+            <h2 id="Hp">0</h2>
+            <button onclick="Upgrade_Hp()">&gt;</button>
+          </div>
+      </div>
+      <div class="skill_menu">
+          <h2>Defense</h2>
+          <div class="content">
+            <button onclick="Decrease_Defense()">&lt;</button>
+            <h2 id="Defense">0</h2>
+            <button onclick="Upgrade_Defense()">&gt;</button>
+          </div>
+      </div>
+      <div class="sp_space">
+        <h2 id= "SP">Sp: 0</h2>
+      </div>
+    </div>
+    <script>
+      function load_data() {
+        window.pywebview.api.load_stat().then(data => {
+          document.getElementById("Strength").innerText = data.strength;
+          document.getElementById("Hp").innerText = data.hp;
+          document.getElementById("Defense").innerText = data.defense;
+        });
+      }
+      function Upgrade_Strength() {
+        window.pywebview.api.upgrade_stat("strength").then(data => {
+          document.getElementById("Strength").innerText = data.strength;
+          document.getElementById("SP").innerText = data.SP;
+        });
+      }
+      function Decrease_Strength() {
+        window.pywebview.api.decrease_stat("strength").then(data => {
+          document.getElementById("Strength").innerText = data.strength;
+          document.getElementById("SP").innerText = data.SP;
+        });
+      }
+      function Upgrade_Hp() {
+        window.pywebview.api.upgrade_stat("hp").then(data => {
+          document.getElementById("Hp").innerText = data.hp;
+          document.getElementById("SP").innerText = data.SP;
+        });
+      }
+      function Decrease_Hp() {
+        window.pywebview.api.decrease_stat("hp").then(data => {
+          document.getElementById("Hp").innerText = data.hp;
+          document.getElementById("SP").innerText = data.SP;
+        });
+      }
+      function Upgrade_Defense() {
+        window.pywebview.api.upgrade_stat("defense").then(data => {
+          document.getElementById("Defense").innerText = data.defense;
+          document.getElementById("SP").innerText = data.SP;
+        });
+      }
+      function Decrease_Defense() {
+        window.pywebview.api.decrease_stat("defense").then(data => {
+          document.getElementById("Defense").innerText = data.defense;
+          document.getElementById("SP").innerText = data.SP;
+        });
+      }
+      window.onload = function () {
+        load_data();
+      };
+    </script>
+  </body>
+</HTML>

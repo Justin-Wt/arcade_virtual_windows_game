@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<HTML>
+  <head>
+    <style>
+      .popup {
+        position: absolute;
+        top: -1%;
+        left: -1%;
+        width: 250px;
+        height: 200px;
+        background: #c0c0c0;
+        border: 2px solid black;
+        box-shadow: 4px 4px 0px black;
+        font-family: Arial;
+      }
+      
+      .titlebar {
+        background: navy;
+        color: white;
+        padding: 4px;
+        font-weight: bold;
+      }
+      button{
+        width: 100px;
+        height: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="errorBox" class="popup">
+      <div class="titlebar">Error</div>
+      <div class="content">
+        Something went wrong.
+      </div>
+      <br><br><br><br>
+      <button onclick="closeerror()">OK</button>
+    </div>
+    <script>
+        let ready = false;
+        function closeerror() {
+            window.pywebview.api.closewindow()
+        }
+    </script>
+  </body>
+</HTML>
