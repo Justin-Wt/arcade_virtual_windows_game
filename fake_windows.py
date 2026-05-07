@@ -9,7 +9,7 @@ from lesson11 import StartScreen
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 width = 19206
 height = 1080
-title = "Window"
+title = "arcade_virtual_windows_game"
 
 
 class windows(arcade.Window):
