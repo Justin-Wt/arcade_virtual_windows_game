@@ -1,6 +1,6 @@
 {
-    "strength": 2,
-    "hp": 1,
+    "strength": 0,
+    "hp": 0,
     "defense": 0,
-    "SP": 7
+    "SP": 10
 }

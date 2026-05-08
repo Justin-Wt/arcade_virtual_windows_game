@@ -1,52 +1,124 @@
-#Made in 04 May-Now
-#Time: 5hrs
-import arcade
+# MADED In 02 May 2026-04 May 2026
+# Time: 1hr
+import webview
+import random
+import json
 import os
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-class WallpaperWindow:
-    def __init__(self, x, y, w, h, title="Window"):
-        self.rect = arcade.XYWH(x=x, y=y, width=w, height=h)
-        self.title = title
-        self.dragging = False
-        self.offset_x = 0
-        self.offset_y = 0
 
-    def draw(self):
-        # window body
-        arcade.draw_rect_filled(self.rect, arcade.color.DARK_GRAY)
+SAVE_FILE = "skill.json"
 
-        # title bar (top part)
-        title_bar = arcade.Rect(
-            self.rect.center_x,
-            self.rect.top - 15,
-            self.rect.width,
-            30
-        )
-        arcade.draw_rect_filled(title_bar, arcade.color.GRAY)
 
-        arcade.draw_text(
-            self.title,
-            self.rect.left + 10,
-            self.rect.top - 25,
-            arcade.color.WHITE,
-            14
-        )
+def save_data(data):
+    with open(SAVE_FILE, "w") as f:
+        json.dump(data, f, indent=4)
 
-    def on_mouse_press(self, x, y):
-        # check if click is on title bar
-        if self.rect.collide_with_point((x, y)):
-            self.dragging = True
-            self.offset_x = self.rect.center_x - x
-            self.offset_y = self.rect.center_y - y
 
-    def on_mouse_release(self):
-        self.dragging = False
+def load_data():
+    if os.path.exists(SAVE_FILE):
+        with open(SAVE_FILE, "r") as f:
+            return json.load(f)
+    return {}
 
-    def on_mouse_drag(self, x, y):
-        if self.dragging:
-            self.rect = arcade.Rect(
-                x + self.offset_x,
-                y + self.offset_y,
-                self.rect.width,
-                self.rect.height
-            )
+
+def load_stat(self):
+    return {
+        "strength": self.structure.strength,
+        "hp": self.structure.hp,
+        "defense": self.structure.defense,
+        "SP": self.structure.SP,
+    }
+
+
+class Structure:
+    def __init__(self):
+        data = load_data()
+        self.strength = data.get("strength", 0)
+        self.hp = data.get("hp", 0)
+        self.defense = data.get("defense", 0)
+        self.SP = data.get("SP", 0)
+        self.program = Program(self)
+
+
+class Program:
+    def __init__(self, structure):
+        self.structure = structure
+
+    def increase_stat(self, stat):
+        if self.structure.SP <= 0:
+            return getattr(self.structure, stat)
+        current = getattr(self.structure, stat)
+        self.structure.SP -= 1
+        setattr(self.structure, stat, current + 1)
+        data = {
+            "strength": self.structure.strength,
+            "hp": self.structure.hp,
+            "defense": self.structure.defense,
+            "SP": self.structure.SP,
+        }
+        save_data(data)
+        return getattr(self.structure, stat)
+
+    def decrease_stat(self, stat):
+        self.structure.SP += 1
+        current = getattr(self.structure, stat)
+        setattr(self.structure, stat, current - 1)
+        data = {
+            "strength": self.structure.strength,
+            "hp": self.structure.hp,
+            "defense": self.structure.defense,
+            "SP": self.structure.SP,
+        }
+        save_data(data)
+        return getattr(self.structure, stat)
+
+
+class API:
+    def __init__(self, structure):
+        self.structure = structure
+
+    def load_stat(self):
+        data = load_data()
+        return {
+            "strength": data.get("strength", 0),
+            "hp": data.get("hp", 0),
+            "defense": data.get("defense", 0),
+            "SP": data.get("SP", 0),
+        }
+
+    def upgrade_stat(self, stat):
+        self.structure.program.increase_stat(stat)
+        return self.load_stat()
+
+    def decrease_stat(self, stat):
+        current = getattr(self.structure, stat)
+        if current > 0:
+            self.structure.program.decrease_stat(stat)
+            return self.load_stat()
+        else:
+            return self.load_stat()
+
+
+def open_window():
+    screen_w, screen_h = webview.screens[0].width, webview.screens[0].height
+
+    x = int(random.random() * (screen_w - 300))
+    y = int(random.random() * (screen_h - 250))
+    structure = Structure()
+    api = API(structure)
+    window = webview.create_window(
+        "Skill",
+        "skill.html",
+        width=600,
+        height=400,
+        frameless=True,
+        on_top=True,
+        x=x,
+        y=y,
+        js_api=api,
+    )
+
+    webview.start()
+
+
+if __name__ == "__main__":
+    open_window()

@@ -1,10 +1,9 @@
 # Made in 04 May-Now
-# Time: 5hr
+# Time: 6hr
 import arcade
 import os
 from floating_icon import icon_maker
-from wallpaper_Menu import WallpaperWindow
-from lesson11 import StartScreen
+import bridge
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 width = 19206
@@ -16,14 +15,6 @@ class windows(arcade.Window):
     def __init__(self, width, height, title):
         super().__init__(width, height, title, fullscreen=True)
         self.icon_maker = icon_maker(self.width, self.height)
-        self.game = StartScreen()
-        self.wallpaper_windows = WallpaperWindow(
-            self.width // 2,
-            self.width // 2,
-            self.width * 2 // 3,
-            self.height * 2 // 3,
-            "Wallpaper",
-        )
         self.icons = []
         self.bg = arcade.load_texture(
             os.path.join(BASE_DIR, "assets", "UI's", "Background.png")
@@ -38,19 +29,11 @@ class windows(arcade.Window):
     def setup(self):
         self.set_mouse_visible(True)
         self.icon_maker.icon = 0
-        data = self.icon_maker.create_icon("Wallpaper_Icon", "Wallpaper")
-        self.icons = [
-            {
-                "image": "Wallpaper_Icon",
-                "name": "Wallpaper",
-                "clicked": False,
-                "hover": False,
-                "index": 0,
-                "enter": False,
-                "goto": self.wallpaper_windows,
-                **data,
-            }
-        ]
+        wallpaper = self.icon_maker.UI_Maker("Wallpaper_Icon", "Wallpaper")
+        wallpaper["goto"] = "skill_menu"
+        rpg_game = self.icon_maker.UI_Maker("rpg_game_Icon", "Rpg")
+        rpg_game["goto"] = "lesson11"
+        self.icons = (wallpaper, rpg_game)
 
     def on_draw(self):
         self.clear()
@@ -111,7 +94,8 @@ class windows(arcade.Window):
             up = ry + rh / 2
             if (left <= x <= right) and (bottom <= y <= up):
                 if icon["clicked"] == True:
-                    icon["goto"]()
+                    print(icon["goto"])
+                    bridge.open_window(icon["goto"])
                     icon["clicked"] = False
                 else:
                     icon["clicked"] = True
@@ -120,10 +104,6 @@ class windows(arcade.Window):
                 and icon["clicked"] == True
             ):
                 icon["clicked"] = False
-
-
-def good():
-    print("Letsgoo")
 
 
 window = windows(width, height, title)

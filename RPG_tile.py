@@ -167,8 +167,9 @@ def spawn_skill_menu():
     subprocess.Popen([sys.executable, os.path.join(BASE_DIR, "skill_menu.py")])
 
 
-with open(os.path.join(BASE_DIR, "assets", "json", "error_count.json"), "w") as f:
-    f.write("0")
-window = game(screen_width, screen_height, title)
-window.setup()
-arcade.run()
+if __name__ == "__main__":
+    with open(os.path.join(BASE_DIR, "assets", "json", "error_count.json"), "w") as f:
+        f.write("0")
+    window = game(screen_width, screen_height, title)
+    window.setup()
+    arcade.run()

@@ -50,7 +50,7 @@
       }
     </style>
   </head>
-  <body onload="load_data()">
+  <body>
     <div id="Box" class="popup">
       <div class="titlebar">Skill</div>
       <div class="skill_menu">
@@ -87,47 +87,48 @@
           document.getElementById("Strength").innerText = data.strength;
           document.getElementById("Hp").innerText = data.hp;
           document.getElementById("Defense").innerText = data.defense;
+          document.getElementById("SP").innerText = "SP :" + data.SP;
         });
       }
       function Upgrade_Strength() {
         window.pywebview.api.upgrade_stat("strength").then(data => {
           document.getElementById("Strength").innerText = data.strength;
-          document.getElementById("SP").innerText = data.SP;
+          document.getElementById("SP").innerText = "SP :" + data.SP;
         });
       }
       function Decrease_Strength() {
         window.pywebview.api.decrease_stat("strength").then(data => {
           document.getElementById("Strength").innerText = data.strength;
-          document.getElementById("SP").innerText = data.SP;
+          document.getElementById("SP").innerText = "SP :" + data.SP;
         });
       }
       function Upgrade_Hp() {
         window.pywebview.api.upgrade_stat("hp").then(data => {
           document.getElementById("Hp").innerText = data.hp;
-          document.getElementById("SP").innerText = data.SP;
+          document.getElementById("SP").innerText = "SP :" + data.SP;
         });
       }
       function Decrease_Hp() {
         window.pywebview.api.decrease_stat("hp").then(data => {
           document.getElementById("Hp").innerText = data.hp;
-          document.getElementById("SP").innerText = data.SP;
+          document.getElementById("SP").innerText = "SP :" + data.SP;
         });
       }
       function Upgrade_Defense() {
         window.pywebview.api.upgrade_stat("defense").then(data => {
           document.getElementById("Defense").innerText = data.defense;
-          document.getElementById("SP").innerText = data.SP;
+          document.getElementById("SP").innerText = "SP :" + data.SP;
         });
       }
       function Decrease_Defense() {
         window.pywebview.api.decrease_stat("defense").then(data => {
           document.getElementById("Defense").innerText = data.defense;
-          document.getElementById("SP").innerText = data.SP;
+          document.getElementById("SP").innerText = "SP :" + data.SP;
         });
       }
-      window.onload = function () {
+      window.addEventListener('pywebviewready', function () {
         load_data();
-      };
+      });
     </script>
   </body>
 </HTML>

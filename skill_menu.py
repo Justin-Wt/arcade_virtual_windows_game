@@ -1,9 +1,11 @@
 # MADED In 02 May 2026-04 May 2026
-# Time: 5hrs
+# Time: 1hr
 import webview
 import random
 import json
 import os
+import subprocess
+import sys
 
 SAVE_FILE = "skill.json"
 
@@ -98,22 +100,31 @@ class API:
             return self.load_stat()
 
 
-screen_w, screen_h = webview.screens[0].width, webview.screens[0].height
+def open_skill_window():
+    subprocess.Popen([sys.executable, "skill_menu.py"])
 
-x = int(random.random() * (screen_w - 300))
-y = int(random.random() * (screen_h - 250))
-structure = Structure()
-api = API(structure)
-window = webview.create_window(
-    "Skill",
-    "skill.html",
-    width=600,
-    height=400,
-    frameless=True,
-    on_top=True,
-    x=x,
-    y=y,
-    js_api=api,
-)
 
-webview.start()
+def open_window():
+    screen_w, screen_h = webview.screens[0].width, webview.screens[0].height
+
+    x = int(random.random() * (screen_w - 300))
+    y = int(random.random() * (screen_h - 250))
+    structure = Structure()
+    api = API(structure)
+    window = webview.create_window(
+        "Skill",
+        "skill.html",
+        width=600,
+        height=400,
+        frameless=True,
+        on_top=True,
+        x=x,
+        y=y,
+        js_api=api,
+    )
+
+    webview.start()
+
+
+if __name__ == "__main__":
+    open_window()
