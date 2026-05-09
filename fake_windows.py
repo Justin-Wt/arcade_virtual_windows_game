@@ -4,11 +4,18 @@ import arcade
 import os
 from floating_icon import icon_maker
 import bridge
+import json
 
+sAVE_FILE = "Wallpaper.json"
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 width = 1536
 height = 864
 title = "arcade_virtual_windows_game"
+
+
+def load_wallpaper():
+    with open(sAVE_FILE, "r") as f:
+        return json.load(f)
 
 
 class windows(arcade.Window):
@@ -16,9 +23,12 @@ class windows(arcade.Window):
         super().__init__(width, height, title, fullscreen=True)
         self.icon_maker = icon_maker(self.width, self.height)
         self.icons = []
-        self.bg = arcade.load_texture(
-            os.path.join(BASE_DIR, "assets", "UI's", "Background.png")
-        )
+        self.total_frames = 0
+        self.current_frame = 0
+        self.wall = None
+        self.frames = None
+        self.update_timer = 0
+        self.animation_timer = 0
         self.photoshop_icon = arcade.load_texture(
             os.path.join(BASE_DIR, "assets", "UI's", "Wallpaper_Icon.png")
         )
@@ -28,9 +38,13 @@ class windows(arcade.Window):
 
     def setup(self):
         self.set_mouse_visible(True)
+        wallpaper_data = load_wallpaper()
+        self.wall = wallpaper_data.get("Bg")
+        self.total_frames = wallpaper_data.get("frame")
+        self.frames = self.load_wallpaper_sprite()
         self.icon_maker.icon = 0
         wallpaper = self.icon_maker.UI_Maker("Wallpaper_Icon", "Wallpaper")
-        wallpaper["goto"] = "skill_menu"
+        wallpaper["goto"] = "wallpaper_Menu"
         rpg_game = self.icon_maker.UI_Maker("rpg_game_Icon", "Rpg")
         rpg_game["goto"] = "lesson11"
         Multi_Emulator = self.icon_maker.UI_Maker(
@@ -39,8 +53,20 @@ class windows(arcade.Window):
         Multi_Emulator["goto"] = "Multi_Emulator"
         self.icons = (wallpaper, rpg_game, Multi_Emulator)
 
+    def load_wallpaper_sprite(self):
+        frames = []
+        for i in range(self.total_frames):
+            bg = arcade.load_texture(
+                os.path.join(
+                    BASE_DIR, "assets", "UI's", self.wall, f"{self.wall}{i}.png"
+                )
+            )
+            frames.append(bg)
+        return frames
+
     def on_draw(self):
         self.clear()
+        self.bg = self.frames[self.current_frame]
         arcade.draw_texture_rect(
             self.bg,
             arcade.XYWH(
@@ -77,6 +103,29 @@ class windows(arcade.Window):
         arcade.draw_rect_filled(
             arcade.XYWH(self.width // 2, 20, self.width, 40), arcade.color.DARK_GRAY
         )
+
+    def on_update(self, delta_time):
+        # Animate frames
+        self.animation_timer += delta_time
+        if self.animation_timer >= 0.1:
+            self.animation_timer = 0
+            self.current_frame += 1
+            if self.current_frame >= self.total_frames:
+                self.current_frame = 0
+
+        # Check wallpaper.json every second
+        self.update_timer += delta_time
+        if self.update_timer >= 1:
+            self.update_timer = 0
+            wallpaper_data = load_wallpaper()
+            new_wall = wallpaper_data.get("Bg")
+            new_total = wallpaper_data.get("frame")
+            # Reload ONLY if changed
+            if new_wall != self.wall or new_total != self.total_frames:
+                self.wall = new_wall
+                self.total_frames = new_total
+                self.frames = self.load_wallpaper_sprite()
+                self.current_frame = 0
 
     def on_mouse_motion(self, x, y, dx, dy):
         for icon in self.icons:
