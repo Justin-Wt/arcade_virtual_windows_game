@@ -2,6 +2,8 @@
 # Time: 6hr
 import arcade
 import os
+import win32gui
+import win32con
 from floating_icon import icon_maker
 import bridge
 
@@ -13,51 +15,51 @@ title = "arcade_virtual_windows_game"
 
 class windows(arcade.Window):
     def __init__(self, width, height, title):
-        super().__init__(width, height, title, fullscreen=True)
+        super().__init__(width, height, title)
+        hwnd = win32gui.FindWindow(None, title)
+        # Set window as topmost
+        win32gui.SetWindowPos(
+            hwnd,
+            win32con.HWND_TOPMOST,
+            0,
+            0,
+            0,
+            0,
+            win32con.SWP_NOMOVE | win32con.SWP_NOSIZE,
+        )
+        self.width = width // 2
+        self.height = height // 2
         self.icon_maker = icon_maker(self.width, self.height)
         self.icons = []
-        self.bg = arcade.load_texture(
-            os.path.join(BASE_DIR, "assets", "UI's", "Background.png")
-        )
-        self.photoshop_icon = arcade.load_texture(
-            os.path.join(BASE_DIR, "assets", "UI's", "Wallpaper_Icon.png")
-        )
-        self.photoshop_text = arcade.Text(
-            "Wallpaper", 10, self.height - 100, arcade.color.WHITE, font_size=14
-        )
 
     def setup(self):
         self.set_mouse_visible(True)
         self.icon_maker.icon = 0
-        wallpaper = self.icon_maker.UI_Maker("Wallpaper_Icon", "Wallpaper")
-        wallpaper["goto"] = "skill_menu"
-        rpg_game = self.icon_maker.UI_Maker("rpg_game_Icon", "Rpg")
-        rpg_game["goto"] = "lesson11"
-        Multi_Emulator = self.icon_maker.UI_Maker(
-            "Multi_Emulator_Icon", "Multi", "Emulator"
+        Pokemon = self.icon_maker.UI_Maker(
+            "Pokemon_HeartGold_Icon", "Pokemon", "HeartGold"
         )
-        Multi_Emulator["goto"] = "Multi_Emulator"
-        self.icons = (wallpaper, rpg_game, Multi_Emulator)
+        Pokemon["goto"] = "skill_menu"
+        self.icons.append(Pokemon)
 
     def on_draw(self):
         self.clear()
-        arcade.draw_texture_rect(
-            self.bg,
+        arcade.draw_rect_filled(
             arcade.XYWH(
                 self.width // 2,
                 self.height // 2,
                 self.width,
                 self.height,
             ),
+            arcade.color.GRAY,
         )
         for icon in self.icons:
             x, y, w, h = icon["rect"]
             if icon["clicked"]:
                 arcade.draw_rect_filled(
-                    arcade.XYWH(x, y - 10, w + 22, h + 32), (0, 0, 255, 150)
+                    arcade.XYWH(x + 3, y - 10, w + 27, h + 32), (0, 0, 0, 150)
                 )
                 arcade.draw_rect_filled(
-                    arcade.XYWH(x, y - 10, w + 20, h + 30), (255, 255, 255, 200)
+                    arcade.XYWH(x + 3, y - 10, w + 25, h + 30), (150, 150, 150, 200)
                 )
             else:
                 arcade.draw_rect_filled(
@@ -65,10 +67,10 @@ class windows(arcade.Window):
                 )
             if icon["hover"]:
                 arcade.draw_rect_filled(
-                    arcade.XYWH(x, y - 10, w + 22, h + 32), (0, 0, 255, 150)
+                    arcade.XYWH(x + 3, y - 10, w + 27, h + 32), (0, 0, 0, 150)
                 )
                 arcade.draw_rect_filled(
-                    arcade.XYWH(x, y - 10, w + 20, h + 30), (255, 255, 255, 200)
+                    arcade.XYWH(x + 3, y - 10, w + 25, h + 30), (150, 150, 150, 200)
                 )
             arcade.draw_texture_rect(icon["texture"], arcade.XYWH(x, y, w, h))
             for text in icon["text"]:
@@ -111,6 +113,7 @@ class windows(arcade.Window):
                 icon["clicked"] = False
 
 
-window = windows(width, height, title)
-window.setup()
-arcade.run()
+if __name__ == "__main__":
+    window = windows(width, height, title)
+    window.setup()
+    arcade.run()

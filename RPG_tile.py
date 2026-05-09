@@ -7,6 +7,8 @@ import math
 import subprocess  # NEW
 import sys
 import os
+import win32gui
+import win32con
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 screen_width, screen_height = arcade.get_display_size()
@@ -57,6 +59,17 @@ def generate_chunk(cx, cy):
 class game(arcade.Window):
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
+        hwnd = win32gui.FindWindow(None, title)
+        # Set window as topmost
+        win32gui.SetWindowPos(
+            hwnd,
+            win32con.HWND_TOPMOST,
+            0,
+            0,
+            0,
+            0,
+            win32con.SWP_NOMOVE | win32con.SWP_NOSIZE,
+        )
         self.right_pressed = False
         self.left_pressed = False
         self.back_pressed = False

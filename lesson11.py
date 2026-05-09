@@ -1,6 +1,8 @@
 import arcade
 import os
 from main_game import game
+import win32con
+import win32gui
 
 grid = 70
 width = 15 * grid
@@ -19,6 +21,17 @@ coin_scale = 0.5
 class StartScreen(arcade.View):
     def __init__(self):
         super().__init__()
+        hwnd = win32gui.FindWindow(None, title)
+        # Set window as topmost
+        win32gui.SetWindowPos(
+            hwnd,
+            win32con.HWND_TOPMOST,
+            0,
+            0,
+            0,
+            0,
+            win32con.SWP_NOMOVE | win32con.SWP_NOSIZE,
+        )
 
     def on_show(self):
         arcade.set_background_color(arcade.color.AMAZON)

@@ -11,7 +11,7 @@ class icon_maker:
         self.height = height
         self.bg = None
 
-    def create_icon(self, image, texts):
+    def create_icon(self, image, texts1, texts2):
         row = (self.icon % 8) * 100 + 50
         column = (self.icon // 8) * 100 + 50
         x = column
@@ -20,17 +20,27 @@ class icon_maker:
         texture = arcade.load_texture(
             os.path.join(BASE_DIR, "assets", "UI's", f"{image}.png")
         )
-        text = arcade.Text(
-            texts, column - (len(texts) * 4), y - 37.5, arcade.color.WHITE, font_size=14
+        text1 = arcade.Text(
+            texts1,
+            column - (len(texts1) * 4),
+            y - 37.5,
+            arcade.color.WHITE,
+            font_size=14,
+        )
+        text2 = arcade.Text(
+            texts2,
+            column - (len(texts2) * 4),
+            y - 47.5,
+            arcade.color.WHITE,
+            font_size=14,
         )
         self.icon += 1
-        return {"rect": rect, "texture": texture, "text": text}
+        return {"rect": rect, "texture": texture, "text": (text1, text2)}
 
-    def UI_Maker(self, image, text):
-        data = self.create_icon(image, text)
+    def UI_Maker(self, image, text1, text2=""):
+        data = self.create_icon(image, text1, text2)
         return {
             "image": image,
-            "name": text,
             "clicked": False,
             "hover": False,
             "enter": False,
