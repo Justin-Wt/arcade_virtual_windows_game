@@ -1,4 +1,5 @@
 # Made in 07 May-09 May
+# 1 hrs
 import arcade
 import os
 import win32gui
@@ -71,7 +72,46 @@ class windows(arcade.Window):
         )
         Evernight_Wallpaper["frames"] = 148
         self.icons.append(Evernight_Wallpaper)
-        self.icons.append(Furina_Wallpaper)
+        Cyberpunk_Room_Wallpaper = self.icon_maker.UI_Maker(
+            "Cyberpunk_Room", "Cyberpunk", "(L2D Wallpaper)", "Horizontal", 150, 75
+        )
+        Cyberpunk_Room_Wallpaper["frames"] = 195
+        self.icons.append(Cyberpunk_Room_Wallpaper)
+        Goku_Wallpaper = self.icon_maker.UI_Maker(
+            "Goku", "Goku", "(Normal Wallpaper)", "Horizontal", 150, 75
+        )
+        Goku_Wallpaper["frames"] = 1
+        self.icons.append(Goku_Wallpaper)
+        Japan_Wallpaper = self.icon_maker.UI_Maker(
+            "Japan", "japan", "(Normal Wallpaper)", "Horizontal", 150, 75
+        )
+        Japan_Wallpaper["frames"] = 1
+        self.icons.append(Japan_Wallpaper)
+        Kaltsit_Wallpaper = self.icon_maker.UI_Maker(
+            "Kaltsit", "kaltsit", "(L2D Wallpaper)", "Horizontal", 150, 75
+        )
+        Kaltsit_Wallpaper["frames"] = 178
+        self.icons.append(Kaltsit_Wallpaper)
+        Makima_Wallpaper = self.icon_maker.UI_Maker(
+            "Makima", "Makima", "(L2D Wallpaper)", "Horizontal", 150, 75
+        )
+        Makima_Wallpaper["frames"] = 190
+        self.icons.append(Makima_Wallpaper)
+        Pragmata_Wallpaper = self.icon_maker.UI_Maker(
+            "Pragmata", "Pragmata", "(L2D Wallpaper)", "Horizontal", 150, 75
+        )
+        Pragmata_Wallpaper["frames"] = 129
+        self.icons.append(Pragmata_Wallpaper)
+        Silver_Wolf_Wallpaper = self.icon_maker.UI_Maker(
+            "Silver_Wolf", "Silver Wolf", "(L2D Wallpaper)", "Horizontal", 150, 75
+        )
+        Silver_Wolf_Wallpaper["frames"] = 80
+        self.icons.append(Silver_Wolf_Wallpaper)
+        Zenitsu_Wallpaper = self.icon_maker.UI_Maker(
+            "Zenitsu", "Zenitsu", "(Normal Wallpaper)", "Horizontal", 150, 75
+        )
+        Zenitsu_Wallpaper["frames"] = 1
+        self.icons.append(Zenitsu_Wallpaper)
         Shigure_Wallpaper = self.icon_maker.UI_Maker(
             "Shigure", "Shigure Dance", "(L2D Wallpaper)", "Horizontal", 150, 75
         )
@@ -120,12 +160,9 @@ class windows(arcade.Window):
             text_2.y = y2 + self.scroll_y
             text_1.draw()
             text_2.draw()
-        arcade.draw_rect_filled(
-            arcade.XYWH(self.width // 2, 20, self.width, 40), arcade.color.DARK_GRAY
-        )
 
     def on_mouse_scroll(self, x, y, scroll_x, scroll_y):
-        self.scroll_y += scroll_y * 30
+        self.scroll_y -= scroll_y * 30
         if self.scroll_y <= -30:
             self.scroll_y = 0
         x, y, w, h = self.icons[-1]["rect"]
@@ -148,8 +185,8 @@ class windows(arcade.Window):
             rx, ry, rw, rh = icon["rect"]
             left = rx - rw / 2
             right = rx + rw / 2
-            bottom = ry - rh / 2
-            up = ry + rh / 2
+            bottom = (ry + self.scroll_y) - rh / 2
+            up = (ry + self.scroll_y) + rh / 2
             if (left <= x <= right) and (bottom <= y <= up):
                 if icon["clicked"] == True:
                     data = {"Bg": icon["image"], "frame": icon["frames"]}
