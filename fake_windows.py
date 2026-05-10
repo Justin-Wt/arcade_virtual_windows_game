@@ -1,5 +1,5 @@
 # Made in 04 May-Now
-# Time: 6hr
+# Time: 7hr
 import arcade
 import os
 from floating_icon import icon_maker
@@ -58,7 +58,12 @@ class windows(arcade.Window):
         for i in range(self.total_frames):
             bg = arcade.load_texture(
                 os.path.join(
-                    BASE_DIR, "assets", "UI's", self.wall, f"{self.wall}{i}.png"
+                    BASE_DIR,
+                    "assets",
+                    "UI's",
+                    "Backgrounds",
+                    self.wall,
+                    f"{self.wall}{i}.png",
                 )
             )
             frames.append(bg)

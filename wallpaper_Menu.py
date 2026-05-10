@@ -1,5 +1,4 @@
-# Made in 04 May-Now
-# Time: 6hr
+# Made in 07 May-09 May
 import arcade
 import os
 import win32gui
@@ -33,6 +32,7 @@ class windows(arcade.Window):
             0,
             win32con.SWP_NOMOVE | win32con.SWP_NOSIZE,
         )
+        self.scroll_y = 0
         self.width = width // 2
         self.height = height // 2
         self.icon_maker = icon_maker(self.width, self.height)
@@ -91,39 +91,53 @@ class windows(arcade.Window):
         )
         for icon in self.icons:
             x, y, w, h = icon["rect"]
+            draw_y = y + self.scroll_y
             if icon["clicked"]:
                 arcade.draw_rect_filled(
-                    arcade.XYWH(x + 3, y - 10, w + 27, h + 32), (0, 0, 0, 150)
+                    arcade.XYWH(x + 3, draw_y - 10, w + 27, h + 32), (0, 0, 0, 150)
                 )
                 arcade.draw_rect_filled(
-                    arcade.XYWH(x + 3, y - 10, w + 25, h + 30), (150, 150, 150, 200)
+                    arcade.XYWH(x + 3, draw_y - 10, w + 25, h + 30),
+                    (150, 150, 150, 200),
                 )
             else:
                 arcade.draw_rect_filled(
-                    arcade.XYWH(x, y, w + 20, h + 20), (0, 0, 139, 0)
+                    arcade.XYWH(x, draw_y, w + 20, h + 20), (0, 0, 139, 0)
                 )
             if icon["hover"]:
                 arcade.draw_rect_filled(
-                    arcade.XYWH(x + 3, y - 10, w + 27, h + 32), (0, 0, 0, 150)
+                    arcade.XYWH(x + 3, draw_y - 10, w + 27, h + 32), (0, 0, 0, 150)
                 )
                 arcade.draw_rect_filled(
-                    arcade.XYWH(x + 3, y - 10, w + 25, h + 30), (150, 150, 150, 200)
+                    arcade.XYWH(x + 3, draw_y - 10, w + 25, h + 30),
+                    (150, 150, 150, 200),
                 )
-            arcade.draw_texture_rect(icon["texture"], arcade.XYWH(x, y, w, h))
-            for text in icon["text"]:
-                text.draw()
-
+            arcade.draw_texture_rect(icon["texture"], arcade.XYWH(x, draw_y, w, h))
+            text1, text2, x1, y1, x2, y2 = icon["text"]
+            text_1 = arcade.Text(text1, x1, y1, arcade.color.WHITE, 14)
+            text_2 = arcade.Text(text2, x2, y2, arcade.color.WHITE, 14)
+            text_1.y = y1 + self.scroll_y
+            text_2.y = y2 + self.scroll_y
+            text_1.draw()
+            text_2.draw()
         arcade.draw_rect_filled(
             arcade.XYWH(self.width // 2, 20, self.width, 40), arcade.color.DARK_GRAY
         )
+
+    def on_mouse_scroll(self, x, y, scroll_x, scroll_y):
+        self.scroll_y += scroll_y * 30
+        if self.scroll_y <= -30:
+            self.scroll_y = 0
+        x, y, w, h = self.icons[-1]["rect"]
+        print(y + self.scroll_y)
 
     def on_mouse_motion(self, x, y, dx, dy):
         for icon in self.icons:
             rx, ry, rw, rh = icon["rect"]
             left = rx - rw / 2
             right = rx + rw / 2
-            bottom = ry - rh / 2
-            up = ry + rh / 2
+            bottom = (ry + self.scroll_y) - rh / 2
+            up = (ry + self.scroll_y) + rh / 2
             if (left <= x <= right) and (bottom <= y <= up):
                 icon["hover"] = True
             else:
