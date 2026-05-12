@@ -77,6 +77,16 @@ class windows(arcade.Window):
         )
         Cyberpunk_Room_Wallpaper["frames"] = 195
         self.icons.append(Cyberpunk_Room_Wallpaper)
+        Cyberpunk_Wallpaper = self.icon_maker.UI_Maker(
+            "Cyberpunk", "Cyberpunk", "(L2D Wallpaper)", "Horizontal", 150, 75
+        )
+        Cyberpunk_Wallpaper["frames"] = 500
+        self.icons.append(Cyberpunk_Wallpaper)
+        Arlecchino_Wallpaper = self.icon_maker.UI_Maker(
+            "Arlecchino", "Arlecchino", "(L2D Wallpaper)", "Horizontal", 150, 75
+        )
+        Arlecchino_Wallpaper["frames"] = 100
+        self.icons.append(Arlecchino_Wallpaper)
         Goku_Wallpaper = self.icon_maker.UI_Maker(
             "Goku", "Goku", "(Normal Wallpaper)", "Horizontal", 150, 75
         )
@@ -133,24 +143,16 @@ class windows(arcade.Window):
             x, y, w, h = icon["rect"]
             draw_y = y + self.scroll_y
             if icon["clicked"]:
-                arcade.draw_rect_filled(
+                arcade.draw_rect_outline(
                     arcade.XYWH(x + 3, draw_y - 10, w + 27, h + 32), (0, 0, 0, 150)
-                )
-                arcade.draw_rect_filled(
-                    arcade.XYWH(x + 3, draw_y - 10, w + 25, h + 30),
-                    (150, 150, 150, 200),
                 )
             else:
                 arcade.draw_rect_filled(
                     arcade.XYWH(x, draw_y, w + 20, h + 20), (0, 0, 139, 0)
                 )
             if icon["hover"]:
-                arcade.draw_rect_filled(
+                arcade.draw_rect_outline(
                     arcade.XYWH(x + 3, draw_y - 10, w + 27, h + 32), (0, 0, 0, 150)
-                )
-                arcade.draw_rect_filled(
-                    arcade.XYWH(x + 3, draw_y - 10, w + 25, h + 30),
-                    (150, 150, 150, 200),
                 )
             arcade.draw_texture_rect(icon["texture"], arcade.XYWH(x, draw_y, w, h))
             text1, text2, x1, y1, x2, y2 = icon["text"]
@@ -162,11 +164,12 @@ class windows(arcade.Window):
             text_2.draw()
 
     def on_mouse_scroll(self, x, y, scroll_x, scroll_y):
+        x, y, w, h = self.icons[-1]["rect"]
+        if y + self.scroll_y >= 200 and scroll_y < 0:
+            scroll_y = 0
         self.scroll_y -= scroll_y * 30
         if self.scroll_y <= -30:
             self.scroll_y = 0
-        x, y, w, h = self.icons[-1]["rect"]
-        print(y + self.scroll_y)
 
     def on_mouse_motion(self, x, y, dx, dy):
         for icon in self.icons:

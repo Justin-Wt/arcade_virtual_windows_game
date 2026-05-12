@@ -47,11 +47,13 @@ class windows(arcade.Window):
         wallpaper["goto"] = "wallpaper_Menu"
         rpg_game = self.icon_maker.UI_Maker("rpg_game_Icon", "Rpg")
         rpg_game["goto"] = "lesson11"
+        ChatJt = self.icon_maker.UI_Maker("ChatJt_Icon", "ChatJt")
+        ChatJt["goto"] = "ChatBot_AI"
         Multi_Emulator = self.icon_maker.UI_Maker(
             "Multi_Emulator_Icon", "Multi", "Emulator"
         )
         Multi_Emulator["goto"] = "Multi_Emulator"
-        self.icons = (wallpaper, rpg_game, Multi_Emulator)
+        self.icons = (wallpaper, rpg_game, Multi_Emulator, ChatJt)
 
     def load_wallpaper_sprite(self):
         frames = []
