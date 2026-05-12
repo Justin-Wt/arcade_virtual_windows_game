@@ -48,7 +48,7 @@ class windows(arcade.Window):
         rpg_game = self.icon_maker.UI_Maker("rpg_game_Icon", "Rpg")
         rpg_game["goto"] = "lesson11"
         ChatJt = self.icon_maker.UI_Maker("ChatJt_Icon", "ChatJt")
-        ChatJt["goto"] = "ChatBot_AI"
+        ChatJt["goto"] = "ChatBot_Interface"
         Multi_Emulator = self.icon_maker.UI_Maker(
             "Multi_Emulator_Icon", "Multi", "Emulator"
         )

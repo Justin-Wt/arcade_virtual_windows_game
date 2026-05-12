@@ -61,6 +61,12 @@ class StartScreen(arcade.View):
     def on_mouse_press(self, x, y, button, modifiers):
         self.window.show_view(self.window.game_view)
 
+    def on_key_press(self, key: int, modifiers):
+        if key == arcade.key.M:
+            self.window.set_fullscreen(True)
+        if key == arcade.key.N:
+            self.window.set_fullscreen(False)
+
 
 class GameOverScreen(arcade.View):
     def on_show(self):
@@ -89,6 +95,10 @@ class GameOverScreen(arcade.View):
         )
 
     def on_key_press(self, key: int, modifiers):
+        if key == arcade.key.M:
+            self.window.set_fullscreen(True)
+        if key == arcade.key.N:
+            self.window.set_fullscreen(False)
         if key == arcade.key.R:
             self.window.game_view.main_menu()
             self.window.show_view(self.window.game_view)
@@ -123,6 +133,10 @@ class ConfirmationScreen(arcade.View):
         )
 
     def on_key_press(self, key: int, modifiers):
+        if key == arcade.key.M:
+            self.window.set_fullscreen(True)
+        if key == arcade.key.N:
+            self.window.set_fullscreen(False)
         if key == arcade.key.Y:
             arcade.close_window()
         if key == arcade.key.N:

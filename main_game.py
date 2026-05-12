@@ -139,6 +139,7 @@ class game(arcade.View):
         self.level_cap = [3, 3, 3, 5]
         self.current_coin = 0
         self.collected_coin = 0
+        self.base_width = width
         self.main_menu()
 
     def main_menu(self):
@@ -148,7 +149,9 @@ class game(arcade.View):
         if self.bg_player:
             arcade.stop_sound(self.bg_player)
         self.bg_player = arcade.play_sound(self.bg_music, 0.5, loop=True)
-        self.life_text = arcade.Text("HP:", 10, height - 30, arcade.color.BLACK, 30)
+        self.life_text = arcade.Text(
+            "HP:", 10 * scale, (height - 30) * scale, arcade.color.BLACK, 30 * scale
+        )
         self.window.set_mouse_visible(False)
         self.level_progress = 1
         self.bg.clear()
@@ -211,6 +214,9 @@ class game(arcade.View):
             40,
         )
         self.in_level = True
+
+    def get_ui_scale(self):
+        return self.window.width / self.base_width
 
     def on_draw(self):
         self.clear()
@@ -333,6 +339,10 @@ class game(arcade.View):
         elif key == arcade.key.DOWN or key == arcade.key.S:
             if self.can_climb:
                 self.player.change_y = -self.player_speed
+        if key == arcade.key.M:
+            self.window.set_fullscreen(True)
+        if key == arcade.key.N:
+            self.window.set_fullscreen(False)
 
     def on_key_release(self, key, modifiers):
         if key == arcade.key.MOD_SHIFT:

@@ -38,6 +38,7 @@ class windows(arcade.Window):
         self.height = height // 2
         self.icon_maker = icon_maker(self.width, self.height)
         self.icons = []
+        self.base_width = 768
 
     def setup(self):
         self.set_mouse_visible(True)
@@ -140,7 +141,14 @@ class windows(arcade.Window):
             arcade.color.GRAY,
         )
         for icon in self.icons:
+            scale = self.get_ui_scale()
             x, y, w, h = icon["rect"]
+            x *= scale
+            y *= scale
+            w *= scale
+            h *= scale
+            center_x = x
+            center_y = y + self.scroll_y
             draw_y = y + self.scroll_y
             if icon["clicked"]:
                 arcade.draw_rect_outline(
@@ -154,14 +162,40 @@ class windows(arcade.Window):
                 arcade.draw_rect_outline(
                     arcade.XYWH(x + 3, draw_y - 10, w + 27, h + 32), (0, 0, 0, 150)
                 )
-            arcade.draw_texture_rect(icon["texture"], arcade.XYWH(x, draw_y, w, h))
-            text1, text2, x1, y1, x2, y2 = icon["text"]
-            text_1 = arcade.Text(text1, x1, y1, arcade.color.WHITE, 14)
-            text_2 = arcade.Text(text2, x2, y2, arcade.color.WHITE, 14)
-            text_1.y = y1 + self.scroll_y
-            text_2.y = y2 + self.scroll_y
+            arcade.draw_texture_rect(
+                icon["texture"],
+                arcade.XYWH(
+                    x,
+                    draw_y,
+                    w,
+                    h,
+                ),
+            )
+            text1, text2, y1, y2 = icon["text"]
+            text_1 = arcade.Text(
+                text1,
+                center_x,
+                center_y - h * 0.15,
+                arcade.color.WHITE,
+                int(14 * scale),
+                anchor_x="center",
+            )
+
+            text_2 = arcade.Text(
+                text2,
+                center_x,
+                center_y - h * 0.35,
+                arcade.color.WHITE,
+                int(14 * scale),
+                anchor_x="center",
+            )
+            text_1.y = y1 * scale + self.scroll_y
+            text_2.y = y2 * scale + self.scroll_y
             text_1.draw()
             text_2.draw()
+
+    def get_ui_scale(self):
+        return self.width / self.base_width
 
     def on_mouse_scroll(self, x, y, scroll_x, scroll_y):
         x, y, w, h = self.icons[-1]["rect"]
@@ -202,6 +236,12 @@ class windows(arcade.Window):
                 and icon["clicked"] == True
             ):
                 icon["clicked"] = False
+
+    def on_key_press(self, key, modifiers):
+        if key == arcade.key.M:
+            self.set_fullscreen(True)
+        if key == arcade.key.N:
+            self.set_fullscreen(False)
 
 
 if __name__ == "__main__":

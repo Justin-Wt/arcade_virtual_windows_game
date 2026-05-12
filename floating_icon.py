@@ -61,7 +61,7 @@ class icon_maker:
             return {
                 "rect": rect,
                 "texture": texture,
-                "text": (texts1, texts2, text1_x, text1_y, text2_x, text2_y),
+                "text": (texts1, texts2, text1_y, text2_y),
             }
 
     def UI_Maker(
