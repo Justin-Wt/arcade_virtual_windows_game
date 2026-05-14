@@ -40,6 +40,37 @@ Current development time: ~27 hours
 
 ---
 
+## Dependencies
+
+### Python Libraries (pip install)
+
+- arcade
+- customtkinter
+- noise
+- trimesh
+- pywebview
+- requests
+
+### Standard Library (built-in, no pip needed)
+
+- json
+- math
+- os
+- pathlib
+- random
+- subprocess
+- sys
+
+### Graphics / Engine Internals
+
+- pyglet (used internally by Arcade, including pyglet.math)
+
+### Platform-specific
+
+- win32 APIs (Windows only, used indirectly via system calls or libraries)
+
+---
+
 ## Installation
 
 ```bash
