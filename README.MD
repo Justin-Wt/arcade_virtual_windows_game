@@ -1,5 +1,9 @@
 # Virtual OS
 
+## Preview
+
+![Virtual OS Demo](assets/demo.gif)
+
 ## Description
 Virtual OS is a Python-based experimental project built with Arcade where I push the limits of real-time rendering, UI systems, and lightweight 3D simulation inside a 2D game framework.
 
