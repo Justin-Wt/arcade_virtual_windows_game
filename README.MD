@@ -1,12 +1,12 @@
-# Project Name
+# Virtual OS
 
 ## Description
-Short explanation of what your project does.
+so in here i try to test the limit of python arcade, i currently making Virtual OS
 
 ## Features
-- Feature 1
-- Feature 2
-- Feature 3
+- L2D Background
+- ChatJT
+- 3d interactive shape
 
 ## Installation
 ```bash
