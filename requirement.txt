@@ -1,0 +1,7 @@
+arcade
+ursina
+customtkinter
+requests
+pywebview
+noise
+pywin32

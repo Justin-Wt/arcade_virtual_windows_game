@@ -1,0 +1,102 @@
+{
+    "Models": {
+        "Mona": {
+            "model":"assets/3D Models/Mona.glb",
+            "attack_range":[
+                [1, 1, 1, 2, 1, 1, 1],
+                [1, 1, 1, 1, 1, 1, 1],
+                [1, 1, 1, 1, 1, 1, 1],
+                [0, 1, 1, 1, 1, 1, 0],
+                [0, 0, 1, 1, 1, 0, 0]
+            ],
+            "type":"Ranged",
+            "layer":1,
+            "cooldown":1.5,
+            "damage":20,
+            "block_limit":1,
+            "hp":100
+        },
+        "Moon":{
+            "model":"assets/3D Models/Mona.glb",
+            "attack_range":[
+                [2],
+                [1],
+                [0]
+            ],
+            "type":"Melee",
+            "layer":0,
+            "cooldown":1.5,
+            "damage":20,
+            "block_limit":2,
+            "hp":100
+        }
+    },
+    "Enemies": {
+        "grunt":{
+            "attack_range":[
+                [2],
+                [1]
+            ],
+            "type":"gound",
+            "layer":0,
+            "cooldown":2,
+            "damage":25,
+            "hp":100
+        },
+        "slime":{
+            "attack_range":[
+                [2],
+                [1]
+            ],
+            "type":"gound",
+            "layer":0,
+            "cooldown":2,
+            "damage":15,
+            "hp":100
+        }
+    },
+    "Levels" : {
+        "Level 1": {
+            "wave 1": {
+                "time":7,
+                "spawns":[
+                    {
+                        "enemy_type":"slime",
+                        "amount":3,
+                        "gates":1
+                    },
+                    {
+                        "enemy_type":"slime",
+                        "amount":3,
+                        "gates":2
+                    }
+                ]
+            },
+            "wave 2": {
+                "time":20,
+                "spawns":[
+                    {
+                        "enemy_type":"grunt",
+                        "amount":3,
+                        "gates":2
+                    }
+                ]
+            },
+            "wave 3": {
+                "time":45,
+                "spawns":[
+                    {
+                        "enemy_type":"grunt",
+                        "amount":3,
+                        "gates":2
+                    },
+                    {
+                        "enemy_type":"slime",
+                        "amount":3,
+                        "gates":3
+                    }
+                ]
+            }
+        }
+    }
+}
