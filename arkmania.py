@@ -1,7 +1,2 @@
-from ursina import *
-from arkmania_level_engine import Game
-
-app = Ursina()
-game = Game("arkmania.json")
-EditorCamera()
-app.run()
+# fmt:off
+from ursina import*;from arkmania_episode_engine import Episode;app=Ursina();Episode("assets/tile/episode_1.tmj");EditorCamera();app.run()

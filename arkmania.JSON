@@ -1,5 +1,5 @@
 {
-    "Models": {
+    "Characters": {
         "Mona": {
             "model":"assets/3D Models/Mona.glb",
             "attack_range":[
@@ -9,7 +9,7 @@
                 [0, 1, 1, 1, 1, 1, 0],
                 [0, 0, 1, 1, 1, 0, 0]
             ],
-            "type":"Ranged",
+            "type":"ranged",
             "layer":1,
             "cooldown":1.5,
             "damage":20,
@@ -23,7 +23,7 @@
                 [1],
                 [0]
             ],
-            "type":"Melee",
+            "type":"melee",
             "layer":0,
             "cooldown":1.5,
             "damage":20,
@@ -37,7 +37,7 @@
                 [2],
                 [1]
             ],
-            "type":"gound",
+            "type":"melee",
             "layer":0,
             "cooldown":2,
             "damage":25,
@@ -48,7 +48,7 @@
                 [2],
                 [1]
             ],
-            "type":"gound",
+            "type":"melee",
             "layer":0,
             "cooldown":2,
             "damage":15,
@@ -56,47 +56,124 @@
         }
     },
     "Levels" : {
-        "Level 1": {
-            "wave 1": {
-                "time":7,
-                "spawns":[
+        "Level 1-1": {
+            "conditions" :[
+                "victory",
+                "under_10_units",
+                "no_hp_loss"
+            ],
+            "rewards":{
+                "_comment":["item","chance","min amount","max_amount","steps"],
+                "basic":[
                     {
-                        "enemy_type":"slime",
-                        "amount":3,
-                        "gates":1
+                        "item": "gold",
+                        "chance": 100,
+                        "min_amount": 100,
+                        "max_amount": 10000,
+                        "steps": 100
+                    }, 
+                    {
+                        "item": "player_exp",
+                        "chance": 100,
+                        "min_amount": 10,
+                        "max_amount": 70,
+                        "steps": 2
                     },
                     {
-                        "enemy_type":"slime",
-                        "amount":3,
-                        "gates":2
+                        "item": "basic_exp",
+                        "chance": 90,
+                        "min_amount": 1,
+                        "max_amount": 2,
+                        "steps": 1
+                    },
+                    {
+                        "item":"medium_exp",
+                        "chance": 60,
+                        "min_amount": 1,
+                        "max_amount": 1,
+                        "steps": 1
+                    }
+                ],
+                "main":[
+                    {
+                        "item":"basic_exp",
+                        "chance": 100,
+                        "min_amount": 2,
+                        "max_amount": 2,
+                        "steps": 1
+                    },
+                    {
+                        "item":"medium_exp",
+                        "chance":100,
+                        "min_amount": 1,
+                        "max_amount": 1,
+                        "steps": 1
+                    }
+                ],
+                "special":[
+                    {
+                        "item": "gems",
+                        "chance": 100,
+                        "min_amount": 300,
+                        "max_amount": 300,
+                        "steps": 1
                     }
                 ]
             },
-            "wave 2": {
-                "time":20,
-                "spawns":[
-                    {
-                        "enemy_type":"grunt",
-                        "amount":3,
-                        "gates":2
-                    }
-                ]
-            },
-            "wave 3": {
-                "time":45,
-                "spawns":[
-                    {
-                        "enemy_type":"grunt",
-                        "amount":3,
-                        "gates":2
-                    },
-                    {
-                        "enemy_type":"slime",
-                        "amount":3,
-                        "gates":3
-                    }
-                ]
-            }
+            "grid" :[
+                [2, 0, 1, 1, 1, 0, 0, 1, 1, 1],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                [0, 0, 1, 1, 1, 0, 0, 1, 0, 1],
+                [2, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+                [0, 0, 1, 0, 1, 0, 0, 0, 0, 3],
+                [0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+                [2, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+                [0, 0, 1, 0, 1, 0, 0, 1, 1, 1],
+                [0, 0, 1, 0, 0, 0, 0, 1, 1, 1],
+                [2, 0, 1, 1, 1, 0, 0, 1, 1, 1]
+            ],
+            "waves": [
+                {
+                    "time":7,
+                    "spawns":[
+                        {
+                            "enemy_type":"slime",
+                            "amount":3,
+                            "gates":1
+                        },
+                        {
+                            "enemy_type":"slime",
+                            "amount":3,
+                            "gates":2
+                        }
+                    ]
+                },
+                {
+                    "time":20,
+                    "spawns":[
+                        {
+                            "enemy_type":"grunt",
+                            "amount":3,
+                            "gates":2
+                        }
+                    ]
+                },
+                {
+                    "time":35,
+                    "spawns":[
+                        {
+                            "enemy_type":"grunt",
+                            "amount":3,
+                            "gates":2
+                        },
+                        {
+                            "enemy_type":"slime",
+                            "amount":3,
+                            "gates":3
+                        }
+                    ]
+                }
+            ]
         }
     }
 }

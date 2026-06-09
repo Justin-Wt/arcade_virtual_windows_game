@@ -414,11 +414,6 @@
                          "value":2
                         }, 
                         {
-                         "name":"sub_id",
-                         "type":"int",
-                         "value":1
-                        }, 
-                        {
                          "name":"type",
                          "type":"string",
                          "value":"sub"
@@ -427,6 +422,11 @@
                          "name":"unlock_group",
                          "type":"int",
                          "value":2
+                        }, 
+                        {
+                         "name":"unlocks",
+                         "type":"string",
+                         "value":"S1-2"
                         }],
                  "rotation":0,
                  "type":"",
@@ -733,18 +733,13 @@
                  "gid":7,
                  "height":54,
                  "id":98,
-                 "name":"S1-2",
+                 "name":"S1-3",
                  "opacity":1,
                  "properties":[
                         {
                          "name":"id",
                          "type":"int",
                          "value":4
-                        }, 
-                        {
-                         "name":"sub_id",
-                         "type":"int",
-                         "value":1
                         }, 
                         {
                          "name":"type",
@@ -755,6 +750,11 @@
                          "name":"unlock_group",
                          "type":"int",
                          "value":4
+                        }, 
+                        {
+                         "name":"unlocks",
+                         "type":"string",
+                         "value":""
                         }],
                  "rotation":0,
                  "type":"",
@@ -1090,18 +1090,13 @@
                  "gid":7,
                  "height":54,
                  "id":115,
-                 "name":"S1-3",
+                 "name":"S1-4",
                  "opacity":1,
                  "properties":[
                         {
                          "name":"id",
                          "type":"int",
                          "value":6
-                        }, 
-                        {
-                         "name":"sub_id",
-                         "type":"int",
-                         "value":1
                         }, 
                         {
                          "name":"type",
@@ -1112,6 +1107,11 @@
                          "name":"unlock_group",
                          "type":"int",
                          "value":6
+                        }, 
+                        {
+                         "name":"unlocks",
+                         "type":"string",
+                         "value":""
                         }],
                  "rotation":0,
                  "type":"",
@@ -1374,6 +1374,101 @@
                  "width":96,
                  "x":1824,
                  "y":540
+                }, 
+                {
+                 "gid":17,
+                 "height":54,
+                 "id":146,
+                 "name":"",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"go to",
+                         "type":"string",
+                         "value":"S1-2"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":96,
+                 "x":480,
+                 "y":432
+                }, 
+                {
+                 "gid":19,
+                 "height":54,
+                 "id":147,
+                 "name":"",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"go to",
+                         "type":"string",
+                         "value":"S1-2"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":96,
+                 "x":480,
+                 "y":432
+                }, 
+                {
+                 "gid":9,
+                 "height":54,
+                 "id":149,
+                 "name":"",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"go to",
+                         "type":"string",
+                         "value":"S1-2"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":96,
+                 "x":576,
+                 "y":432
+                }, 
+                {
+                 "gid":11,
+                 "height":54,
+                 "id":150,
+                 "name":"",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"go to",
+                         "type":"string",
+                         "value":"S1-2"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":96,
+                 "x":672,
+                 "y":432
+                }, 
+                {
+                 "gid":7,
+                 "height":54,
+                 "id":151,
+                 "name":"S1-2",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"type",
+                         "type":"string",
+                         "value":"sub"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":96,
+                 "x":672,
+                 "y":378
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1382,7 +1477,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":144,
+ "nextobjectid":152,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.12.1",

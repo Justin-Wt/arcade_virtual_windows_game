@@ -1,6 +1,6 @@
 # Time_In: {
 #   Blender: "17 Hrs"
-#   Python : "25 Hrs"
+#   Python : "32 Hrs"
 #   Tiled: "2 hrs:
 # }
 
@@ -11,10 +11,10 @@ from direct.actor.Actor import Actor
 
 
 class Game:
-    def __init__(self, filename):
+    def __init__(self, filename, level, episode, sub=False, condition=[]):
+        self.episode = episode
         self.buttons = []
-        self.models_type = ["Mona", "Moon"]
-        self.grid, self.tiles = self.tile_maker(0)
+        self.Character_Type = ["Mona", "Moon"]
         self.end_ui = []
         self.indicator_list = []
         self.pathing = False
@@ -22,18 +22,26 @@ class Game:
         self.current_base_hp = 10
         self.base_hp = 10
         self.global_timer = 0
+        self.deployed = 0
+        self.level = level
         self.hovered_tile = None
         self.rotating = False
         self.showing_range = False
         self.dragging = False
+        self.data_manager = Data_Manager(filename)
+        self.grid, self.tiles = self.tile_maker(self.level)
         self.end = False
+        self.first_clear = False
+        self.star = 0
+        self.sub = sub
+        self.condition = condition
+        self.rewards = []
 
         self.input_entity = Entity()
         self.update_entity = Entity()
         self.player_manager = PlayerManager(self)
         self.enemy_manager = EnemyManager(self)
         self.wave_manager = WaveManager(self)
-        self.data_manager = Data_Manager(filename)
         self.ui_manager = UIManager(self)
         self.setup_ui()
         self.input_entity.input = self.input
@@ -45,18 +53,7 @@ class Game:
         self.ui_manager.draw_restart_button()
 
     def tile_maker(self, level):
-        grid = [
-            [2, 0, 1, 1, 1, 0, 0, 1, 1, 1],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-            [0, 0, 1, 1, 1, 0, 0, 1, 0, 1],
-            [2, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 1, 0, 1, 0, 0, 0, 0, 3],
-            [0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
-            [2, 0, 1, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 1, 0, 1, 0, 0, 1, 1, 1],
-            [0, 0, 1, 0, 0, 0, 0, 1, 1, 1],
-            [2, 0, 1, 1, 1, 0, 0, 1, 1, 1],
-        ]
+        grid = self.data_manager.open_file("Levels", f"Level {level}", "grid")
         tiles = []
         for x in range(len(grid)):
             for z in range(len(grid[0])):
@@ -122,6 +119,7 @@ class Game:
         self.showing_range = False
         self.dragging = False
         self.end = False
+        self.win = False
         self.pathing = False
         self.indicator_list.clear()
         self.indicator_time = 0
@@ -189,7 +187,16 @@ class Game:
                                     and target.position.z
                                     > attacker.position[2] + z - 0.5
                                 ):
-                                    self.attack(attacker, target, target_lists)
+                                    if isinstance(target, Player):
+                                        if target.layer == 1:
+                                            if attacker.can_attack_units_on_high_ground:
+                                                self.attack(
+                                                    attacker, target, target_lists
+                                                )
+                                        else:
+                                            self.attack(attacker, target, target_lists)
+                                    else:
+                                        self.attack(attacker, target, target_lists)
 
     def update_cube_color(self):
         for cube in self.tiles:
@@ -210,6 +217,12 @@ class Game:
                     cube.color = color.red
                 elif cube.index == self.player_manager.character_spawned_player.layer:
                     cube.color = color.rgba(0.8, 0.8, 0.8, 1)
+                elif cube.index == 3:
+                    cube.color = color.rgba(0, 0, 0.8, 0.85)
+                elif cube.index == 2:
+                    cube.color = color.rgba(0.8, 0, 0, 0.85)
+                else:
+                    cube.color = color.gray
             else:
                 if cube.index == 3:
                     cube.color = color.rgba(0, 0, 0.8, 0.85)
@@ -218,7 +231,74 @@ class Game:
                 else:
                     cube.color = color.gray
 
+    def cleanup(self):
+        for tile in self.tiles:
+            destroy(tile)
+
+        for button in self.buttons:
+            destroy(button)
+
+        for player in self.player_manager.players:
+            destroy(player)
+
+        for enemy in self.enemy_manager.enemies:
+            destroy(enemy)
+
+        for enemy in self.enemy_manager.spawning_enemies:
+            destroy(enemy)
+
+        for ui in self.end_ui:
+            destroy(ui)
+
+        destroy(self.ui_manager.hp_text)
+
+        destroy(self.input_entity)
+        destroy(self.update_entity)
+
+    def calculate_star(self, deployed, base_hp):
+        star = 0
+        if "win the game" in self.condition:
+            star += 1
+        if "use less than 10 units" in self.condition:
+            if deployed <= 10:
+                star += 1
+        if "dont lose any health" in self.condition:
+            if base_hp == 10:
+                star += 1
+        return star
+
+    def main_reward(self):
+        pass
+
+    def basic_reward(self):
+        pass
+
+    def special_reward(self):
+        pass
+
+    def calculating_rewards(self):
+        self.win = True
+        self.star = self.calculate_star(self.deployed, self.current_base_hp)
+        if self.level not in self.episode.level_data:
+            self.first_clear = True
+            self.main_reward()
+        if self.star > 0:
+            self.basic_reward()
+        if self.star == 3:
+            self.special_reward()
+        self.ui_manager.end_screen("You Win")
+
     def input(self, key):
+        if key == "left mouse up" and self.end:
+            self.episode.return_to_episode(
+                win=self.win,
+                sub=self.sub,
+                level=self.level,
+                first_clear=self.first_clear,
+                star=self.star,
+                rewards=self.rewards,
+            )
+            self.cleanup()
         if key == "left mouse up" and self.dragging:
             if (
                 self.player_manager.character_spawned_player
@@ -227,6 +307,7 @@ class Game:
                 self.player_manager.players.append(
                     self.player_manager.character_spawned_player
                 )
+                self.deployed += 1
             self.dragging = False
             self.rotating = False
             self.showing_range = False
@@ -261,7 +342,6 @@ class Game:
 
     def update(self):
         self.global_timer += time.dt
-        print(window.size)
         self.enemy_manager.update()
 
         if self.enemy_manager.enemies and self.player_manager.players:
@@ -329,7 +409,7 @@ class EnemyManager:
                         queue.append(((nx, nz), path))
 
     def update(self):
-        self.checking_enemy_spawn(level=1)
+        self.checking_enemy_spawn(self.game.level)
         if self.spawning_enemies:
             self.spawning_timer += time.dt
             self.update_spawn()
@@ -355,17 +435,11 @@ class EnemyManager:
                 self.spawning_timer = 0
 
     def checking_enemy_spawn(self, level=1):
-        wave_time = []
-        data = self.game.data_manager.open_file("Levels", f"Level {level}")
-        for wave in data:
-            timer, att = data[wave].items()
-            _, times = timer
-            wave_time.append(times)
-        if self.game.wave_manager.wave_count < len(wave_time):
-            if (
-                self.game.global_timer
-                > wave_time[self.game.wave_manager.wave_count] - 1
-            ):
+        waves = self.game.data_manager.open_file("Levels", f"Level {level}", "waves")
+        if self.game.wave_manager.wave_count < len(waves):
+            current_wave = waves[self.game.wave_manager.wave_count]
+            wave_time = current_wave["time"]
+            if self.game.global_timer > wave_time - 1:
                 if self.game.pathing == False:
                     self.game.ui_manager.show_indicator(
                         level, self.game.wave_manager.wave_count + 1
@@ -374,36 +448,25 @@ class EnemyManager:
                     self.game.ui_manager.animate_indicator(
                         level, self.game.wave_manager.wave_count + 1
                     )
-            if self.game.global_timer > wave_time[self.game.wave_manager.wave_count]:
+            if self.game.global_timer > wave_time:
                 self.game.wave_manager.enemy_spawn_per_waves(
                     level, self.game.wave_manager.wave_count + 1
                 )
                 self.game.pathing = False
                 self.game.wave_manager.wave_count += 1
-        if self.game.wave_manager.wave_count == len(wave_time):
+        if self.game.wave_manager.wave_count == len(waves):
             if (
                 not self.enemies
                 and not self.spawning_enemies
                 and self.game.current_base_hp > 0
                 and not self.game.end
             ):
-                self.game.ui_manager.end_screen("You Win")
+                self.game.calculating_rewards()
 
     def checking_paths(self):
         for enemy in self.enemies:
             if enemy.path:
                 next_position = enemy.path[0]
-                for player in self.game.player_manager.players:
-                    if (
-                        next_position == (player.position.x, player.position.z)
-                        and player.blocking < player.block_limit
-                        and enemy.blocked == False
-                    ):
-                        player.blocking += 1
-                        enemy.blocked = True
-                        enemy.blocking_player = player
-                    elif enemy.blocked:
-                        break
                 if enemy.blocked == False:
                     speed = 1 * time.dt
                     target = Vec3(next_position[0], 0.5, next_position[1])
@@ -432,6 +495,18 @@ class EnemyManager:
                             enemy.blocking_player.blocking -= 1
                         self.enemies.remove(enemy)
                         destroy(enemy)
+                for player in self.game.player_manager.players:
+                    if (
+                        next_position == (player.position.x, player.position.z)
+                        and player.blocking < player.block_limit
+                        and enemy.blocked == False
+                        and player.can_block
+                    ):
+                        player.blocking += 1
+                        enemy.blocked = True
+                        enemy.blocking_player = player
+                    elif enemy.blocked:
+                        break
 
 
 class PlayerManager:
@@ -504,7 +579,9 @@ class PlayerManager:
             self.show_range(self.character_spawned_player)
 
     def character_spawn(self, i):
-        data = self.game.data_manager.open_file("Models", self.game.models_type[i - 1])
+        data = self.game.data_manager.open_file(
+            "Characters", self.game.Character_Type[i - 1]
+        )
         player_mdl = data["model"]
         player_range = data["attack_range"]
         player_tipe = data["type"]
@@ -530,6 +607,7 @@ class PlayerManager:
             block_limit=player_blk_lim,
             hp=player_hp,
             layer=player_layer,
+            can_block=True if player_layer == 0 else False,
         )
         self.character_spawned_player.background_bar = Entity(
             parent=self.character_spawned_player,
@@ -581,11 +659,12 @@ class WaveManager:
         self.wave_count = 0
 
     def enemy_spawn_per_waves(self, level, wave):
-        datas = self.game.data_manager.open_file(
-            "Levels", f"Level {level}", f"wave {wave}", "spawns"
-        )
-        for data in datas:
-            e_type, amounts, gates = data.values()
+        datas = self.game.data_manager.open_file("Levels", f"Level {level}", "waves")
+        wave_data = datas[wave - 1]
+        for data in wave_data["spawns"]:
+            e_type = data["enemy_type"]
+            amounts = data["amount"]
+            gates = data["gates"]
             enemy_datas = self.game.data_manager.open_file("Enemies", e_type)
             enemy_attack_range = enemy_datas["attack_range"]
             enemy_type = enemy_datas["type"]
@@ -613,6 +692,9 @@ class WaveManager:
                     hp=enemy_hp,
                     damage=enemy_damage,
                     layer=enemy_layer,
+                    can_attack_units_on_high_ground=(
+                        False if enemy_type == "melee" else True
+                    ),
                 )
                 enemy.background_bar = Entity(
                     parent=enemy,
@@ -692,12 +774,11 @@ class UIManager:
                         self.game.indicator_time = 0
 
     def show_indicator(self, level, wave):
-        datas = self.game.data_manager.open_file(
-            "Levels", f"Level {level}", f"wave {wave}", "spawns"
-        )
-        for data in datas:
+        datas = self.game.data_manager.open_file("Levels", f"Level {level}", "waves")
+        wave_data = datas[wave - 1]
+        for data in wave_data["spawns"]:
             path_list = []
-            _, _, gates = data.values()
+            gates = data["gates"]
             ai = self.game.enemy_manager.enemy_ai(gates - 1)
             path = ai[2]
             for i in range(len(path) - 1):
@@ -747,6 +828,7 @@ class Player(Entity):
         block_limit=1,
         layer=0,
         cooldown=1,
+        can_block=False,
         **kwargs,
     ):
         super().__init__(**kwargs)
@@ -763,6 +845,7 @@ class Player(Entity):
         self.cooldown = cooldown
         self.can_attack = False
         self.already_attack = False
+        self.can_block = can_block
 
 
 class Enemy(Entity):
@@ -774,6 +857,7 @@ class Enemy(Entity):
         damage=10,
         layer=0,
         cooldown=1,
+        can_attack_units_on_high_ground=False,
         **kwargs,
     ):
         super().__init__(**kwargs)
@@ -790,3 +874,4 @@ class Enemy(Entity):
         self.can_attack = False
         self.blocking_player = None
         self.already_attack = False
+        self.can_attack_units_on_high_ground = can_attack_units_on_high_ground
