@@ -53,7 +53,9 @@ class windows(arcade.Window):
             "Multi_Emulator_Icon", "Multi", "Emulator"
         )
         Multi_Emulator["goto"] = "Multi_Emulator"
-        self.icons = (wallpaper, rpg_game, Multi_Emulator, ChatJt)
+        Arkmania = self.icon_maker.UI_Maker("Arkmania_Icon", "Arkmania")
+        Arkmania["goto"] = "Arkmania"
+        self.icons = (wallpaper, rpg_game, Multi_Emulator, ChatJt, Arkmania)
 
     def load_wallpaper_sprite(self):
         frames = []

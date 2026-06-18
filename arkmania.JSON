@@ -1,7 +1,7 @@
 {
     "Characters": {
-        "Mona": {
-            "model":"assets/3D Models/Mona.glb",
+        "Yvonne": {
+            "model":"assets/3D Models/Yvonne.glb",
             "attack_range":[
                 [1, 1, 1, 2, 1, 1, 1],
                 [1, 1, 1, 1, 1, 1, 1],
@@ -9,30 +9,81 @@
                 [0, 1, 1, 1, 1, 1, 0],
                 [0, 0, 1, 1, 1, 0, 0]
             ],
-            "type":"ranged",
+            "type":"mage",
             "layer":1,
             "cooldown":1.5,
-            "damage":20,
+            "damage":200,
             "block_limit":1,
-            "hp":100
+            "hp":800,
+            "rarity":6
         },
-        "Moon":{
-            "model":"assets/3D Models/Mona.glb",
+        "Ember":{
+            "model":"assets/3D Models/Ember.glb",
             "attack_range":[
                 [2],
                 [1],
                 [0]
             ],
-            "type":"melee",
+            "type":"defender",
             "layer":0,
             "cooldown":1.5,
-            "damage":20,
+            "damage":120,
             "block_limit":2,
-            "hp":100
+            "hp":2300,
+            "rarity":6
+        },
+        "Fluorite": {
+            "model":"assets/3D Models/Fluorite.glb",
+            "attack_range":[
+                [1, 2, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1]
+            ],
+            "type":"ranged",
+            "layer":1,
+            "cooldown":1.5,
+            "damage":120,
+            "block_limit":1,
+            "hp":800,
+            "rarity":5
+        },
+        "Last_Rite": {
+            "model":"assets/3D Models/Last_Rite.glb",
+            "attack_range":[
+                [2],
+                [1],
+                [1]
+            ],
+            "type":"striker",
+            "layer":0,
+            "cooldown":1.5,
+            "damage":180,
+            "block_limit":1,
+            "hp":1800,
+            "rarity":6
+        },
+        "Mona": {
+            "model":"assets/3D Models/Mona.glb",
+            "attack_range":[
+                [1, 2, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+                [0, 1, 0]
+            ],
+            "type":"ranged",
+            "layer":1,
+            "cooldown":1.5,
+            "damage":120,
+            "block_limit":1,
+            "hp":800,
+            "rarity":6
         }
     },
     "Enemies": {
         "grunt":{
+            "info":"A basic frontline fighter with average stats. Not particularly dangerous alone, but can overwhelm careless operators in groups.",
             "attack_range":[
                 [2],
                 [1]
@@ -40,10 +91,11 @@
             "type":"melee",
             "layer":0,
             "cooldown":2,
-            "damage":25,
-            "hp":100
+            "damage":130,
+            "hp":1000
         },
         "slime":{
+            "info":"A weak gelatinous creature with low health and attack power. Slow-moving and easy to defeat, though larger swarms can become troublesome.",
             "attack_range":[
                 [2],
                 [1]
@@ -51,129 +103,134 @@
             "type":"melee",
             "layer":0,
             "cooldown":2,
-            "damage":15,
-            "hp":100
+            "damage":90,
+            "hp":500
         }
     },
-    "Levels" : {
-        "Level 1-1": {
-            "conditions" :[
-                "victory",
-                "under_10_units",
-                "no_hp_loss"
-            ],
-            "rewards":{
-                "_comment":["item","chance","min amount","max_amount","steps"],
-                "basic":[
-                    {
-                        "item": "gold",
-                        "chance": 100,
-                        "min_amount": 100,
-                        "max_amount": 10000,
-                        "steps": 100
-                    }, 
-                    {
-                        "item": "player_exp",
-                        "chance": 100,
-                        "min_amount": 10,
-                        "max_amount": 70,
-                        "steps": 2
-                    },
-                    {
-                        "item": "basic_exp",
-                        "chance": 90,
-                        "min_amount": 1,
-                        "max_amount": 2,
-                        "steps": 1
-                    },
-                    {
-                        "item":"medium_exp",
-                        "chance": 60,
-                        "min_amount": 1,
-                        "max_amount": 1,
-                        "steps": 1
-                    }
+    "Episodes" : {
+        "Episode 1": {
+            "Level 1-1": {
+                "conditions" :[
+                    "victory",
+                    "under_10_units",
+                    "no_hp_loss"
                 ],
-                "main":[
+                "rewards":{
+                    "special":[
+                        {
+                            "item": "Soul_Fragment",
+                            "chance": 100,
+                            "min_amount": 300,
+                            "max_amount": 300,
+                            "steps": 1
+                        }
+                    ],
+                    "main":[
+                        {
+                            "item":"Basic_Exp",
+                            "chance": 100,
+                            "min_amount": 2,
+                            "max_amount": 2,
+                            "steps": 1
+                        },
+                        {
+                            "item":"Medium_Exp",
+                            "chance":100,
+                            "min_amount": 1,
+                            "max_amount": 1,
+                            "steps": 1
+                        }
+                    ],
+                    "basic":[
+                        {
+                            "item": "Mana_Crystal",
+                            "chance": 100,
+                            "min_amount": 100,
+                            "max_amount": 10000,
+                            "steps": 100
+                        }, 
+                        {
+                            "item": "Player_Exp",
+                            "chance": 100,
+                            "min_amount": 10,
+                            "max_amount": 70,
+                            "steps": 2
+                        },
+                        {
+                            "item": "Basic_Exp",
+                            "chance": 90,
+                            "min_amount": 1,
+                            "max_amount": 2,
+                            "steps": 1
+                        },
+                        {
+                            "item":"Medium_Exp",
+                            "chance": 60,
+                            "min_amount": 1,
+                            "max_amount": 1,
+                            "steps": 1
+                        }
+                    ]
+                },
+                "grid" :[
+                    [2, 0, 1, 1, 1, 0, 0, 1, 1, 1],
+                    [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                    [0, 0, 1, 1, 1, 0, 0, 1, 0, 1],
+                    [2, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+                    [0, 0, 1, 0, 1, 0, 0, 0, 0, 3],
+                    [0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+                    [2, 0, 1, 0, 1, 0, 0, 0, 0, 0],
+                    [0, 0, 1, 0, 1, 0, 0, 1, 1, 1],
+                    [0, 0, 1, 0, 0, 0, 0, 1, 1, 1],
+                    [2, 0, 1, 1, 1, 0, 0, 1, 1, 1]
+                ],
+                "waves": [
                     {
-                        "item":"basic_exp",
-                        "chance": 100,
-                        "min_amount": 2,
-                        "max_amount": 2,
-                        "steps": 1
+                        "time":7,
+                        "spawns":[
+                            {
+                                "enemy_type":"slime",
+                                "amount":3,
+                                "gates":1
+                            },
+                            {
+                                "enemy_type":"slime",
+                                "amount":3,
+                                "gates":2
+                            }
+                        ]
                     },
                     {
-                        "item":"medium_exp",
-                        "chance":100,
-                        "min_amount": 1,
-                        "max_amount": 1,
-                        "steps": 1
-                    }
-                ],
-                "special":[
+                        "time":20,
+                        "spawns":[
+                            {
+                                "enemy_type":"grunt",
+                                "amount":3,
+                                "gates":2
+                            }
+                        ]
+                    },
                     {
-                        "item": "gems",
-                        "chance": 100,
-                        "min_amount": 300,
-                        "max_amount": 300,
-                        "steps": 1
+                        "time":35,
+                        "spawns":[
+                            {
+                                "enemy_type":"grunt",
+                                "amount":3,
+                                "gates":2
+                            },
+                            {
+                                "enemy_type":"slime",
+                                "amount":3,
+                                "gates":3
+                            }
+                        ]
                     }
                 ]
-            },
-            "grid" :[
-                [2, 0, 1, 1, 1, 0, 0, 1, 1, 1],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-                [0, 0, 1, 1, 1, 0, 0, 1, 0, 1],
-                [2, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-                [0, 0, 1, 0, 1, 0, 0, 0, 0, 3],
-                [0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
-                [2, 0, 1, 0, 1, 0, 0, 0, 0, 0],
-                [0, 0, 1, 0, 1, 0, 0, 1, 1, 1],
-                [0, 0, 1, 0, 0, 0, 0, 1, 1, 1],
-                [2, 0, 1, 1, 1, 0, 0, 1, 1, 1]
-            ],
-            "waves": [
-                {
-                    "time":7,
-                    "spawns":[
-                        {
-                            "enemy_type":"slime",
-                            "amount":3,
-                            "gates":1
-                        },
-                        {
-                            "enemy_type":"slime",
-                            "amount":3,
-                            "gates":2
-                        }
-                    ]
-                },
-                {
-                    "time":20,
-                    "spawns":[
-                        {
-                            "enemy_type":"grunt",
-                            "amount":3,
-                            "gates":2
-                        }
-                    ]
-                },
-                {
-                    "time":35,
-                    "spawns":[
-                        {
-                            "enemy_type":"grunt",
-                            "amount":3,
-                            "gates":2
-                        },
-                        {
-                            "enemy_type":"slime",
-                            "amount":3,
-                            "gates":3
-                        }
-                    ]
-                }
-            ]
-        }
+            }
+        },
+        "Episode 2": {},
+        "Episode 3": {},
+        "Episode 4": {},
+        "Episode 5": {}
     }
 }

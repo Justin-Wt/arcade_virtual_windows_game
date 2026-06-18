@@ -1,13 +1,16 @@
 from ursina import *
 import json
 import xml.etree.ElementTree as ET
-from arkmania_level_engine import Game, Data_Manager
+from datamanager import Data_Manager
+from arkmania_level_preview_engine import Level_Preview
 
 
-class Episode:
-    def __init__(self, path):
+class Picked_Episode:
+    def __init__(self, path="assets/tile/episode_1.tmj", episode="", episode_pick=None):
         super().__init__()
+        self.episode_pick = episode_pick
         self.count = 1
+        self.episode_name = episode
         self.texts = []
         self.path = path
         self.bg = None
@@ -21,6 +24,7 @@ class Episode:
         self.bgs = []
         self.images = []
         self.lines = []
+        self.leave_button = self.create_buttons()
         self.main_level_buttons = []
         self.sub_level_buttons = []
         self.condition = []
@@ -47,8 +51,8 @@ class Episode:
             obj["properties"] = {
                 p["name"]: p["value"] for p in obj.get("properties", [])
             }
-        self.items_tileset = self.load_tileset("assets/tile/episodes_item_tilesets.tsx")
-        self.bg_tileset = self.load_tileset("assets/tile/episodes_bg_tileset.tsx")
+        self.items_tileset = self.load_tileset("assets/tile/item_tilesets.tsx")
+        self.bg_tileset = self.load_tileset("assets/tile/bg_tilesets.tsx")
         self.drawing_bg()
         self.creating_ui()
 
@@ -73,6 +77,23 @@ class Episode:
             )
             self.bgs.append(back_ground)
 
+    def create_buttons(self):
+        leave_button = Button(
+            text="<-",
+            parent=camera.ui,
+            model="quad",
+            position=(-0.82, 0.475),
+            scale=(0.15, 0.05),
+            color=color.red,
+        )
+        leave_button.on_click = lambda: self.leaving()
+        return [leave_button]
+
+    def leaving(self):
+        self.hide_episode_ui()
+        self.destroy_ui()
+        self.episode_pick.return_to_episode_pick()
+
     def creating_ui(self):
         for button in self.main_level_buttons:
             destroy(button)
@@ -84,7 +105,7 @@ class Episode:
         self.main_level_buttons.clear()
         self.sub_level_buttons.clear()
         for item in self.items:
-            gid = item["gid"] - 3
+            gid = item["gid"] - 4
             flip_h = bool(gid & 0x80000000)
             flip_v = bool(gid & 0x40000000)
             flip_d = bool(gid & 0x20000000)
@@ -130,7 +151,6 @@ class Episode:
                 )
                 self.main_level_buttons.append(button)
             elif item["properties"]["type"] == "sub":
-                print(item["properties"])
                 button_items = item
                 unlocks = item["properties"].get("unlocks", None)
                 button = Button(
@@ -144,7 +164,7 @@ class Episode:
                         item["height"] / 1080,
                     ),
                 )
-                button._on_click = (
+                button.on_click = (
                     lambda button_item=button_items, unlocks=unlocks: self.get_sub_id(
                         button_item, unlocks
                     )
@@ -188,11 +208,21 @@ class Episode:
                 if unlocks not in self.temp_unlocks:
                     self.temp_unlocks.append(unlocks)
         self.hide_episode_ui()
-        self.game = Game("arkmania.JSON", self.selected_name, self, sub=True)
+        self.destroy_ui()
+        self.game = Level_Preview(
+            filename="arkmania.JSON",
+            level=self.selected_name,
+            episode_name=self.episode_name,
+            episode=self,
+            sub=True,
+            condition=self.condition,
+        )
 
     def create_winning_condition(self, level):
         data_manager = Data_Manager("arkmania.JSON")
-        conditions = data_manager.open_file("Levels", f"Level {level}", "conditions")
+        conditions = data_manager.open_file(
+            "Episodes", self.episode_name, f"Level {level}", "conditions"
+        )
         self.condition = conditions.copy()
 
     def get_id(self, button):
@@ -200,8 +230,14 @@ class Episode:
         self.selected_name = button.get("name")
         self.create_winning_condition(self.selected_name)
         self.hide_episode_ui()
-        self.game = Game(
-            "arkmania.JSON", self.selected_name, self, False, self.condition
+        self.destroy_ui()
+        self.game = Level_Preview(
+            filename="arkmania.JSON",
+            level=self.selected_name,
+            episode_name=self.episode_name,
+            episode=self,
+            sub=False,
+            condition=self.condition,
         )
 
     def return_to_episode(
@@ -216,19 +252,37 @@ class Episode:
                         self.temp_unlocks.remove(self.unlocking)
                 else:
                     self.count += 1
-                # self.give_main_reward()
                 self.level_data[level] = self.level_data.get(level, {})
                 self.level_data[level]["cleared"] = True
                 if star == 3:
-                    # self.give_special_reward()
                     self.level_data[level]["3 star"] = True
-            # else:
-            #   self.give_basic_reward()
         else:
             if sub and self.unlocking in self.temp_unlocks:
                 self.temp_unlocks.remove(self.unlocking)
+        self.leave_button = self.create_buttons()
+        self.drawing_bg()
         self.creating_ui()
         self.show_episode_ui()
+
+    def destroy_ui(self):
+        for button in self.main_level_buttons:
+            destroy(button)
+        for button in self.sub_level_buttons:
+            destroy(button)
+        for button in self.leave_button:
+            destroy(button)
+        for bg in self.bgs:
+            destroy(bg)
+        for line in self.lines:
+            destroy(line)
+        for image in self.images:
+            destroy(image)
+        self.main_level_buttons.clear()
+        self.sub_level_buttons.clear()
+        self.leave_button.clear()
+        self.bgs.clear()
+        self.lines.clear()
+        self.images.clear()
 
     def hide_episode_ui(self):
         for button in self.main_level_buttons:

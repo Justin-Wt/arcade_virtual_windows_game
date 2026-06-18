@@ -6,11 +6,12 @@ import win32gui
 import win32con
 from floating_icon import icon_maker
 import json
+import pyglet
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 width = 1536
 height = 864
-title = "arcade_virtual_windows_game"
+title = "Wallpaper"
 SAVE_FILE = "Wallpaper.json"
 
 
@@ -22,6 +23,8 @@ def save_data(data):
 class windows(arcade.Window):
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
+        icon = pyglet.image.load("assets/UI's/Wallpaper_Icon.png")
+        self.set_icon(icon)
         hwnd = win32gui.FindWindow(None, title)
         # Set window as topmost
         win32gui.SetWindowPos(

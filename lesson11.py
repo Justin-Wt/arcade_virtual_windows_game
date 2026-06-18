@@ -9,7 +9,7 @@ width = 15 * grid
 height = 10 * grid
 filepath = os.path.dirname(os.path.abspath(__file__))
 os.chdir(filepath)
-title = "game screen example"
+title = "The Forgotten Tower"
 scale = 1
 speed = 5
 gravity = 1 / 2

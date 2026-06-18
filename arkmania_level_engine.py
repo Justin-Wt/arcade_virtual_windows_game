@@ -1,20 +1,26 @@
-# Time_In: {
-#   Blender: "17 Hrs"
-#   Python : "32 Hrs"
-#   Tiled: "2 hrs:
-# }
-
 from ursina import *
 from collections import deque
-import json
 from direct.actor.Actor import Actor
+from datamanager import Data_Manager
+import random
+
+# adding win screen and lose screen with character and rewards
 
 
 class Game:
-    def __init__(self, filename, level, episode, sub=False, condition=[]):
+    def __init__(
+        self,
+        filename,
+        level,
+        episode,
+        sub=False,
+        condition=[],
+        current_episode="Episode 1",
+    ):
         self.episode = episode
+        self.current_episode = current_episode
         self.buttons = []
-        self.Character_Type = ["Mona", "Moon"]
+        self.Character_Name = ["Yvonne", "Ember", "Fluorite", "Last_Rite", "Mona"]
         self.end_ui = []
         self.indicator_list = []
         self.pathing = False
@@ -29,13 +35,17 @@ class Game:
         self.showing_range = False
         self.dragging = False
         self.data_manager = Data_Manager(filename)
+        for e in scene.entities:
+            if isinstance(e, EditorCamera):
+                self.camera = e
         self.grid, self.tiles = self.tile_maker(self.level)
         self.end = False
         self.first_clear = False
         self.star = 0
+        self.speed = 1
         self.sub = sub
         self.condition = condition
-        self.rewards = []
+        self.reward_tags = []
 
         self.input_entity = Entity()
         self.update_entity = Entity()
@@ -50,10 +60,16 @@ class Game:
     def setup_ui(self):
         self.ui_manager.create_hp_text(self.current_base_hp, self.base_hp)
         self.ui_manager.draw_player_button()
+        self.ui_manager.draw_speed_up_button()
         self.ui_manager.draw_restart_button()
 
+    def mouse_hover_loot_panel(self):
+        return -1 <= mouse.x <= 1 and -0.375 <= mouse.y <= -0.225
+
     def tile_maker(self, level):
-        grid = self.data_manager.open_file("Levels", f"Level {level}", "grid")
+        grid = self.data_manager.open_file(
+            "Episodes", self.current_episode, f"Level {level}", "grid"
+        )
         tiles = []
         for x in range(len(grid)):
             for z in range(len(grid[0])):
@@ -193,7 +209,7 @@ class Game:
                                                 self.attack(
                                                     attacker, target, target_lists
                                                 )
-                                        else:
+                                        elif target.layer == 0 and attacker.blocked:
                                             self.attack(attacker, target, target_lists)
                                     else:
                                         self.attack(attacker, target, target_lists)
@@ -232,6 +248,7 @@ class Game:
                     cube.color = color.gray
 
     def cleanup(self):
+        self.ui_manager.cleanup()
         for tile in self.tiles:
             destroy(tile)
 
@@ -257,38 +274,55 @@ class Game:
 
     def calculate_star(self, deployed, base_hp):
         star = 0
-        if "win the game" in self.condition:
+        if "victory" in self.condition:
             star += 1
-        if "use less than 10 units" in self.condition:
+        if "under_10_units" in self.condition:
             if deployed <= 10:
                 star += 1
-        if "dont lose any health" in self.condition:
+        if "no_hp_loss" in self.condition:
             if base_hp == 10:
                 star += 1
         return star
 
     def main_reward(self):
-        pass
+        self.reward_tags.append("main")
 
     def basic_reward(self):
-        pass
+        self.reward_tags.append("basic")
 
     def special_reward(self):
-        pass
+        self.reward_tags.append("special")
 
     def calculating_rewards(self):
         self.win = True
         self.star = self.calculate_star(self.deployed, self.current_base_hp)
-        if self.level not in self.episode.level_data:
+        if self.star == 3:
+            self.special_reward()
+        if not self.episode.level_data.get(self.level, {}).get("cleared"):
             self.first_clear = True
             self.main_reward()
         if self.star > 0:
             self.basic_reward()
-        if self.star == 3:
-            self.special_reward()
         self.ui_manager.end_screen("You Win")
 
     def input(self, key):
+        if self.mouse_hover_loot_panel() and self.ui_manager.loot_panel:
+            if key == "scroll down" or key == "scroll up":
+                self.camera.rotation_speed = 0
+                self.camera.move_speed = 0
+                self.camera.zoom_speed = 0
+                if key == "scroll up":
+                    self.ui_manager.loot_panel_scroll_x += 0.02
+                elif key == "scroll down":
+                    self.ui_manager.loot_panel_scroll_x -= 0.02
+            else:
+                self.camera.rotation_speed = 200
+                self.camera.move_speed = 10
+                self.camera.zoom_speed = 1.25
+            self.ui_manager.loot_panel_scroll_x = min(
+                self.ui_manager.loot_panel_scroll_x, 0.2
+            )
+            self.ui_manager.loot_content.x = self.ui_manager.loot_panel_scroll_x
         if key == "left mouse up" and self.end:
             self.episode.return_to_episode(
                 win=self.win,
@@ -296,7 +330,7 @@ class Game:
                 level=self.level,
                 first_clear=self.first_clear,
                 star=self.star,
-                rewards=self.rewards,
+                rewards=self.reward_tags,
             )
             self.cleanup()
         if key == "left mouse up" and self.dragging:
@@ -341,8 +375,21 @@ class Game:
                 self.showing_range = True
 
     def update(self):
-        self.global_timer += time.dt
+        self.global_timer += time.dt * self.speed
         self.enemy_manager.update()
+        if self.ui_manager.loot_panel:
+            for button in self.ui_manager.loot_button:
+                left_distance = button.world_x - (-18.5)
+                right_distance = 12.25 - button.world_x
+                distance = min(left_distance, right_distance)
+                alpha = clamp(abs(distance) / 1, 0, 1) if distance >= 0 else 0
+                button.alpha = alpha
+            for frame in self.ui_manager.loot_frame:
+                left_distance = frame.world_x - (-18.5)
+                right_distance = 12.25 - frame.world_x
+                distance = min(left_distance, right_distance)
+                alpha = clamp(abs(distance) / 1, 0, 1) if distance >= 0 else 0
+                frame.alpha = alpha
 
         if self.enemy_manager.enemies and self.player_manager.players:
             for player in self.player_manager.players:
@@ -358,21 +405,6 @@ class Game:
         self.update_cube_color()
 
         self.player_manager.update()
-
-
-class Data_Manager:
-    def __init__(self, path):
-        self.filepath = path
-
-    def open_file(self, *keys):
-        with open(self.filepath, "r") as f:
-            data = json.load(f)
-
-        current = data
-        for key in keys:
-            current = current[key]
-
-        return current
 
 
 class EnemyManager:
@@ -411,7 +443,7 @@ class EnemyManager:
     def update(self):
         self.checking_enemy_spawn(self.game.level)
         if self.spawning_enemies:
-            self.spawning_timer += time.dt
+            self.spawning_timer += time.dt * self.game.speed
             self.update_spawn()
         if self.enemies:
             self.checking_paths()
@@ -419,7 +451,7 @@ class EnemyManager:
 
     def update_attack(self):
         for enemy in self.enemies:
-            enemy.timer -= time.dt
+            enemy.timer -= time.dt * self.game.speed
             if enemy.timer <= 0:
                 enemy.can_attack = True
             if enemy.already_attack:
@@ -435,7 +467,9 @@ class EnemyManager:
                 self.spawning_timer = 0
 
     def checking_enemy_spawn(self, level=1):
-        waves = self.game.data_manager.open_file("Levels", f"Level {level}", "waves")
+        waves = self.game.data_manager.open_file(
+            "Episodes", self.game.current_episode, f"Level {level}", "waves"
+        )
         if self.game.wave_manager.wave_count < len(waves):
             current_wave = waves[self.game.wave_manager.wave_count]
             wave_time = current_wave["time"]
@@ -468,7 +502,7 @@ class EnemyManager:
             if enemy.path:
                 next_position = enemy.path[0]
                 if enemy.blocked == False:
-                    speed = 1 * time.dt
+                    speed = min(time.dt * self.game.speed, 0.2)
                     target = Vec3(next_position[0], 0.5, next_position[1])
                     dir_x = next_position[0] - enemy.position.x
                     dir_z = next_position[1] - enemy.position.z
@@ -477,7 +511,7 @@ class EnemyManager:
                     else:
                         enemy.direction = "Left" if dir_z > 0 else "Right"
                     enemy.position += (target - enemy.position).normalized() * speed
-                    if distance(enemy.position, target) < 0.05:
+                    if distance(enemy.position, target) < max(0.05, speed):
                         enemy.position = target
                         enemy.path.pop(0)
                     if (
@@ -506,7 +540,7 @@ class EnemyManager:
                         enemy.blocked = True
                         enemy.blocking_player = player
                     elif enemy.blocked:
-                        break
+                        continue
 
 
 class PlayerManager:
@@ -560,14 +594,11 @@ class PlayerManager:
                         mouse.world_point.z < player.world_position.z + 0.5
                         and mouse.world_point.z > player.world_position.z - 0.5
                     ):
-                        player.color = color.red
                         self.show_range(player)
-                    else:
-                        player.color = color.white
                 else:
                     player.color = color.white
                 self.game.ui_manager.update_hp_bar(player)
-                player.timer -= time.dt
+                player.timer -= time.dt * self.game.speed
                 if player.timer <= 0:
                     player.can_attack = True
                 if player.already_attack:
@@ -578,10 +609,8 @@ class PlayerManager:
         if self.game.showing_range:
             self.show_range(self.character_spawned_player)
 
-    def character_spawn(self, i):
-        data = self.game.data_manager.open_file(
-            "Characters", self.game.Character_Type[i - 1]
-        )
+    def character_spawn(self, name):
+        data = self.game.data_manager.open_file("Characters", name)
         player_mdl = data["model"]
         player_range = data["attack_range"]
         player_tipe = data["type"]
@@ -628,6 +657,12 @@ class PlayerManager:
         self.character_spawned_player.setH(-90)
         self.character_spawned_player.actor = Actor(player_mdl)
         self.character_spawned_player.actor.reparentTo(self.character_spawned_player)
+        # calculate height limit
+        min_pt, max_pt = self.character_spawned_player.actor.getTightBounds()
+        target_height = 2
+        current_height = max_pt.y - min_pt.y
+        scale = target_height / current_height
+        self.character_spawned_player.actor.setScale(scale)
 
     def show_range(self, player):
         attack_range = self.game.get_rotated_attack_range(player)
@@ -659,7 +694,9 @@ class WaveManager:
         self.wave_count = 0
 
     def enemy_spawn_per_waves(self, level, wave):
-        datas = self.game.data_manager.open_file("Levels", f"Level {level}", "waves")
+        datas = self.game.data_manager.open_file(
+            "Episodes", self.game.current_episode, f"Level {level}", "waves"
+        )
         wave_data = datas[wave - 1]
         for data in wave_data["spawns"]:
             e_type = data["enemy_type"]
@@ -719,6 +756,13 @@ class UIManager:
     def __init__(self, game):
         self.game = game
         self.hp_text = None
+        self.loot = []
+        self.loot_frame = []
+        self.loot_button = []
+        self.loot_panel_scroll_x = 0
+        self.speed_button = None
+        self.loot_panel = None
+        self.loot_content = None
 
     def create_hp_text(self, current_hp, max_hp):
         self.hp_text = Text(
@@ -739,6 +783,26 @@ class UIManager:
         background.animate_color(color.rgba(0, 0, 0, 0.7), duration=0.5)
         txt = Text(text, origin=(0, 0), scale=3, color=color.lime)
         self.game.end_ui = [background, txt]
+        if self.game.win:
+            self.show_reward(self.game.reward_tags)
+
+    def cleanup(self):
+        for button in self.loot_button:
+            destroy(button)
+        for frame in self.loot_frame:
+            destroy(frame)
+        self.loot_button.clear()
+        self.loot_frame.clear()
+        self.loot.clear()
+        if self.loot_content:
+            destroy(self.loot_content)
+            self.loot_content = None
+        if self.loot_panel:
+            destroy(self.loot_panel)
+            self.loot_panel = None
+        if self.speed_button:
+            destroy(self.speed_button)
+            self.speed_button = None
 
     def draw_restart_button(self):
         restart_button = Button(
@@ -746,22 +810,97 @@ class UIManager:
         )
         restart_button.on_click = self.game.restarting
 
+    def show_reward(self, reward):
+        datas = self.game.data_manager.open_file(
+            "Episodes", self.game.current_episode, f"Level {self.game.level}", "rewards"
+        )
+        for loot_types, lootable in datas.items():
+            if loot_types not in reward:
+                continue
+            for loots in lootable:
+                loot_type = loot_types
+                loot = loots.get("item")
+                chance = loots.get("chance", 1)
+                min_amount = loots.get("min_amount", 1)
+                max_amount = loots.get("max_amount", 1)
+                steps = loots.get("steps", 1)
+                roll = random.randint(1, 100)
+                if roll <= chance:
+                    amount = random.randrange(min_amount, max_amount + 1, steps)
+                    self.loot.append([loot_type, loot, amount])
+        self.loot_panel = Entity(
+            parent=camera.ui,
+            name="panel",
+            model="quad",
+            color=color.rgba(0, 0, 0, 0.45),
+            scale=(2, 0.15),
+            position=(0, -0.3),
+            collider=None,
+        )
+        print(self.loot)
+        self.loot_content = Entity(parent=self.loot_panel, scale=(0.15, 2, 1))
+        for i, (loot_type, loot, amount) in enumerate(self.loot):
+            button = Button(
+                name="loot",
+                color=color.white,
+                parent=self.loot_content,
+                origin=(0, 0),
+                scale=(0.4, 0.4),
+                texture=f"assets/picture/items/{loot}.png",
+                position=(0.3 + (i * 0.625), 0),
+            )
+            frame = Entity(
+                name="frame",
+                model="quad",
+                parent=self.loot_content,
+                color=color.white,
+                origin=(0, 0),
+                scale=(0.6, 0.6),
+                texture=f"assets/picture/items/{loot_type}_frame.png",
+                position=(0.3 + (i * 0.625), 0, -0.01),
+            )
+            # button.on_click = lambda loot_name=loot: self.show_desc(loot_name)
+            self.loot_frame.append(frame)
+            self.loot_button.append(button)
+
+    def draw_speed_up_button(self):
+        button = Button(
+            model="quad",
+            text=">",
+            scale=(0.1, 0.1),
+            position=(0.8, 0.4),
+            color=color.white,
+            text_color=color.black,
+        )
+        button.on_click = lambda: self.speed_up()
+        self.speed_button = button
+
+    def speed_up(self):
+        self.game.speed = self.game.speed + 0.5 if self.game.speed < 2 else 1
+        self.speed_button.text = (
+            ">>" if self.game.speed == 1.5 else ">>>" if self.game.speed == 2 else ">"
+        )
+
     def draw_player_button(self):
-        for i in range(1, 3):
+        for i, name in enumerate(self.game.Character_Name):
             button = Button(
                 model="quad",
                 scale=(0.1, 0.1),
-                position=(0.9 - (0.1 * i), -0.4),
-                texture="assets/picture/Mona.png",
+                position=(0.8 - (0.1 * i), -0.4),
+                texture=f"assets/picture/Characters/{name}.png",
                 color=color.white,
             )
-            button.on_click = lambda i=i: self.game.player_manager.character_spawn(i)
+            button.on_click = (
+                lambda char_name=name: self.game.player_manager.character_spawn(
+                    char_name
+                )
+            )
             button.alpha = 0.5
             button.parent = camera.ui
             self.game.buttons.append(button)
 
     def animate_indicator(self, level, wave):
-        self.game.indicator_time += time.dt
+        self.game.indicator_time += time.dt * self.game.speed
         if self.game.indicator_list:
             if self.game.indicator_time > 0.05:
                 for path in self.game.indicator_list[:]:
@@ -769,12 +908,14 @@ class UIManager:
                         entity_1, entity_2 = path.pop(0)
                         entity_1.animate_color(color.rgba(1, 0, 0), duration=0.3)
                         entity_2.animate_color(color.rgba(1, 0.6, 0.6), duration=0.3)
-                        destroy(entity_1, 0.45)
-                        destroy(entity_2, 0.45)
+                        destroy(entity_1, 0.45 / self.game.speed)
+                        destroy(entity_2, 0.45 / self.game.speed)
                         self.game.indicator_time = 0
 
     def show_indicator(self, level, wave):
-        datas = self.game.data_manager.open_file("Levels", f"Level {level}", "waves")
+        datas = self.game.data_manager.open_file(
+            "Episodes", self.game.current_episode, f"Level {level}", "waves"
+        )
         wave_data = datas[wave - 1]
         for data in wave_data["spawns"]:
             path_list = []
@@ -810,7 +951,7 @@ class UIManager:
         self.game.pathing = True
 
     def update_hp_bar(self, entity):
-        entity.hp_bar.scale_x = entity.hp / entity.max_hp
+        entity.hp_bar.scale_x = max(0, entity.hp) / max(1, entity.max_hp)
         entity.hp_bar.color = (
             color.green
             if entity.hp / entity.max_hp > 0.7

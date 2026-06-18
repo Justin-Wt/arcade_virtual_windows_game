@@ -10,6 +10,8 @@ filename = "chatbot_memories.json"
 ctk.set_appearance_mode("dark")
 
 app = ctk.CTk()
+app.title("ChatJT")
+app.iconbitmap("assets/icons/ChatJT_icon.ico")
 app.geometry("700x400")
 
 # SIDEBAR
