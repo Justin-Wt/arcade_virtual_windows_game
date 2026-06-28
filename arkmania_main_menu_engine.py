@@ -1,7 +1,7 @@
 # Time_In: {
 #   Blender: "18 Hrs"
-#   Python : "41 Hrs"
-#   Tiled: "2 hrs:
+#   Python : "45 Hrs"
+#   Tiled  : "2 hrs:
 # }
 
 from ursina import *
@@ -20,7 +20,6 @@ from arkmania_squad_engine import Squad
 # from arkmania_mission_engine import Mission
 # from arkmania_base_engine import Base
 # from arkmania_depot_engine import Depot
-# Episode("assets/tile/episode_1.tmj")
 
 
 class main_menu:
@@ -109,20 +108,6 @@ class main_menu:
             ui_y = 0.5 - (item["y"] - item["height"] / 2) / 1080
             item_image = self.items_tileset.get(tile_id)
             item["visible"] = True
-            # name:
-            # Episode
-            # Squads
-            # Operator
-            # Store
-            # Recruit
-            # Billboard
-            # Friends
-            # Archieves
-            # HeadHunt
-            # Mission
-            # Base
-            # Depot
-            # Stamina
             button = Button(
                 item.get("name"),
                 model="quad",

@@ -1,6 +1,6 @@
 import sqlite3 as sq
 
-VALID_COLUMNS = {"name", "hp", "attack", "rarity", "type", "faction", "id"}
+VALID_COLUMNS = {"name", "hp", "attack", "rarity", "type", "faction", "id", "level"}
 VALID_SORT = {"ASC", "DESC"}
 conn = sq.connect("character.db")
 cursor = conn.cursor()
@@ -27,9 +27,9 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     [
         ("Yvonne", 1, 800, 200, "mage", 6, "player", 0),
         ("Ember", 1, 2300, 120, "defender", 6, "player", 0),
-        ("Fluorite", 1, 800, 120, "ranged", 5, "player", 0),
+        ("Fluorite", 1, 800, 120, "archer", 5, "player", 0),
         ("Last_Rite", 1, 1800, 180, "striker", 6, "player", 0),
-        ("Mona", 1, 800, 120, "ranged", 6, "player", 0),
+        ("Mona", 1, 800, 120, "archer", 6, "player", 0),
     ],
 )
 conn.commit()

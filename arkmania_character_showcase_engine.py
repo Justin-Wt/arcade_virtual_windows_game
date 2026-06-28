@@ -3,7 +3,8 @@ from character_bank import sort_data, add_character, upgrade_character
 
 
 class Operator:
-    def __init__(self, main_menu):
+    def __init__(self, engine):
+        self.engine = engine
         self.character_button = []
         self.sort_button = []
         self.sorting_button = []
@@ -91,7 +92,7 @@ class Operator:
             color=color.rgba(0.6, 0.6, 0.6, 0.6),
             z=-0.1,
         )
-        self.sorting_button.append({"button": button, "text": "none"})
+        self.sorting_button.append({"button": button, "text": None})
         for commands in self.sorting_commands:
             check, sort_type, value = commands.split(maxsplit=2)
             if previous_sort_type != sort_type:
@@ -210,13 +211,15 @@ class Operator:
     def destroying_sort_buttons(self):
         for item in self.sort_button:
             destroy(item["button"])
-            destroy(item["text"])
+            if item["text"] is not None:
+                destroy(item["text"])
         self.sort_button.clear()
 
     def destroying_sorting_buttons(self):
         for item in self.sorting_button:
             destroy(item["button"])
-            destroy(item["text"])
+            if item["text"] is not None:
+                destroy(item["text"])
         self.sorting_button.clear()
 
     def destroying_character_buttons(self):
@@ -242,6 +245,7 @@ class Operator:
                 color=color.rgba(0.6, 0.6, 0.6, 0.6),
                 scale=(0.2, 0.38),
             )
+            button_bg.on_click = lambda c=items: self.running(c)
             character_image = Entity(
                 model="quad",
                 parent=camera.ui,
@@ -272,6 +276,14 @@ class Operator:
             self.character_button.append(
                 {"button": button_bg, "image": character_image, "level": level}
             )
+
+    def running(self, c):
+        # destoring the UI's so it doesnt get lag
+        self.destroying_character_buttons()
+        self.destroying_sort_buttons()
+        self.destroying_sorting_buttons()
+        # returning the character assets to the engine
+        self.engine.character_button_clicked(c)
 
 
 if __name__ == "__main__":
