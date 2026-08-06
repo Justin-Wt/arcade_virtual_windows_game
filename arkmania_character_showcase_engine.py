@@ -2,11 +2,12 @@ from ursina import *
 from character_bank import sort_data, add_character, upgrade_character
 
 
-class Operator:
+class Operator_Showcase:
     def __init__(self, engine):
         self.engine = engine
         self.character_button = []
         self.sort_button = []
+        self.exit_button = None
         self.sorting_button = []
         self.rarity_condition = ["6", "5", "4", "3", "2", "1"]
         self.type_condition = ["archer", "mage", "striker", "defender"]
@@ -50,6 +51,7 @@ class Operator:
         self.create_bg()
         self.create_character_button()
         self.create_sort_button()
+        self.create_exit_button()
 
     def create_bg(self):
         self.back_ground = Entity(
@@ -81,6 +83,7 @@ class Operator:
 
     def create_sorting_button(self):
         self.destroying_sort_buttons()
+        self.exit_button.on_click = lambda: self.recreate_button()
         y_index = 0
         x_index = 0
         previous_sort_type = None
@@ -103,7 +106,7 @@ class Operator:
                     x_index += 2
                 button = Entity(
                     parent=camera.ui,
-                    position=(-0.8 + (0.1 * x_index), 0.57 - (0.1 * ceil(y_index / 2))),
+                    position=(-0.7 + (0.1 * x_index), 0.57 - (0.1 * ceil(y_index / 2))),
                     model="quad",
                     scale=(0.1, 0.05),
                     color=color.rgba(0.6, 0.6, 0.6, 0.6),
@@ -112,7 +115,7 @@ class Operator:
                 text = Text(
                     sort_type,
                     parent=camera.ui,
-                    position=(-0.8 + (0.1 * x_index), 0.57 - (0.1 * ceil(y_index / 2))),
+                    position=(-0.7 + (0.1 * x_index), 0.57 - (0.1 * ceil(y_index / 2))),
                     origin=(0, 0),
                     color=color.black,
                     z=-1,
@@ -123,7 +126,7 @@ class Operator:
             button = Button(
                 model="quad",
                 parent=camera.ui,
-                position=(-0.8 + (0.1 * x_index), 0.52 - (0.1 * ceil(y_index / 2))),
+                position=(-0.7 + (0.1 * x_index), 0.52 - (0.1 * ceil(y_index / 2))),
                 scale=(0.1, 0.05),
                 color=color.rgba(0.6, 0.6, 0.6, 0.6),
                 z=-0.1,
@@ -135,7 +138,7 @@ class Operator:
                 f"{check} {value}",
                 name=sort_type,
                 parent=camera.ui,
-                position=(-0.8 + (0.1 * x_index), 0.52 - (0.1 * ceil(y_index / 2))),
+                position=(-0.7 + (0.1 * x_index), 0.52 - (0.1 * ceil(y_index / 2))),
                 origin=(0, 0),
                 scale=0.8,
                 color=color.black,
@@ -143,6 +146,18 @@ class Operator:
             )
             self.sorting_button.append({"button": button, "text": text})
             previous_sort_type = sort_type
+
+    def create_exit_button(self):
+        self.exit_button = Button(
+            "X",
+            parent=camera.ui,
+            model="quad",
+            position=(-0.85, 0.47),
+            scale=(0.1, 0.05),
+            color=color.red,
+            z=-0.1,
+        )
+        self.exit_button.on_click = lambda: self.running()
 
     def sorting(self, types, value):
         if types == "rarity":
@@ -203,10 +218,14 @@ class Operator:
             self.rarity_condition,
             self.type_condition,
         )
+        self.recreate_button()
+
+    def recreate_button(self):
         self.destroying_character_buttons()
         self.destroying_sorting_buttons()
         self.create_sort_button()
         self.create_character_button()
+        self.exit_button.on_click = lambda: self.running()
 
     def destroying_sort_buttons(self):
         for item in self.sort_button:
@@ -277,11 +296,13 @@ class Operator:
                 {"button": button_bg, "image": character_image, "level": level}
             )
 
-    def running(self, c):
+    def running(self, c="none"):
         # destoring the UI's so it doesnt get lag
         self.destroying_character_buttons()
         self.destroying_sort_buttons()
         self.destroying_sorting_buttons()
+        destroy(self.exit_button)
+        destroy(self.back_ground)
         # returning the character assets to the engine
         self.engine.character_button_clicked(c)
 
@@ -293,6 +314,6 @@ if __name__ == "__main__":
     window.borderless = False
     window.fullscreen = False
     window.size = (1280, 720)
-    Operator("i dunno")
+    Operator_Showcase("i dunno")
     EditorCamera()
     app.run()

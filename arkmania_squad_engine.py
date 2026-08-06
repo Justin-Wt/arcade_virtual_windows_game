@@ -2,7 +2,7 @@ from ursina import *
 import json
 import os
 import xml.etree.ElementTree as ET
-from arkmania_character_showcase_engine import Operator
+from arkmania_character_showcase_engine import Operator_Showcase
 from character_bank import sort_data
 
 # improvement: make operators, use cvs, reading json the covert stuff
@@ -13,8 +13,10 @@ class Squad:
         self.picked_line_up = "Arkmania_Squad.JSON"
         self.button_ungrouped = []
         self.path = squad_path
+        self.main_menu = main_menu
         self.character_data = sort_data()
         self.button = []
+        self.leave_button = None
         self.squad_button = []
         self.picked_slot = None
         self.button_tileset = {}
@@ -243,6 +245,15 @@ class Squad:
                 ),
             )
             self.buttons.append(button)
+        self.leave_button = Button(
+            text="<-",
+            parent=camera.ui,
+            model="quad",
+            position=(-0.82, 0.475),
+            scale=(0.15, 0.05),
+            color=color.red,
+        )
+        self.leave_button.on_click = lambda: self.leaving()
 
     def destroying(self):
         for button in self.buttons:
@@ -251,18 +262,24 @@ class Squad:
             destroy(bg)
         self.button.clear()
         self.button_ungrouped.clear()
+        destroy(self.leave_button)
+
+    def leaving(self):
+        self.destroying()
+        self.main_menu.return_to_main_menu()
 
     def pick(self, i):
         self.destroying()
         self.picked_slot = i
-        Operator(self)
+        Operator_Showcase(self)
 
-    def character_button_clicked(self, items):
-        for i, slots in enumerate(self.data.get(self.picked_squad_slot)):
-            if slots == items.get("name"):
-                self.data.get(self.picked_squad_slot)[i] = "none"
-        self.data.get(self.picked_squad_slot)[self.picked_slot] = items.get("name")
-        self.save()
+    def character_button_clicked(self, items="none"):
+        if items != "none":
+            for i, slots in enumerate(self.data.get(self.picked_squad_slot)):
+                if slots == items.get("name"):
+                    self.data.get(self.picked_squad_slot)[i] = "none"
+            self.data.get(self.picked_squad_slot)[self.picked_slot] = items.get("name")
+            self.save()
         self.opening_path(self.path)
 
     def save(self):

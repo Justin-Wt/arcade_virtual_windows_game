@@ -128,11 +128,23 @@ class Level_Preview:
                 index = grid[z][x]
                 height = 1 if index > 0 else -0.2
                 tile = Entity(
-                    model="cube",
+                    index=index,
+                    model=f"assets/3d/cube_structure.obj" if index < 3 else "cube",
                     scale=(1, (0.1 + height if height > 0 else 0.1), 1),
                     position=(x, height / 2, z),
-                    texture="white_cube",
-                    index=index,
+                    texture=(
+                        f"assets/3d/ground_texture_{self.current_episode}.png"
+                        if index == 0
+                        else (
+                            f"assets/3d/land_texture_{self.current_episode}.png"
+                            if index == 1
+                            else (
+                                f"assets/3d/enemy_spawn_texture.png"
+                                if index == 2
+                                else "white_cube"
+                            )
+                        )
+                    ),
                     color=(
                         color.rgba(0, 0, 0.8, 0.85)
                         if index == 3
@@ -143,11 +155,11 @@ class Level_Preview:
                 tiles.append(tile)
                 if index > 0:
                     tile = Entity(
-                        model="cube",
+                        index=index if index < 2 else 9,
+                        model=f"assets/3d/cube_structure.obj",
                         scale=(1, 0.1, 1),
                         position=(x, -0.1, z),
-                        texture="white_cube",
-                        index=index if index < 2 else 9,
+                        texture=f"assets/3d/ground_texture_{self.current_episode}.png",
                         color=color.gray,
                         collider="box",
                     )

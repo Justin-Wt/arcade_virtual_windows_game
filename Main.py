@@ -6,7 +6,7 @@ from floating_icon import icon_maker
 import bridge
 import json
 
-sAVE_FILE = "Wallpaper.json"
+SAVE_FILE = "Wallpaper.json"
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 width = 1536
 height = 864
@@ -14,7 +14,7 @@ title = "arcade_virtual_windows_game"
 
 
 def load_wallpaper():
-    with open(sAVE_FILE, "r") as f:
+    with open(SAVE_FILE, "r") as f:
         return json.load(f)
 
 

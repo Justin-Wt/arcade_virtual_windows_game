@@ -1,277 +1,175 @@
 from ursina import *
-from character_bank import sort_data, add_character, upgrade_character
+import json
+import os
+import xml.etree.ElementTree as ET
+from arkmania_character_showcase_engine import Operator_Showcase
+from character_bank import sort_data, upgrade_character, add_character
 
 
 class Operator:
-    def __init__(self, main_menu):
-        self.character_button = []
-        self.sort_button = []
-        self.sorting_button = []
-        self.rarity_condition = ["6", "5", "4", "3", "2", "1"]
-        self.type_condition = ["archer", "mage", "striker", "defender"]
-        self.order_condition = "id"
-        self.direction_condition = "ASC"
-        self.operator_stuff = sort_data(
-            self.order_condition,
-            self.direction_condition,
-            self.rarity_condition,
-            self.type_condition,
-        )
-        self.sorting_commands = [
-            "[√] rarity 6 star",
-            "[√] rarity 5 star",
-            "[√] rarity 4 star",
-            "[√] rarity 3 star",
-            "[√] rarity 2 star",
-            "[√] rarity 1 star",
-            "[√] type archer",
-            "[√] type mage",
-            "[√] type striker",
-            "[√] type defender",
-            "[_] order name",
-            "[_] order level",
-            "[_] order hp",
-            "[_] order attack",
-            "[_] order rarity",
-            "[_] order type",
-            "[_] order faction",
-            "[√] order id",
-            "[√] dir ASC",
-            "[_] dir DESC",
-        ]
-        self.background = None
-        self.button_spacing_x = 0.273
-        self.button_spacing_y = 0.4
-        self.button_start_positions = (-0.7279620853080568, 0.225)
-        self.create_ui()
+    def __init__(self, main_menu, upgrade_path="assets/tile/upgrade.tmj"):
+        self.main_menu = main_menu
+        self.ui_ungrouped = []
+        self.path = upgrade_path
+        self.character_data = None
+        self.uis = []
+        self.button_tileset = {}
+        self.bg_tileset = {}
+        self.bg = []
+        self.data = []
+        self.buttons = []
+        self.leave_button = None
+        self.bgs = []
+        Operator_Showcase(self)
 
-    def create_ui(self):
-        self.create_bg()
-        self.create_character_button()
-        self.create_sort_button()
+    def opening_path(self, path):
+        with open(path, "r") as f:
+            data = json.load(f)
+        layers = data["layers"]
+        self.bg = next(layer["objects"] for layer in layers if layer["name"] == "bg")
+        self.ui_ungrouped = next(
+            layer["objects"] for layer in layers if layer["name"] == "ui"
+        )
+        self.getting_object(self.ui_ungrouped)
 
-    def create_bg(self):
-        self.back_ground = Entity(
-            model="quad",
-            parent=camera.ui,
-            texture="assets/picture/backgrounds/background_1.png",
-            scale=(2, 1),
-        )
+    def getting_object(self, objects):
+        for obj in objects:
+            obj["properties"] = {
+                p["name"]: p["value"] for p in obj.get("properties", [])
+            }
+        self.button_tileset = self.load_tileset("assets/tile/item_tilesets.tsx")
+        self.bg_tileset = self.load_tileset("assets/tile/bg_tilesets.tsx")
+        for obj in objects:
+            self.uis.append([obj, obj["properties"]["type"]])
+        self.drawing_bg()
+        self.creating_ui()
 
-    def create_sort_button(self):
-        button = Button(
-            model="quad",
-            parent=camera.ui,
-            position=(0.8, 0.4),
-            scale=(0.2, 0.1),
-            color=color.rgba(0.6, 0.6, 0.6, 0.6),
-            z=-0.1,
-        )
-        text = Text(
-            "Sort",
-            parent=camera.ui,
-            position=(0.8, 0.4),
-            origin=(0, 0),
-            color=color.rgba(0, 0, 0, 1),
-            z=-0.1,
-        )
-        button.on_click = lambda: self.create_sorting_button()
-        self.sort_button.append({"button": button, "text": text})
+    def load_tileset(self, tsx_path):
+        tree = ET.parse(tsx_path)
+        root = tree.getroot()
+        tile_images = {}
+        for tile in root.findall("tile"):
+            tile_id = int(tile.attrib["id"])
+            image = tile.find("image")
+            image_path = image.attrib["source"]
+            tile_images[tile_id] = image_path
+        return tile_images
 
-    def create_sorting_button(self):
-        self.destroying_sort_buttons()
-        y_index = 0
-        x_index = 0
-        previous_sort_type = None
-        button = Entity(
-            parent=camera.ui,
-            position=(0, 0.4),
-            model="quad",
-            scale=(2, 0.2),
-            color=color.rgba(0.6, 0.6, 0.6, 0.6),
-            z=-0.1,
-        )
-        self.sorting_button.append({"button": button, "text": "none"})
-        for commands in self.sorting_commands:
-            check, sort_type, value = commands.split(maxsplit=2)
-            if previous_sort_type != sort_type:
-                y_index += 1
-                if y_index / 2 != int(y_index / 2):
-                    x_index = 0
-                else:
-                    x_index += 2
-                button = Entity(
-                    parent=camera.ui,
-                    position=(-0.8 + (0.1 * x_index), 0.57 - (0.1 * ceil(y_index / 2))),
+    def drawing_bg(self):
+        for bg in self.bg:
+            gid = bg["gid"] - 1
+            tile_id = gid
+            aspect = window.aspect_ratio
+            ui_x = (bg["x"] + bg["width"] / 2) / 1920 * aspect - aspect / 2
+            ui_y = 0.5 - (bg["y"] - bg["height"] / 2) / 1080
+            bg_image = self.bg_tileset.get(tile_id)
+            bg["visible"] = True
+            back_ground = Entity(
+                model="quad",
+                parent=camera.ui,
+                texture=bg_image,
+                position=(ui_x, ui_y),
+                scale=(
+                    bg["width"] / 1920 * aspect,
+                    bg["height"] / 1080,
+                ),
+            )
+            self.bgs.append(back_ground)
+
+    def creating_ui(self):
+        for button in self.buttons:
+            destroy(button)
+        self.buttons.clear()
+        for item in self.uis:
+            ui, ui_type = item
+            gid = ui["gid"] - 5
+            gid &= ~(0x80000000 | 0x40000000 | 0x20000000)
+            tile_id = gid
+            aspect = window.aspect_ratio
+            ui_x = (ui["x"] + ui["width"] / 2) / 1920 * aspect - aspect / 2
+            ui_y = 0.5 - (ui["y"] - ui["height"] / 2) / 1080
+            item_image = (
+                f"assets/picture/ui's/{ui_type}.png"
+                if ui_type not in ("operator", "logo")
+                else (
+                    f"assets/picture/characters/{self.character_data['name']}_tier_1.png"
+                    if ui_type == "operator" and self.character_data["awaken"] == 0
+                    else (
+                        f"assets/picture/characters/{self.character_data['name']}_tier_2.png"
+                        if ui_type == "operator"
+                        else (
+                            f"assets/types/{self.character_data['type']}.png"
+                            if self.character_data["awaken"] == 0
+                            else f"assets/types/{self.character_data['type']} Awaken.png"
+                        )
+                    )
+                )
+            )
+            ui["visible"] = True
+            if item_image != self.button_tileset.get(tile_id):
+                bg = Entity(
                     model="quad",
-                    scale=(0.1, 0.05),
-                    color=color.rgba(0.6, 0.6, 0.6, 0.6),
-                    z=-0.1,
-                )
-                text = Text(
-                    sort_type,
                     parent=camera.ui,
-                    position=(-0.8 + (0.1 * x_index), 0.57 - (0.1 * ceil(y_index / 2))),
-                    origin=(0, 0),
-                    color=color.black,
-                    z=-1,
+                    position=(ui_x, ui_y, -0.05),
+                    color=color.rgba(0.2, 0.2, 0.2, 0.6),
+                    scale=(
+                        ui["width"] / 1920 * aspect,
+                        ui["height"] / 1080,
+                    ),
                 )
-                self.sorting_button.append({"button": button, "text": text})
-            else:
-                x_index += 1
+                self.buttons.append(bg)
             button = Button(
                 model="quad",
                 parent=camera.ui,
-                position=(-0.8 + (0.1 * x_index), 0.52 - (0.1 * ceil(y_index / 2))),
-                scale=(0.1, 0.05),
-                color=color.rgba(0.6, 0.6, 0.6, 0.6),
-                z=-0.1,
+                texture=item_image,
+                position=(ui_x, ui_y, -0.1),
+                color=(
+                    color.rgba(0.2, 0.2, 0.2, 0.6)
+                    if item_image == self.button_tileset.get(tile_id)
+                    else color.white
+                ),
+                scale=(
+                    ui["width"] / 1920 * aspect,
+                    ui["height"] / 1080,
+                ),
             )
-            button.on_click = lambda types=sort_type, values=value.split()[
-                0
-            ]: self.sorting(types, values)
-            text = Text(
-                f"{check} {value}",
-                name=sort_type,
-                parent=camera.ui,
-                position=(-0.8 + (0.1 * x_index), 0.52 - (0.1 * ceil(y_index / 2))),
-                origin=(0, 0),
-                scale=0.8,
-                color=color.black,
-                z=-1,
-            )
-            self.sorting_button.append({"button": button, "text": text})
-            previous_sort_type = sort_type
-
-    def sorting(self, types, value):
-        if types == "rarity":
-            if value in self.rarity_condition:
-                for i, stuffs in enumerate(self.sorting_commands):
-                    stuff = stuffs.split()
-                    if stuff[2] == value:
-                        stuff[0] = "[_]"
-                        self.sorting_commands[i] = " ".join(stuff)
-                self.rarity_condition.remove(value)
-            else:
-                for i, stuffs in enumerate(self.sorting_commands):
-                    stuff = stuffs.split()
-                    if stuff[2] == value:
-                        stuff[0] = "[√]"
-                        self.sorting_commands[i] = " ".join(stuff)
-                self.rarity_condition.append(value)
-        elif types == "type":
-            if value in self.type_condition:
-                for i, stuffs in enumerate(self.sorting_commands):
-                    stuff = stuffs.split()
-                    if stuff[2] == value:
-                        stuff[0] = "[_]"
-                        self.sorting_commands[i] = " ".join(stuff)
-                self.type_condition.remove(value)
-            else:
-                for i, stuffs in enumerate(self.sorting_commands):
-                    stuff = stuffs.split()
-                    if stuff[2] == value:
-                        stuff[0] = "[√]"
-                        self.sorting_commands[i] = " ".join(stuff)
-                self.type_condition.append(value)
-        elif types == "order":
-            for i, stuffs in enumerate(self.sorting_commands):
-                stuff = stuffs.split()
-                if stuff[1] == types:
-                    if stuff[2] == value:
-                        stuff[0] = "[√]"
-                        self.sorting_commands[i] = " ".join(stuff)
-                    else:
-                        stuff[0] = "[_]"
-                        self.sorting_commands[i] = " ".join(stuff)
-            self.order_condition = value
-        else:
-            for i, stuffs in enumerate(self.sorting_commands):
-                stuff = stuffs.split()
-                if stuff[1] == types:
-                    if stuff[2] == value:
-                        stuff[0] = "[√]"
-                        self.sorting_commands[i] = " ".join(stuff)
-                    else:
-                        stuff[0] = "[_]"
-                        self.sorting_commands[i] = " ".join(stuff)
-            self.direction_condition = value
-        self.operator_stuff = sort_data(
-            self.order_condition,
-            self.direction_condition,
-            self.rarity_condition,
-            self.type_condition,
+            self.buttons.append(button)
+        self.leave_button = Button(
+            text="<-",
+            parent=camera.ui,
+            model="quad",
+            position=(-0.82, 0.475),
+            scale=(0.15, 0.05),
+            color=color.red,
         )
-        self.destroying_character_buttons()
-        self.destroying_sorting_buttons()
-        self.create_sort_button()
-        self.create_character_button()
+        self.leave_button.on_click = lambda: self.leaving()
 
-    def destroying_sort_buttons(self):
-        for item in self.sort_button:
-            destroy(item["button"])
-            destroy(item["text"])
-        self.sort_button.clear()
+    def destroying(self):
+        for button in self.buttons:
+            destroy(button)
+        for bg in self.bgs:
+            destroy(bg)
+        if self.leave_button:
+            destroy(self.leave_button)
+        self.uis.clear()
+        self.ui_ungrouped.clear()
 
-    def destroying_sorting_buttons(self):
-        for item in self.sorting_button:
-            destroy(item["button"])
-            destroy(item["text"])
-        self.sorting_button.clear()
+    def leaving(self):
+        self.destroying()
+        self.main_menu.return_to_main_menu()
 
-    def destroying_character_buttons(self):
-        for stuff in self.character_button:
-            destroy(stuff["button"])
-            destroy(stuff["image"])
-            destroy(stuff["level"])
-        self.character_button.clear()
+    def pick(self, i):
+        self.destroying()
+        self.picked_slot = i
+        Operator_Showcase(self)
 
-    def create_character_button(self):
-        for i, items in enumerate(self.operator_stuff):
-            character_name = items.get("name")
-            character_level = items.get("level")
-            x, y = self.button_start_positions
-            button_bg = Button(
-                parent=camera.ui,
-                model="quad",
-                position=(
-                    x + (i // 2 * self.button_spacing_x),
-                    y - (i % 2 * self.button_spacing_y) - 0.1,
-                    -0.1,
-                ),
-                color=color.rgba(0.6, 0.6, 0.6, 0.6),
-                scale=(0.2, 0.38),
-            )
-            character_image = Entity(
-                model="quad",
-                parent=camera.ui,
-                texture=(
-                    f"assets/picture/characters/{character_name}_tier_1.png"
-                    if items.get("awaken") == False
-                    else f"assets/picture/characters/{character_name}_tier_2.png"
-                ),
-                position=(
-                    x + (i // 2 * self.button_spacing_x),
-                    y - (i % 2 * self.button_spacing_y) - 0.1,
-                    -0.1,
-                ),
-                color=color.rgba(1, 1, 1, 1),
-                scale=(0.2, 0.38),
-            )
-            level = Text(
-                text=f"LV.\n{character_level}",
-                parent=camera.ui,
-                position=(
-                    x + (i // 2 * self.button_spacing_x) + 0.07,
-                    y - (i % 2 * self.button_spacing_y) - 0.25,
-                ),
-                origin=(0, 0),
-                color=color.black,
-                z=-1,
-            )
-            self.character_button.append(
-                {"button": button_bg, "image": character_image, "level": level}
-            )
+    def character_button_clicked(self, items="none"):
+        if items != "none":
+            self.character_data = items
+            self.opening_path(self.path)
+        else:
+            self.destroying()
+            self.main_menu.return_to_main_menu()
 
 
 if __name__ == "__main__":

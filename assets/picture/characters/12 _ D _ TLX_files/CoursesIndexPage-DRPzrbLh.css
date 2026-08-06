@@ -1,0 +1,1 @@
+.course-card hr{margin-top:0!important}.course-card__title{font-size:20px!important;line-height:20px!important}.courses{display:grid;grid-template-columns:1fr 1fr;gap:8px}@media only screen and (max-width:900px){.courses{display:flex;flex-direction:column}}

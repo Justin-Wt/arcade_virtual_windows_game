@@ -1,0 +1,10 @@
+window.conf = {
+  mode: 'TLX',
+  apiUrl: 'https://api.tlx.toki.id/v2',
+  googleAnalytics: {
+    trackingId: 'G-4GXW05MEPT',
+  },
+  googleAuth: {
+    clientId: '205483843881-kemp1qgi6lbla02r9j5f7h14b6glp1aa.apps.googleusercontent.com',
+  },
+};

@@ -80,17 +80,21 @@ class Episode:
             position=(0, -0.3),
             collider=None,
         )
-        self.content = Entity(parent=self.panel)
+        self.content = Entity(
+            parent=self.panel,
+            scale=(1 / 2, 1 / 0.4),  # (0.5, 2.5)
+        )
         for i, episode in enumerate(self.episodes):
             button = Button(
                 episode,
                 name="episode",
                 parent=self.content,
+                texture=f"assets/UI's/episodes/{episode}.png",
                 origin=(0, 0),
-                scale=(0.2, 1),
+                scale=(0.35, 0.35),
                 text_size=2,
-                position=(-0.3 + (i * 0.25), 0),
-                color=color.lime,
+                position=((-0.3 + (i * 0.25)) * 2, 0),
+                color=color.white,
             )
             button.on_click = lambda episode_name=episode: self.run_to_episode(
                 episode_name

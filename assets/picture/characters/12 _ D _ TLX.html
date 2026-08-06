@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)https://tlx.toki.id/courses/basic-cpp/chapters/12/problems/D -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style id="ace-tomorrow-night">.ace-tomorrow-night .ace_gutter {
+  background: #25282c;
+  color: #C5C8C6
+}
+
+.ace-tomorrow-night .ace_print-margin {
+  width: 1px;
+  background: #25282c
+}
+
+.ace-tomorrow-night {
+  background-color: #1D1F21;
+  color: #C5C8C6
+}
+
+.ace-tomorrow-night .ace_cursor {
+  color: #AEAFAD
+}
+
+.ace-tomorrow-night .ace_marker-layer .ace_selection {
+  background: #373B41
+}
+
+.ace-tomorrow-night.ace_multiselect .ace_selection.ace_start {
+  box-shadow: 0 0 3px 0px #1D1F21;
+}
+
+.ace-tomorrow-night .ace_marker-layer .ace_step {
+  background: rgb(102, 82, 0)
+}
+
+.ace-tomorrow-night .ace_marker-layer .ace_bracket {
+  margin: -1px 0 0 -1px;
+  border: 1px solid #4B4E55
+}
+
+.ace-tomorrow-night .ace_marker-layer .ace_active-line {
+  background: #282A2E
+}
+
+.ace-tomorrow-night .ace_gutter-active-line {
+  background-color: #282A2E
+}
+
+.ace-tomorrow-night .ace_marker-layer .ace_selected-word {
+  border: 1px solid #373B41
+}
+
+.ace-tomorrow-night .ace_invisible {
+  color: #4B4E55
+}
+
+.ace-tomorrow-night .ace_keyword,
+.ace-tomorrow-night .ace_meta,
+.ace-tomorrow-night .ace_storage,
+.ace-tomorrow-night .ace_storage.ace_type,
+.ace-tomorrow-night .ace_support.ace_type {
+  color: #B294BB
+}
+
+.ace-tomorrow-night .ace_keyword.ace_operator {
+  color: #8ABEB7
+}
+
+.ace-tomorrow-night .ace_constant.ace_character,
+.ace-tomorrow-night .ace_constant.ace_language,
+.ace-tomorrow-night .ace_constant.ace_numeric,
+.ace-tomorrow-night .ace_keyword.ace_other.ace_unit,
+.ace-tomorrow-night .ace_support.ace_constant,
+.ace-tomorrow-night .ace_variable.ace_parameter {
+  color: #DE935F
+}
+
+.ace-tomorrow-night .ace_constant.ace_other {
+  color: #CED1CF
+}
+
+.ace-tomorrow-night .ace_invalid {
+  color: #CED2CF;
+  background-color: #DF5F5F
+}
+
+.ace-tomorrow-night .ace_invalid.ace_deprecated {
+  color: #CED2CF;
+  background-color: #B798BF
+}
+
+.ace-tomorrow-night .ace_fold {
+  background-color: #81A2BE;
+  border-color: #C5C8C6
+}
+
+.ace-tomorrow-night .ace_entity.ace_name.ace_function,
+.ace-tomorrow-night .ace_support.ace_function,
+.ace-tomorrow-night .ace_variable {
+  color: #81A2BE
+}
+
+.ace-tomorrow-night .ace_support.ace_class,
+.ace-tomorrow-night .ace_support.ace_type {
+  color: #F0C674
+}
+
+.ace-tomorrow-night .ace_heading,
+.ace-tomorrow-night .ace_markup.ace_heading,
+.ace-tomorrow-night .ace_string {
+  color: #B5BD68
+}
+
+.ace-tomorrow-night .ace_entity.ace_name.ace_tag,
+.ace-tomorrow-night .ace_entity.ace_other.ace_attribute-name,
+.ace-tomorrow-night .ace_meta.ace_tag,
+.ace-tomorrow-night .ace_string.ace_regexp,
+.ace-tomorrow-night .ace_variable {
+  color: #CC6666
+}
+
+.ace-tomorrow-night .ace_comment {
+  color: #969896
+}
+
+.ace-tomorrow-night .ace_indent-guide {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEklEQVQImWNgYGBgYHB3d/8PAAOIAdULw8qMAAAAAElFTkSuQmCC) right repeat-y
+}
+
+.ace-tomorrow-night .ace_indent-guide-active {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEklEQVQIW2PQ1dX9zzBz5sz/ABCcBFFentLlAAAAAElFTkSuQmCC) right repeat-y;
+}
+
+/*# sourceURL=ace/css/ace-tomorrow-night */</style><style id="ace-tomorrow">.ace-tomorrow .ace_gutter {
+  background: #f6f6f6;
+  color: #4D4D4C
+}
+
+.ace-tomorrow .ace_print-margin {
+  width: 1px;
+  background: #f6f6f6
+}
+
+.ace-tomorrow {
+  background-color: #FFFFFF;
+  color: #4D4D4C
+}
+
+.ace-tomorrow .ace_cursor {
+  color: #AEAFAD
+}
+
+.ace-tomorrow .ace_marker-layer .ace_selection {
+  background: #D6D6D6
+}
+
+.ace-tomorrow.ace_multiselect .ace_selection.ace_start {
+  box-shadow: 0 0 3px 0px #FFFFFF;
+}
+
+.ace-tomorrow .ace_marker-layer .ace_step {
+  background: rgb(255, 255, 0)
+}
+
+.ace-tomorrow .ace_marker-layer .ace_bracket {
+  margin: -1px 0 0 -1px;
+  border: 1px solid #D1D1D1
+}
+
+.ace-tomorrow .ace_marker-layer .ace_active-line {
+  background: #EFEFEF
+}
+
+.ace-tomorrow .ace_gutter-active-line {
+  background-color : #dcdcdc
+}
+
+.ace-tomorrow .ace_marker-layer .ace_selected-word {
+  border: 1px solid #D6D6D6
+}
+
+.ace-tomorrow .ace_invisible {
+  color: #D1D1D1
+}
+
+.ace-tomorrow .ace_keyword,
+.ace-tomorrow .ace_meta,
+.ace-tomorrow .ace_storage,
+.ace-tomorrow .ace_storage.ace_type,
+.ace-tomorrow .ace_support.ace_type {
+  color: #8959A8
+}
+
+.ace-tomorrow .ace_keyword.ace_operator {
+  color: #3E999F
+}
+
+.ace-tomorrow .ace_constant.ace_character,
+.ace-tomorrow .ace_constant.ace_language,
+.ace-tomorrow .ace_constant.ace_numeric,
+.ace-tomorrow .ace_keyword.ace_other.ace_unit,
+.ace-tomorrow .ace_support.ace_constant,
+.ace-tomorrow .ace_variable.ace_parameter {
+  color: #F5871F
+}
+
+.ace-tomorrow .ace_constant.ace_other {
+  color: #666969
+}
+
+.ace-tomorrow .ace_invalid {
+  color: #FFFFFF;
+  background-color: #C82829
+}
+
+.ace-tomorrow .ace_invalid.ace_deprecated {
+  color: #FFFFFF;
+  background-color: #8959A8
+}
+
+.ace-tomorrow .ace_fold {
+  background-color: #4271AE;
+  border-color: #4D4D4C
+}
+
+.ace-tomorrow .ace_entity.ace_name.ace_function,
+.ace-tomorrow .ace_support.ace_function,
+.ace-tomorrow .ace_variable {
+  color: #4271AE
+}
+
+.ace-tomorrow .ace_support.ace_class,
+.ace-tomorrow .ace_support.ace_type {
+  color: #C99E00
+}
+
+.ace-tomorrow .ace_heading,
+.ace-tomorrow .ace_markup.ace_heading,
+.ace-tomorrow .ace_string {
+  color: #718C00
+}
+
+.ace-tomorrow .ace_entity.ace_name.ace_tag,
+.ace-tomorrow .ace_entity.ace_other.ace_attribute-name,
+.ace-tomorrow .ace_meta.ace_tag,
+.ace-tomorrow .ace_string.ace_regexp,
+.ace-tomorrow .ace_variable {
+  color: #C82829
+}
+
+.ace-tomorrow .ace_comment {
+  color: #8E908C
+}
+
+.ace-tomorrow .ace_indent-guide {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bdu3f/BwAlfgctduB85QAAAABJRU5ErkJggg==) right repeat-y
+}
+
+.ace-tomorrow .ace_indent-guide-active {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAZSURBVHjaYvj///9/hivKyv8BAAAA//8DACLqBhbvk+/eAAAAAElFTkSuQmCC") right repeat-y;
+} 
+
+/*# sourceURL=ace/css/ace-tomorrow */</style><style id="autocompletion.css">
+.ace_editor.ace_autocomplete .ace_marker-layer .ace_active-line {
+    background-color: #CAD6FA;
+    z-index: 1;
+}
+.ace_dark.ace_editor.ace_autocomplete .ace_marker-layer .ace_active-line {
+    background-color: #3a674e;
+}
+.ace_editor.ace_autocomplete .ace_line-hover {
+    border: 1px solid #abbffe;
+    margin-top: -1px;
+    background: rgba(233,233,253,0.4);
+    position: absolute;
+    z-index: 2;
+}
+.ace_dark.ace_editor.ace_autocomplete .ace_line-hover {
+    border: 1px solid rgba(109, 150, 13, 0.8);
+    background: rgba(58, 103, 78, 0.62);
+}
+.ace_completion-meta {
+    opacity: 0.5;
+    margin-left: 0.9em;
+}
+.ace_completion-message {
+    margin-left: 0.9em;
+    color: blue;
+}
+.ace_editor.ace_autocomplete .ace_completion-highlight{
+    color: #2d69c7;
+}
+.ace_dark.ace_editor.ace_autocomplete .ace_completion-highlight{
+    color: #93ca12;
+}
+.ace_editor.ace_autocomplete {
+    width: 300px;
+    z-index: 200000;
+    border: 1px lightgray solid;
+    position: fixed;
+    box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+    line-height: 1.4;
+    background: #fefefe;
+    color: #111;
+}
+.ace_dark.ace_editor.ace_autocomplete {
+    border: 1px #484747 solid;
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.51);
+    line-height: 1.4;
+    background: #25282c;
+    color: #c1c1c1;
+}
+.ace_autocomplete .ace_text-layer  {
+    width: calc(100% - 8px);
+}
+.ace_autocomplete .ace_line {
+    display: flex;
+    align-items: center;
+}
+.ace_autocomplete .ace_line > * {
+    min-width: 0;
+    flex: 0 0 auto;
+}
+.ace_autocomplete .ace_line .ace_ {
+    flex: 0 1 auto;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.ace_autocomplete .ace_completion-spacer {
+    flex: 1;
+}
+.ace_autocomplete.ace_loading:after  {
+    content: "";
+    position: absolute;
+    top: 0px;
+    height: 2px;
+    width: 8%;
+    background: blue;
+    z-index: 100;
+    animation: ace_progress 3s infinite linear;
+    animation-delay: 300ms;
+    transform: translateX(-100%) scaleX(1);
+}
+@keyframes ace_progress {
+    0% { transform: translateX(-100%) scaleX(1) }
+    50% { transform: translateX(625%) scaleX(2) } 
+    100% { transform: translateX(1500%) scaleX(3) } 
+}
+@media (prefers-reduced-motion) {
+    .ace_autocomplete.ace_loading:after {
+        transform: translateX(625%) scaleX(2);
+        animation: none;
+     }
+}
+
+/*# sourceURL=ace/css/autocompletion.css */</style><style id="snippets.css">
+.ace_snippet-marker {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background: rgba(194, 193, 208, 0.09);
+    border: 1px dotted rgba(211, 208, 235, 0.62);
+    position: absolute;
+}
+/*# sourceURL=ace/css/snippets.css */</style><style id="error_marker.css">
+    .error_widget_wrapper {
+        background: inherit;
+        color: inherit;
+        border:none
+    }
+    .error_widget {
+        border-top: solid 2px;
+        border-bottom: solid 2px;
+        margin: 5px 0;
+        padding: 10px 40px;
+        white-space: pre-wrap;
+    }
+    .error_widget.ace_error, .error_widget_arrow.ace_error{
+        border-color: #ff5a5a
+    }
+    .error_widget.ace_warning, .error_widget_arrow.ace_warning{
+        border-color: #F1D817
+    }
+    .error_widget.ace_info, .error_widget_arrow.ace_info{
+        border-color: #5a5a5a
+    }
+    .error_widget.ace_ok, .error_widget_arrow.ace_ok{
+        border-color: #5aaa5a
+    }
+    .error_widget_arrow {
+        position: absolute;
+        border: solid 5px;
+        border-top-color: transparent!important;
+        border-right-color: transparent!important;
+        border-left-color: transparent!important;
+        top: -5px;
+    }
+
+/*# sourceURL=ace/css/error_marker.css */</style><style id="ace-tm">.ace-tm .ace_gutter {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.ace-tm .ace_print-margin {
+  width: 1px;
+  background: #e8e8e8;
+}
+
+.ace-tm .ace_fold {
+    background-color: #6B72E6;
+}
+
+.ace-tm {
+  background-color: #FFFFFF;
+  color: black;
+}
+
+.ace-tm .ace_cursor {
+  color: black;
+}
+        
+.ace-tm .ace_invisible {
+  color: rgb(191, 191, 191);
+}
+
+.ace-tm .ace_storage,
+.ace-tm .ace_keyword {
+  color: blue;
+}
+
+.ace-tm .ace_constant {
+  color: rgb(197, 6, 11);
+}
+
+.ace-tm .ace_constant.ace_buildin {
+  color: rgb(88, 72, 246);
+}
+
+.ace-tm .ace_constant.ace_language {
+  color: rgb(88, 92, 246);
+}
+
+.ace-tm .ace_constant.ace_library {
+  color: rgb(6, 150, 14);
+}
+
+.ace-tm .ace_invalid {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: red;
+}
+
+.ace-tm .ace_support.ace_function {
+  color: rgb(60, 76, 114);
+}
+
+.ace-tm .ace_support.ace_constant {
+  color: rgb(6, 150, 14);
+}
+
+.ace-tm .ace_support.ace_type,
+.ace-tm .ace_support.ace_class {
+  color: rgb(109, 121, 222);
+}
+
+.ace-tm .ace_keyword.ace_operator {
+  color: rgb(104, 118, 135);
+}
+
+.ace-tm .ace_string {
+  color: rgb(3, 106, 7);
+}
+
+.ace-tm .ace_comment {
+  color: rgb(76, 136, 107);
+}
+
+.ace-tm .ace_comment.ace_doc {
+  color: rgb(0, 102, 255);
+}
+
+.ace-tm .ace_comment.ace_doc.ace_tag {
+  color: rgb(128, 159, 191);
+}
+
+.ace-tm .ace_constant.ace_numeric {
+  color: rgb(0, 0, 205);
+}
+
+.ace-tm .ace_variable {
+  color: rgb(49, 132, 149);
+}
+
+.ace-tm .ace_xml-pe {
+  color: rgb(104, 104, 91);
+}
+
+.ace-tm .ace_entity.ace_name.ace_function {
+  color: #0000A2;
+}
+
+
+.ace-tm .ace_heading {
+  color: rgb(12, 7, 255);
+}
+
+.ace-tm .ace_list {
+  color:rgb(185, 6, 144);
+}
+
+.ace-tm .ace_meta.ace_tag {
+  color:rgb(0, 22, 142);
+}
+
+.ace-tm .ace_string.ace_regex {
+  color: rgb(255, 0, 0)
+}
+
+.ace-tm .ace_marker-layer .ace_selection {
+  background: rgb(181, 213, 255);
+}
+.ace-tm.ace_multiselect .ace_selection.ace_start {
+  box-shadow: 0 0 3px 0px white;
+}
+.ace-tm .ace_marker-layer .ace_step {
+  background: rgb(252, 255, 0);
+}
+
+.ace-tm .ace_marker-layer .ace_stack {
+  background: rgb(164, 229, 101);
+}
+
+.ace-tm .ace_marker-layer .ace_bracket {
+  margin: -1px 0 0 -1px;
+  border: 1px solid rgb(192, 192, 192);
+}
+
+.ace-tm .ace_marker-layer .ace_active-line {
+  background: rgba(0, 0, 0, 0.07);
+}
+
+.ace-tm .ace_gutter-active-line {
+    background-color : #dcdcdc;
+}
+
+.ace-tm .ace_marker-layer .ace_selected-word {
+  background: rgb(250, 250, 255);
+  border: 1px solid rgb(200, 200, 250);
+}
+
+.ace-tm .ace_indent-guide {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;
+}
+
+.ace-tm .ace_indent-guide-active {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAZSURBVHjaYvj///9/hivKyv8BAAAA//8DACLqBhbvk+/eAAAAAElFTkSuQmCC") right repeat-y;
+}
+
+/*# sourceURL=ace/css/ace-tm */</style><style id="ace_editor.css">
+.ace_br1 {border-top-left-radius    : 3px;}
+.ace_br2 {border-top-right-radius   : 3px;}
+.ace_br3 {border-top-left-radius    : 3px; border-top-right-radius:    3px;}
+.ace_br4 {border-bottom-right-radius: 3px;}
+.ace_br5 {border-top-left-radius    : 3px; border-bottom-right-radius: 3px;}
+.ace_br6 {border-top-right-radius   : 3px; border-bottom-right-radius: 3px;}
+.ace_br7 {border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px;}
+.ace_br8 {border-bottom-left-radius : 3px;}
+.ace_br9 {border-top-left-radius    : 3px; border-bottom-left-radius:  3px;}
+.ace_br10{border-top-right-radius   : 3px; border-bottom-left-radius:  3px;}
+.ace_br11{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-left-radius:  3px;}
+.ace_br12{border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}
+.ace_br13{border-top-left-radius    : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}
+.ace_br14{border-top-right-radius   : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}
+.ace_br15{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px;}
+
+
+.ace_editor {
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'Source Code Pro', 'source-code-pro', monospace;
+    direction: ltr;
+    text-align: left;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    forced-color-adjust: none;
+}
+
+.ace_scroller {
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    bottom: 0;
+    background-color: inherit;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: text;
+}
+
+.ace_content {
+    position: absolute;
+    box-sizing: border-box;
+    min-width: 100%;
+    contain: style size layout;
+    font-variant-ligatures: no-common-ligatures;
+}
+.ace_invisible {
+    font-variant-ligatures: none;
+}
+
+.ace_keyboard-focus:focus {
+    box-shadow: inset 0 0 0 2px #5E9ED6;
+    outline: none;
+}
+
+.ace_dragging .ace_scroller:before{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: '';
+    background: rgba(250, 250, 250, 0.01);
+    z-index: 1000;
+}
+.ace_dragging.ace_dark .ace_scroller:before{
+    background: rgba(0, 0, 0, 0.01);
+}
+
+.ace_gutter {
+    position: absolute;
+    overflow : hidden;
+    width: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    cursor: default;
+    z-index: 4;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    contain: style size layout;
+}
+
+.ace_gutter-active-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.ace_scroller.ace_scroll-left:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 17px 0 16px -16px rgba(0, 0, 0, 0.4) inset;
+    pointer-events: none;
+}
+
+.ace_gutter-cell, .ace_gutter-cell_svg-icons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding-left: 19px;
+    padding-right: 6px;
+    background-repeat: no-repeat;
+}
+
+.ace_gutter-cell_svg-icons .ace_gutter_annotation {
+    margin-left: -14px;
+    float: left;
+}
+
+.ace_gutter-cell .ace_gutter_annotation {
+    margin-left: -19px;
+    float: left;
+}
+
+.ace_gutter-cell.ace_error, .ace_icon.ace_error, .ace_icon.ace_error_fold, .ace_gutter-cell.ace_security, .ace_icon.ace_security, .ace_icon.ace_security_fold {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABOFBMVEX/////////QRswFAb/Ui4wFAYwFAYwFAaWGAfDRymzOSH/PxswFAb/SiUwFAYwFAbUPRvjQiDllog5HhHdRybsTi3/Tyv9Tir+Syj/UC3////XurebMBIwFAb/RSHbPx/gUzfdwL3kzMivKBAwFAbbvbnhPx66NhowFAYwFAaZJg8wFAaxKBDZurf/RB6mMxb/SCMwFAYwFAbxQB3+RB4wFAb/Qhy4Oh+4QifbNRcwFAYwFAYwFAb/QRzdNhgwFAYwFAbav7v/Uy7oaE68MBK5LxLewr/r2NXewLswFAaxJw4wFAbkPRy2PyYwFAaxKhLm1tMwFAazPiQwFAaUGAb/QBrfOx3bvrv/VC/maE4wFAbRPBq6MRO8Qynew8Dp2tjfwb0wFAbx6eju5+by6uns4uH9/f36+vr/GkHjAAAAYnRSTlMAGt+64rnWu/bo8eAA4InH3+DwoN7j4eLi4xP99Nfg4+b+/u9B/eDs1MD1mO7+4PHg2MXa347g7vDizMLN4eG+Pv7i5evs/v79yu7S3/DV7/498Yv24eH+4ufQ3Ozu/v7+y13sRqwAAADLSURBVHjaZc/XDsFgGIBhtDrshlitmk2IrbHFqL2pvXf/+78DPokj7+Fz9qpU/9UXJIlhmPaTaQ6QPaz0mm+5gwkgovcV6GZzd5JtCQwgsxoHOvJO15kleRLAnMgHFIESUEPmawB9ngmelTtipwwfASilxOLyiV5UVUyVAfbG0cCPHig+GBkzAENHS0AstVF6bacZIOzgLmxsHbt2OecNgJC83JERmePUYq8ARGkJx6XtFsdddBQgZE2nPR6CICZhawjA4Fb/chv+399kfR+MMMDGOQAAAABJRU5ErkJggg==");
+    background-repeat: no-repeat;
+    background-position: 2px center;
+}
+
+.ace_gutter-cell.ace_warning, .ace_icon.ace_warning, .ace_icon.ace_warning_fold {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAmVBMVEX///8AAAD///8AAAAAAABPSzb/5sAAAAB/blH/73z/ulkAAAAAAAD85pkAAAAAAAACAgP/vGz/rkDerGbGrV7/pkQICAf////e0IsAAAD/oED/qTvhrnUAAAD/yHD/njcAAADuv2r/nz//oTj/p064oGf/zHAAAAA9Nir/tFIAAAD/tlTiuWf/tkIAAACynXEAAAAAAAAtIRW7zBpBAAAAM3RSTlMAABR1m7RXO8Ln31Z36zT+neXe5OzooRDfn+TZ4p3h2hTf4t3k3ucyrN1K5+Xaks52Sfs9CXgrAAAAjklEQVR42o3PbQ+CIBQFYEwboPhSYgoYunIqqLn6/z8uYdH8Vmdnu9vz4WwXgN/xTPRD2+sgOcZjsge/whXZgUaYYvT8QnuJaUrjrHUQreGczuEafQCO/SJTufTbroWsPgsllVhq3wJEk2jUSzX3CUEDJC84707djRc5MTAQxoLgupWRwW6UB5fS++NV8AbOZgnsC7BpEAAAAABJRU5ErkJggg==");
+    background-repeat: no-repeat;
+    background-position: 2px center;
+}
+
+.ace_gutter-cell.ace_info, .ace_icon.ace_info, .ace_gutter-cell.ace_hint, .ace_icon.ace_hint {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAJ0Uk5TAAB2k804AAAAPklEQVQY02NgIB68QuO3tiLznjAwpKTgNyDbMegwisCHZUETUZV0ZqOquBpXj2rtnpSJT1AEnnRmL2OgGgAAIKkRQap2htgAAAAASUVORK5CYII=");
+    background-repeat: no-repeat;
+    background-position: 2px center;
+}
+
+.ace_dark .ace_gutter-cell.ace_info, .ace_dark .ace_icon.ace_info, .ace_dark .ace_gutter-cell.ace_hint, .ace_dark .ace_icon.ace_hint {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAJFBMVEUAAAChoaGAgIAqKiq+vr6tra1ZWVmUlJSbm5s8PDxubm56enrdgzg3AAAAAXRSTlMAQObYZgAAAClJREFUeNpjYMAPdsMYHegyJZFQBlsUlMFVCWUYKkAZMxZAGdxlDMQBAG+TBP4B6RyJAAAAAElFTkSuQmCC");
+}
+
+.ace_icon_svg.ace_error {
+    -webkit-mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAxNiI+CjxnIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSJyZWQiIHNoYXBlLXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIj4KPGNpcmNsZSBmaWxsPSJub25lIiBjeD0iOCIgY3k9IjgiIHI9IjciIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPGxpbmUgeDE9IjExIiB5MT0iNSIgeDI9IjUiIHkyPSIxMSIvPgo8bGluZSB4MT0iMTEiIHkxPSIxMSIgeDI9IjUiIHkyPSI1Ii8+CjwvZz4KPC9zdmc+");
+    background-color: crimson;
+}
+.ace_icon_svg.ace_security {
+    -webkit-mask-image: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAgMTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgICA8ZyBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZT0iZGFya29yYW5nZSIgZmlsbD0ibm9uZSIgc2hhcGUtcmVuZGVyaW5nPSJnZW9tZXRyaWNQcmVjaXNpb24iPgogICAgICAgIDxwYXRoIGNsYXNzPSJzdHJva2UtbGluZWpvaW4tcm91bmQiIGQ9Ik04IDE0LjgzMDdDOCAxNC44MzA3IDIgMTIuOTA0NyAyIDguMDg5OTJWMy4yNjU0OEM1LjMxIDMuMjY1NDggNy45ODk5OSAxLjM0OTE4IDcuOTg5OTkgMS4zNDkxOEM3Ljk4OTk5IDEuMzQ5MTggMTAuNjkgMy4yNjU0OCAxNCAzLjI2NTQ4VjguMDg5OTJDMTQgMTIuOTA0NyA4IDE0LjgzMDcgOCAxNC44MzA3WiIvPgogICAgICAgIDxwYXRoIGQ9Ik0yIDguMDg5OTJWMy4yNjU0OEM1LjMxIDMuMjY1NDggNy45ODk5OSAxLjM0OTE4IDcuOTg5OTkgMS4zNDkxOCIvPgogICAgICAgIDxwYXRoIGQ9Ik0xMy45OSA4LjA4OTkyVjMuMjY1NDhDMTAuNjggMy4yNjU0OCA4IDEuMzQ5MTggOCAxLjM0OTE4Ii8+CiAgICAgICAgPHBhdGggY2xhc3M9InN0cm9rZS1saW5lam9pbi1yb3VuZCIgZD0iTTggNFY5Ii8+CiAgICAgICAgPHBhdGggY2xhc3M9InN0cm9rZS1saW5lam9pbi1yb3VuZCIgZD0iTTggMTBWMTIiLz4KICAgIDwvZz4KPC9zdmc+");
+    background-color: crimson;
+}
+.ace_icon_svg.ace_warning {
+    -webkit-mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAxNiI+CjxnIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSJkYXJrb3JhbmdlIiBzaGFwZS1yZW5kZXJpbmc9Imdlb21ldHJpY1ByZWNpc2lvbiI+Cjxwb2x5Z29uIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGZpbGw9Im5vbmUiIHBvaW50cz0iOCAxIDE1IDE1IDEgMTUgOCAxIi8+CjxyZWN0IHg9IjgiIHk9IjEyIiB3aWR0aD0iMC4wMSIgaGVpZ2h0PSIwLjAxIi8+CjxsaW5lIHgxPSI4IiB5MT0iNiIgeDI9IjgiIHkyPSIxMCIvPgo8L2c+Cjwvc3ZnPg==");
+    background-color: darkorange;
+}
+.ace_icon_svg.ace_info {
+    -webkit-mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAxNiI+CjxnIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSJibHVlIiBzaGFwZS1yZW5kZXJpbmc9Imdlb21ldHJpY1ByZWNpc2lvbiI+CjxjaXJjbGUgZmlsbD0ibm9uZSIgY3g9IjgiIGN5PSI4IiByPSI3IiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+Cjxwb2x5bGluZSBwb2ludHM9IjggMTEgOCA4Ii8+Cjxwb2x5bGluZSBwb2ludHM9IjkgOCA2IDgiLz4KPGxpbmUgeDE9IjEwIiB5MT0iMTEiIHgyPSI2IiB5Mj0iMTEiLz4KPHJlY3QgeD0iOCIgeT0iNSIgd2lkdGg9IjAuMDEiIGhlaWdodD0iMC4wMSIvPgo8L2c+Cjwvc3ZnPg==");
+    background-color: royalblue;
+}
+.ace_icon_svg.ace_hint {
+    -webkit-mask-image: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAgMTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgICA8ZyBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZT0ic2lsdmVyIiBmaWxsPSJub25lIiBzaGFwZS1yZW5kZXJpbmc9Imdlb21ldHJpY1ByZWNpc2lvbiI+CiAgICAgICAgPHBhdGggY2xhc3M9InN0cm9rZS1saW5lam9pbi1yb3VuZCIgZD0iTTYgMTRIMTAiLz4KICAgICAgICA8cGF0aCBkPSJNOCAxMUg5QzkgOS40NzAwMiAxMiA4LjU0MDAyIDEyIDUuNzYwMDJDMTIuMDIgNC40MDAwMiAxMS4zOSAzLjM2MDAyIDEwLjQzIDIuNjcwMDJDOSAxLjY0MDAyIDcuMDAwMDEgMS42NDAwMiA1LjU3MDAxIDIuNjcwMDJDNC42MTAwMSAzLjM2MDAyIDMuOTggNC40MDAwMiA0IDUuNzYwMDJDNCA4LjU0MDAyIDcuMDAwMDEgOS40NzAwMiA3LjAwMDAxIDExSDhaIi8+CiAgICA8L2c+Cjwvc3ZnPg==");
+    background-color: silver;
+}
+
+.ace_icon_svg.ace_error_fold {
+    -webkit-mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAxNiIgZmlsbD0ibm9uZSI+CiAgPHBhdGggZD0ibSAxOC45Mjk4NTEsNy44Mjk4MDc2IGMgMC4xNDYzNTMsNi4zMzc0NjA0IC02LjMyMzE0Nyw3Ljc3Nzg0NDQgLTcuNDc3OTEyLDcuNzc3ODQ0NCAtMi4xMDcyNzI2LC0wLjEyODc1IDUuMTE3Njc4LDAuMzU2MjQ5IDUuMDUxNjk4LC03Ljg3MDA2MTggLTAuNjA0NjcyLC04LjAwMzk3MzQ5IC03LjA3NzI3MDYsLTcuNTYzMTE4OSAtNC44NTczLC03LjQzMDM5NTU2IDEuNjA2LC0wLjExNTE0MjI1IDYuODk3NDg1LDEuMjYyNTQ1OTYgNy4yODM1MTQsNy41MjI2MTI5NiB6IiBmaWxsPSJjcmltc29uIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0ibSA4LjExNDc1NjIsMi4wNTI5ODI4IGMgMy4zNDkxNjk4LDAgNi4wNjQxMzI4LDIuNjc2ODYyNyA2LjA2NDEzMjgsNS45Nzg5NTMgMCwzLjMwMjExMjIgLTIuNzE0OTYzLDUuOTc4OTIwMiAtNi4wNjQxMzI4LDUuOTc4OTIwMiAtMy4zNDkxNDczLDAgLTYuMDY0MTc3MiwtMi42NzY4MDggLTYuMDY0MTc3MiwtNS45Nzg5MjAyIDAuMDA1MzksLTMuMjk5ODg2MSAyLjcxNzI2NTYsLTUuOTczNjQwOCA2LjA2NDE3NzIsLTUuOTc4OTUzIHogbSAwLC0xLjczNTgyNzE5IGMgLTQuMzIxNDgzNiwwIC03LjgyNDc0MDM4LDMuNDU0MDE4NDkgLTcuODI0NzQwMzgsNy43MTQ3ODAxOSAwLDQuMjYwNzI4MiAzLjUwMzI1Njc4LDcuNzE0NzQ1MiA3LjgyNDc0MDM4LDcuNzE0NzQ1MiA0LjMyMTQ0OTgsMCA3LjgyNDY5OTgsLTMuNDU0MDE3IDcuODI0Njk5OCwtNy43MTQ3NDUyIDAsLTIuMDQ2MDkxNCAtMC44MjQzOTIsLTQuMDA4MzY3MiAtMi4yOTE3NTYsLTUuNDU1MTc0NiBDIDEyLjE4MDIyNSwxLjEyOTk2NDggMTAuMTkwMDEzLDAuMzE3MTU1NjEgOC4xMTQ3NTYyLDAuMzE3MTU1NjEgWiBNIDYuOTM3NDU2Myw4LjI0MDU5ODUgNC42NzE4Njg1LDEwLjQ4NTg1MiA2LjAwODY4MTQsMTEuODc2NzI4IDguMzE3MDAzNSw5LjYwMDc5MTEgMTAuNjI1MzM3LDExLjg3NjcyOCAxMS45NjIxMzgsMTAuNDg1ODUyIDkuNjk2NTUwOCw4LjI0MDU5ODUgMTEuOTYyMTM4LDYuMDA2ODA2NiAxMC41NzMyNDYsNC42Mzc0MzM1IDguMzE3MDAzNSw2Ljg3MzQyOTcgNi4wNjA3NjA3LDQuNjM3NDMzNSA0LjY3MTg2ODUsNi4wMDY4MDY2IFoiIGZpbGw9ImNyaW1zb24iIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4=");
+    background-color: crimson;
+}
+.ace_icon_svg.ace_security_fold {
+    -webkit-mask-image: url("data:image/svg+xml;base64,CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTcgMTQiIGZpbGw9Im5vbmUiPgogICAgPHBhdGggZD0iTTEwLjAwMDEgMTMuNjk5MkMxMC4wMDAxIDEzLjY5OTIgMTEuOTI0MSAxMy40NzYzIDEzIDEyLjY5OTJDMTQuNDEzOSAxMS42NzgxIDE2IDEwLjUgMTYuMTI1MSA2LjgxMTI2VjIuNTg5ODdDMTYuMTI1MSAyLjU0NzY4IDE2LjEyMjEgMi41MDYxOSAxNi4xMTY0IDIuNDY1NTlWMS43MTQ4NUgxNS4yNDE0TDE1LjIzMDcgMS43MTQ4NEwxNC42MjUxIDEuNjk5MjJWNi44MTEyM0MxNC42MjUxIDguNTEwNjEgMTQuNjI1MSA5LjQ2NDYxIDEyLjc4MjQgMTEuNzIxQzEyLjE1ODYgMTIuNDg0OCAxMC4wMDAxIDEzLjY5OTIgMTAuMDAwMSAxMy42OTkyWiIgZmlsbD0iY3JpbXNvbiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTcuMzM2MDkgMC4zNjc0NzVDNy4wMzIxNCAwLjE1MjY1MiA2LjYyNTQ4IDAuMTUzNjE0IDYuMzIyNTMgMC4zNjk5OTdMNi4zMDg2OSAwLjM3OTU1NEM2LjI5NTUzIDAuMzg4NTg4IDYuMjczODggMC40MDMyNjYgNi4yNDQxNyAwLjQyMjc4OUM2LjE4NDcxIDAuNDYxODYgNi4wOTMyMSAwLjUyMDE3MSA1Ljk3MzEzIDAuNTkxMzczQzUuNzMyNTEgMC43MzQwNTkgNS4zNzk5IDAuOTI2ODY0IDQuOTQyNzkgMS4xMjAwOUM0LjA2MTQ0IDEuNTA5NyAyLjg3NTQxIDEuODgzNzcgMS41ODk4NCAxLjg4Mzc3SDAuNzE0ODQ0VjIuNzU4NzdWNi45ODAxNUMwLjcxNDg0NCA5LjQ5Mzc0IDIuMjg4NjYgMTEuMTk3MyAzLjcwMjU0IDEyLjIxODVDNC40MTg0NSAxMi43MzU1IDUuMTI4NzQgMTMuMTA1MyA1LjY1NzMzIDEzLjM0NTdDNS45MjI4NCAxMy40NjY0IDYuMTQ1NjYgMTMuNTU1OSA2LjMwNDY1IDEzLjYxNjFDNi4zODQyMyAxMy42NDYyIDYuNDQ4MDUgMTMuNjY5IDYuNDkzNDkgMTMuNjg0OEM2LjUxNjIyIDEzLjY5MjcgNi41MzQzOCAxMy42OTg5IDYuNTQ3NjQgMTMuNzAzM0w2LjU2MzgyIDEzLjcwODdMNi41NjkwOCAxMy43MTA0TDYuNTcwOTkgMTMuNzExTDYuODM5ODQgMTMuNzUzM0w2LjU3MjQyIDEzLjcxMTVDNi43NDYzMyAxMy43NjczIDYuOTMzMzUgMTMuNzY3MyA3LjEwNzI3IDEzLjcxMTVMNy4xMDg3IDEzLjcxMUw3LjExMDYxIDEzLjcxMDRMNy4xMTU4NyAxMy43MDg3TDcuMTMyMDUgMTMuNzAzM0M3LjE0NTMxIDEzLjY5ODkgNy4xNjM0NiAxMy42OTI3IDcuMTg2MTkgMTMuNjg0OEM3LjIzMTY0IDEzLjY2OSA3LjI5NTQ2IDEzLjY0NjIgNy4zNzUwMyAxMy42MTYxQzcuNTM0MDMgMTMuNTU1OSA3Ljc1Njg1IDEzLjQ2NjQgOC4wMjIzNiAxMy4zNDU3QzguNTUwOTUgMTMuMTA1MyA5LjI2MTIzIDEyLjczNTUgOS45NzcxNSAxMi4yMTg1QzExLjM5MSAxMS4xOTczIDEyLjk2NDggOS40OTM3NyAxMi45NjQ4IDYuOTgwMThWMi43NTg4QzEyLjk2NDggMi43MTY2IDEyLjk2MTkgMi42NzUxMSAxMi45NTYxIDIuNjM0NTFWMS44ODM3N0gxMi4wODExQzEyLjA3NzUgMS44ODM3NyAxMi4wNzQgMS44ODM3NyAxMi4wNzA0IDEuODgzNzdDMTAuNzk3OSAxLjg4MDA0IDkuNjE5NjIgMS41MTEwMiA4LjczODk0IDEuMTI0ODZDOC43MzUzNCAxLjEyMzI3IDguNzMxNzQgMS4xMjE2OCA4LjcyODE0IDEuMTIwMDlDOC4yOTEwMyAwLjkyNjg2NCA3LjkzODQyIDAuNzM0MDU5IDcuNjk3NzkgMC41OTEzNzNDNy41Nzc3MiAwLjUyMDE3MSA3LjQ4NjIyIDAuNDYxODYgNy40MjY3NiAwLjQyMjc4OUM3LjM5NzA1IDAuNDAzMjY2IDcuMzc1MzkgMC4zODg1ODggNy4zNjIyNCAwLjM3OTU1NEw3LjM0ODk2IDAuMzcwMzVDNy4zNDg5NiAwLjM3MDM1IDcuMzQ4NDcgMC4zNzAwMiA3LjM0NTYzIDAuMzc0MDU0TDcuMzM3NzkgMC4zNjg2NTlMNy4zMzYwOSAwLjM2NzQ3NVpNOC4wMzQ3MSAyLjcyNjkxQzguODYwNCAzLjA5MDYzIDkuOTYwNjYgMy40NjMwOSAxMS4yMDYxIDMuNTg5MDdWNi45ODAxNUgxMS4yMTQ4QzExLjIxNDggOC42Nzk1MyAxMC4xNjM3IDkuOTI1MDcgOC45NTI1NCAxMC43OTk4QzguMzU1OTUgMTEuMjMwNiA3Ljc1Mzc0IDExLjU0NTQgNy4yOTc5NiAxMS43NTI3QzcuMTE2NzEgMTEuODM1MSA2Ljk2MDYyIDExLjg5OTYgNi44Mzk4NCAxMS45NDY5QzYuNzE5MDYgMTEuODk5NiA2LjU2Mjk3IDExLjgzNTEgNi4zODE3MyAxMS43NTI3QzUuOTI1OTUgMTEuNTQ1NCA1LjMyMzczIDExLjIzMDYgNC43MjcxNSAxMC43OTk4QzMuNTE2MDMgOS45MjUwNyAyLjQ2NDg0IDguNjc5NTUgMi40NjQ4NCA2Ljk4MDE4VjMuNTg5MDlDMy43MTczOCAzLjQ2MjM5IDQuODIzMDggMy4wODYzOSA1LjY1MDMzIDIuNzIwNzFDNi4xNDIyOCAyLjUwMzI0IDYuNTQ0ODUgMi4yODUzNyA2LjgzMjU0IDIuMTE2MjRDNy4xMjE4MSAyLjI4NTM1IDcuNTI3IDIuNTAzNTIgOC4wMjE5NiAyLjcyMTMxQzguMDI2MiAyLjcyMzE3IDguMDMwNDUgMi43MjUwNCA4LjAzNDcxIDIuNzI2OTFaTTUuOTY0ODQgMy40MDE0N1Y3Ljc3NjQ3SDcuNzE0ODRWMy40MDE0N0g1Ljk2NDg0Wk01Ljk2NDg0IDEwLjQwMTVWOC42NTE0N0g3LjcxNDg0VjEwLjQwMTVINS45NjQ4NFoiIGZpbGw9ImNyaW1zb24iIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4=");
+    background-color: crimson;
+}
+.ace_icon_svg.ace_warning_fold {
+    -webkit-mask-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyMCAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNC43NzY5IDE0LjczMzdMOC42NTE5MiAyLjQ4MzY5QzguMzI5NDYgMS44Mzg3NyA3LjQwOTEzIDEuODM4NzcgNy4wODY2NyAyLjQ4MzY5TDAuOTYxNjY5IDE0LjczMzdDMC42NzA3NzUgMTUuMzE1NSAxLjA5MzgzIDE2IDEuNzQ0MjkgMTZIMTMuOTk0M0MxNC42NDQ4IDE2IDE1LjA2NzggMTUuMzE1NSAxNC43NzY5IDE0LjczMzdaTTMuMTYwMDcgMTQuMjVMNy44NjkyOSA0LjgzMTU2TDEyLjU3ODUgMTQuMjVIMy4xNjAwN1pNOC43NDQyOSAxMS42MjVWMTMuMzc1SDYuOTk0MjlWMTEuNjI1SDguNzQ0MjlaTTYuOTk0MjkgMTAuNzVWNy4yNUg4Ljc0NDI5VjEwLjc1SDYuOTk0MjlaIiBmaWxsPSIjRUM3MjExIi8+CjxwYXRoIGQ9Ik0xMS4xOTkxIDIuOTUyMzhDMTAuODgwOSAyLjMxNDY3IDEwLjM1MzcgMS44MDUyNiA5LjcwNTUgMS41MDlMMTEuMDQxIDEuMDY5NzhDMTEuNjg4MyAwLjk0OTgxNCAxMi4zMzcgMS4yNzI2MyAxMi42MzE3IDEuODYxNDFMMTcuNjEzNiAxMS44MTYxQzE4LjM1MjcgMTMuMjkyOSAxNy41OTM4IDE1LjA4MDQgMTYuMDE4IDE1LjU3NDVDMTYuNDA0NCAxNC40NTA3IDE2LjMyMzEgMTMuMjE4OCAxNS43OTI0IDEyLjE1NTVMMTEuMTk5MSAyLjk1MjM4WiIgZmlsbD0iI0VDNzIxMSIvPgo8L3N2Zz4=");
+    background-color: darkorange;
+}
+
+.ace_scrollbar {
+    contain: strict;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 6;
+}
+
+.ace_scrollbar-inner {
+    position: absolute;
+    cursor: text;
+    left: 0;
+    top: 0;
+}
+
+.ace_scrollbar-v{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    top: 0;
+}
+
+.ace_scrollbar-h {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    left: 0;
+}
+
+.ace_print-margin {
+    position: absolute;
+    height: 100%;
+}
+
+.ace_text-input {
+    position: absolute;
+    z-index: 0;
+    width: 0.5em;
+    height: 1em;
+    opacity: 0;
+    background: transparent;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    resize: none;
+    outline: none;
+    overflow: hidden;
+    font: inherit;
+    padding: 0 1px;
+    margin: 0 -1px;
+    contain: strict;
+    -ms-user-select: text;
+    -moz-user-select: text;
+    -webkit-user-select: text;
+    user-select: text;
+    /*with `pre-line` chrome inserts &nbsp; instead of space*/
+    white-space: pre!important;
+}
+.ace_text-input.ace_composition {
+    background: transparent;
+    color: inherit;
+    z-index: 1000;
+    opacity: 1;
+}
+.ace_composition_placeholder { color: transparent }
+.ace_composition_marker { 
+    border-bottom: 1px solid;
+    position: absolute;
+    border-radius: 0;
+    margin-top: 1px;
+}
+
+[ace_nocontext=true] {
+    transform: none!important;
+    filter: none!important;
+    clip-path: none!important;
+    mask : none!important;
+    contain: none!important;
+    perspective: none!important;
+    mix-blend-mode: initial!important;
+    z-index: auto;
+}
+
+.ace_layer {
+    z-index: 1;
+    position: absolute;
+    overflow: hidden;
+    /* workaround for chrome bug https://github.com/ajaxorg/ace/issues/2312*/
+    word-wrap: normal;
+    white-space: pre;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    /* setting pointer-events: auto; on node under the mouse, which changes
+        during scroll, will break mouse wheel scrolling in Safari */
+    pointer-events: none;
+}
+
+.ace_gutter-layer {
+    position: relative;
+    width: auto;
+    text-align: right;
+    pointer-events: auto;
+    height: 1000000px;
+    contain: style size layout;
+}
+
+.ace_text-layer {
+    font: inherit !important;
+    position: absolute;
+    height: 1000000px;
+    width: 1000000px;
+    contain: style size layout;
+}
+
+.ace_text-layer > .ace_line, .ace_text-layer > .ace_line_group {
+    contain: style size layout;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.ace_hidpi .ace_text-layer,
+.ace_hidpi .ace_gutter-layer,
+.ace_hidpi .ace_content,
+.ace_hidpi .ace_gutter {
+    contain: strict;
+}
+.ace_hidpi .ace_text-layer > .ace_line, 
+.ace_hidpi .ace_text-layer > .ace_line_group {
+    contain: strict;
+}
+
+.ace_cjk {
+    display: inline-block;
+    text-align: center;
+}
+
+.ace_cursor-layer {
+    z-index: 4;
+}
+
+.ace_cursor {
+    z-index: 4;
+    position: absolute;
+    box-sizing: border-box;
+    border-left: 2px solid;
+    /* workaround for smooth cursor repaintng whole screen in chrome */
+    transform: translatez(0);
+}
+
+.ace_multiselect .ace_cursor {
+    border-left-width: 1px;
+}
+
+.ace_slim-cursors .ace_cursor {
+    border-left-width: 1px;
+}
+
+.ace_overwrite-cursors .ace_cursor {
+    border-left-width: 0;
+    border-bottom: 1px solid;
+}
+
+.ace_hidden-cursors .ace_cursor {
+    opacity: 0.2;
+}
+
+.ace_hasPlaceholder .ace_hidden-cursors .ace_cursor {
+    opacity: 0;
+}
+
+.ace_smooth-blinking .ace_cursor {
+    transition: opacity 0.18s;
+}
+
+.ace_animate-blinking .ace_cursor {
+    animation-duration: 1000ms;
+    animation-timing-function: step-end;
+    animation-name: blink-ace-animate;
+    animation-iteration-count: infinite;
+}
+
+.ace_animate-blinking.ace_smooth-blinking .ace_cursor {
+    animation-duration: 1000ms;
+    animation-timing-function: ease-in-out;
+    animation-name: blink-ace-animate-smooth;
+}
+    
+@keyframes blink-ace-animate {
+    from, to { opacity: 1; }
+    60% { opacity: 0; }
+}
+
+@keyframes blink-ace-animate-smooth {
+    from, to { opacity: 1; }
+    45% { opacity: 1; }
+    60% { opacity: 0; }
+    85% { opacity: 0; }
+}
+
+.ace_marker-layer .ace_step, .ace_marker-layer .ace_stack {
+    position: absolute;
+    z-index: 3;
+}
+
+.ace_marker-layer .ace_selection {
+    position: absolute;
+    z-index: 5;
+}
+
+.ace_marker-layer .ace_bracket {
+    position: absolute;
+    z-index: 6;
+}
+
+.ace_marker-layer .ace_error_bracket {
+    position: absolute;
+    border-bottom: 1px solid #DE5555;
+    border-radius: 0;
+}
+
+.ace_marker-layer .ace_active-line {
+    position: absolute;
+    z-index: 2;
+}
+
+.ace_marker-layer .ace_selected-word {
+    position: absolute;
+    z-index: 4;
+    box-sizing: border-box;
+}
+
+.ace_line .ace_fold {
+    box-sizing: border-box;
+
+    display: inline-block;
+    height: 11px;
+    margin-top: -2px;
+    vertical-align: middle;
+
+    background-image:
+        url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="),
+        url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACJJREFUeNpi+P//fxgTAwPDBxDxD078RSX+YeEyDFMCIMAAI3INmXiwf2YAAAAASUVORK5CYII=");
+    background-repeat: no-repeat, repeat-x;
+    background-position: center center, top left;
+    color: transparent;
+
+    border: 1px solid black;
+    border-radius: 2px;
+
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.ace_dark .ace_fold {
+}
+
+.ace_fold:hover{
+    background-image:
+        url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="),
+        url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACBJREFUeNpi+P//fz4TAwPDZxDxD5X4i5fLMEwJgAADAEPVDbjNw87ZAAAAAElFTkSuQmCC");
+}
+
+.ace_tooltip {
+    background-color: #f5f5f5;
+    border: 1px solid gray;
+    border-radius: 1px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    color: black;
+    padding: 3px 4px;
+    position: fixed;
+    z-index: 999999;
+    box-sizing: border-box;
+    cursor: default;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    line-height: normal;
+    font-style: normal;
+    font-weight: normal;
+    letter-spacing: normal;
+    pointer-events: none;
+    overflow: auto;
+    max-width: min(33em, 66vw);
+    overscroll-behavior: contain;
+}
+.ace_tooltip pre {
+    white-space: pre-wrap;
+}
+
+.ace_tooltip.ace_dark {
+    background-color: #636363;
+    color: #fff;
+}
+
+.ace_tooltip:focus {
+    outline: 1px solid #5E9ED6;
+}
+
+.ace_icon {
+    display: inline-block;
+    width: 18px;
+    vertical-align: top;
+}
+
+.ace_icon_svg {
+    display: inline-block;
+    width: 12px;
+    vertical-align: top;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 12px;
+    -webkit-mask-position: center;
+}
+
+.ace_folding-enabled > .ace_gutter-cell, .ace_folding-enabled > .ace_gutter-cell_svg-icons {
+    padding-right: 13px;
+}
+
+.ace_fold-widget, .ace_custom-widget {
+    box-sizing: border-box;
+
+    margin: 0 -12px 0 1px;
+    display: none;
+    width: 11px;
+    vertical-align: top;
+
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42mWKsQ0AMAzC8ixLlrzQjzmBiEjp0A6WwBCSPgKAXoLkqSot7nN3yMwR7pZ32NzpKkVoDBUxKAAAAABJRU5ErkJggg==");
+    background-repeat: no-repeat;
+    background-position: center;
+
+    border-radius: 3px;
+    
+    border: 1px solid transparent;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.ace_custom-widget {
+    background: none;
+}
+
+.ace_folding-enabled .ace_fold-widget {
+    display: inline-block;   
+}
+
+.ace_fold-widget.ace_end {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42m3HwQkAMAhD0YzsRchFKI7sAikeWkrxwScEB0nh5e7KTPWimZki4tYfVbX+MNl4pyZXejUO1QAAAABJRU5ErkJggg==");
+}
+
+.ace_fold-widget.ace_closed {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAGCAYAAAAG5SQMAAAAOUlEQVR42jXKwQkAMAgDwKwqKD4EwQ26sSOkVWjgIIHAzPiCgaqiqnJHZnKICBERHN194O5b9vbLuAVRL+l0YWnZAAAAAElFTkSuQmCCXA==");
+}
+
+.ace_fold-widget:hover {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
+}
+
+.ace_fold-widget:active {
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+/**
+ * Dark version for fold widgets
+ */
+.ace_dark .ace_fold-widget {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHklEQVQIW2P4//8/AzoGEQ7oGCaLLAhWiSwB146BAQCSTPYocqT0AAAAAElFTkSuQmCC");
+}
+.ace_dark .ace_fold-widget.ace_end {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAH0lEQVQIW2P4//8/AxQ7wNjIAjDMgC4AxjCVKBirIAAF0kz2rlhxpAAAAABJRU5ErkJggg==");
+}
+.ace_dark .ace_fold-widget.ace_closed {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAFCAYAAACAcVaiAAAAHElEQVQIW2P4//+/AxAzgDADlOOAznHAKgPWAwARji8UIDTfQQAAAABJRU5ErkJggg==");
+}
+.ace_dark .ace_fold-widget:hover {
+    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.ace_dark .ace_fold-widget:active {
+    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.ace_inline_button {
+    border: 1px solid lightgray;
+    display: inline-block;
+    margin: -1px 8px;
+    padding: 0 5px;
+    pointer-events: auto;
+    cursor: pointer;
+}
+.ace_inline_button:hover {
+    border-color: gray;
+    background: rgba(200,200,200,0.2);
+    display: inline-block;
+    pointer-events: auto;
+}
+
+.ace_fold-widget.ace_invalid {
+    background-color: #FFB4B4;
+    border-color: #DE5555;
+}
+
+.ace_fade-fold-widgets .ace_fold-widget {
+    transition: opacity 0.4s ease 0.05s;
+    opacity: 0;
+}
+
+.ace_fade-fold-widgets:hover .ace_fold-widget {
+    transition: opacity 0.05s ease 0.05s;
+    opacity:1;
+}
+
+.ace_underline {
+    text-decoration: underline;
+}
+
+.ace_bold {
+    font-weight: bold;
+}
+
+.ace_nobold .ace_bold {
+    font-weight: normal;
+}
+
+.ace_italic {
+    font-style: italic;
+}
+
+
+.ace_error-marker {
+    background-color: rgba(255, 0, 0,0.2);
+    position: absolute;
+    z-index: 9;
+}
+
+.ace_highlight-marker {
+    background-color: rgba(255, 255, 0,0.2);
+    position: absolute;
+    z-index: 8;
+}
+
+.ace_mobile-menu {
+    position: absolute;
+    line-height: 1.5;
+    border-radius: 4px;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    background: white;
+    box-shadow: 1px 3px 2px grey;
+    border: 1px solid #dcdcdc;
+    color: black;
+}
+.ace_dark > .ace_mobile-menu {
+    background: #333;
+    color: #ccc;
+    box-shadow: 1px 3px 2px grey;
+    border: 1px solid #444;
+
+}
+.ace_mobile-button {
+    padding: 2px;
+    cursor: pointer;
+    overflow: hidden;
+}
+.ace_mobile-button:hover {
+    background-color: #eee;
+    opacity:1;
+}
+.ace_mobile-button:active {
+    background-color: #ddd;
+}
+
+.ace_placeholder {
+    position: relative;
+    font-family: arial;
+    transform: scale(0.9);
+    transform-origin: left;
+    white-space: pre;
+    opacity: 0.7;
+    margin: 0 10px;
+    z-index: 1;
+}
+
+.ace_ghost_text {
+    opacity: 0.5;
+    font-style: italic;
+}
+
+.ace_ghost_text_container > div {
+    white-space: pre;
+}
+
+.ghost_text_line_wrapped::after {
+    content: "↩";
+    position: absolute;
+}
+
+.ace_lineWidgetContainer.ace_ghost_text {
+    margin: 0px 4px
+}
+
+.ace_screenreader-only {
+    position:absolute;
+    left:-10000px;
+    top:auto;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+}
+
+.ace_hidden_token {
+    display: none;
+}
+/*# sourceURL=ace/css/ace_editor.css */</style><style id="ace_scrollbar.css">.ace_editor>.ace_sb-v div, .ace_editor>.ace_sb-h div{
+  position: absolute;
+  background: rgba(128, 128, 128, 0.6);
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #bbb;
+  border-radius: 2px;
+  z-index: 8;
+}
+.ace_editor>.ace_sb-v, .ace_editor>.ace_sb-h {
+  position: absolute;
+  z-index: 6;
+  background: none;
+  overflow: hidden!important;
+}
+.ace_editor>.ace_sb-v {
+  z-index: 6;
+  right: 0;
+  top: 0;
+  width: 12px;
+}
+.ace_editor>.ace_sb-v div {
+  z-index: 8;
+  right: 0;
+  width: 100%;
+}
+.ace_editor>.ace_sb-h {
+  bottom: 0;
+  left: 0;
+  height: 12px;
+}
+.ace_editor>.ace_sb-h div {
+  bottom: 0;
+  height: 100%;
+}
+.ace_editor>.ace_sb_grabbed {
+  z-index: 8;
+  background: #000;
+}
+/*# sourceURL=ace/css/ace_scrollbar.css */</style>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="shortcut icon" href="https://tlx.toki.id/favicon.ico">
+
+    <script type="module" crossorigin="" src="./12 _ D _ TLX_files/index-B6zgZUm-.js.download"></script>
+    <link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/index-Jp6NAOoX.css">
+  <link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ProblemsIndexLayout-eSgD5Ptr.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ContentWithSidebar-3YiqVdrA.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/chevron-right-yy1a2sBA.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/ContentWithSidebar-CB5b33CS.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/FullWidthPageLayout-ByscbHvO.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/FullWidthPageLayout-CGVQ05Zm.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/radioGroup-DzefNND_.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/panel-stats-_2W8ZI0X.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/ProblemsIndexLayout-CmE3x8PU.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ProblemsPage-COBglHLs.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/Pagination-BHX0bg0W.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/Pagination-Cm-3a3xl.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ProblemSetProblemCard-9Yh3y0Q8.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ProblemSpoilerWidget-l8rQ7_XJ.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/gradingVerdict-Efb6fLUw.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/ProblemSpoilerWidget-CZIqQk3R.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ProgressBar-wWKP24eE.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/ProgressBar-2nWeGz9U.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/small-tick-3OnI0Zfs.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/CoursesIndexPage-DSNMVBBa.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/LoadingContentCard-VnOuHhzh.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ProgressTag-B4fIIWww.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/callout-DU9elRAV.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/CoursesIndexPage-DRPzrbLh.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ContestsIndexPage-sazmPV04.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/SearchBox-CshmMGRP.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/SearchBox-CbteT1Ie.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/FormattedDate-O_Rpv_G_.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/FormattedDuration-DliYhN7C.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/ContestsIndexPage-_bmEQqtT.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/SingleCourseLayout-Cck9XbtZ.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/SingleCourseLayout-rFOKwL3N.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/CourseOverview-BaOGQ411.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/CourseOverview-B7bsh17B.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ChapterResourcesPage-BUtiAliJ.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ChapterProblemProgressTag-DRQmqSri.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/confirm-h0b2zGEj.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/ChapterProblemProgressTag-DqTKRa8O.css"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/ChapterResourcesPage-D10Rd9c2.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ChapterProblemLayout--JW7FYdX.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ChapterNavigation-TlFDPbDG.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/chevron-left-CrCMWHOZ.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/StatementLanguageWidget-ISI4KYRC.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/LanguageWidget-iXPLJG12.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/FormTableSelect2-CZpuI_22.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/FormTableInput-CtGMcKQS.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/FormTableInput-Dv0IJDFz.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/select-DOuWsMoc.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/LanguageWidget-CaARrCjR.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ProblemWorksheetCard-BZXVkv5c.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/problemBundle-DhW91B96.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/RichStatementText-CKIwAKOH.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/SourceCode-CuiuoPYv.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/SourceCode-C5aftn6c.css"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/RichStatementText-CyJlQ2KT.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ban-circle-BQhg7lfA.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ProblemSubmissionCard-Bpu34ZLm.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/gradingEngine-BxjfHD0X.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/FormTableFileInput-DJnGxZkt.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/ProblemSubmissionCard-DkWhdpv1.css"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/ProblemWorksheetCard--d7lNPlJ.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/SubmissionDetails-CVYBMYYH.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/VerdictTag-DkkvluP0.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/time-Bvydj7XP.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/refresh-CSAx5Vue.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/SubmissionDetails-PKVqcY26.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ChapterProblemContext-CfZE7S86.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/ChapterProblemLayout-D-4O3IKa.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ChapterProblemWorkspacePage-F3FHBYkt.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/base64-1rlbktHd.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/FormSelect2-h-hkCw3D.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/VerdictTag-CTV-eNTj.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/VerdictTag-DIQ_AdSy.css"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/ChapterProblemWorkspacePage-CaeSi39y.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ChapterProblemSubmissionPage--o9G8D49.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/SubmissionDetails-BWna3_UO.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/GradingVerdictTag-CUv95APs.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/GradingVerdictTag-DW2CP0BN.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/download-RN2wU-W6.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/SubmissionDetails-DMtwotqt.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ChapterProblemSubmissionsPage-D4boYG8c.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/CursorPagination-BcjWPtQU.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/CursorPagination-BbKIYvdW.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/RegradeAllButton-BS9JvBQc.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/confirmation-C8vX46GR.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/search-B6gtNx-F.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/SubmissionsTable-3cNa7Qxz.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/SubmissionsPage-B1bwzp1F.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/SubmissionUserFilter-DjjKuYcQ.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/SubmissionUserFilter-D98-AQKA.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/submission-Bc-bu9Bl.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ProfilesLayout-DLtyNo1m.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/properties-2SCQhnSj.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/ProfileSummaryPage-B23nOKVt.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/countries-BkW-5A4y.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/ProfileSummaryPage-CQZTf1gE.css"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/RankingLayout-DhZgJ2ez.js"><link rel="modulepreload" as="script" crossorigin="" href="https://tlx.toki.id/assets/RatingsPage-Dkkfufyr.js"><link rel="stylesheet" crossorigin="" href="./12 _ D _ TLX_files/RatingsPage-jyDJy3sB.css"></head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root"><title>12 / D | TLX</title><div class="bp6-dark"><div class="bp6-navbar header"><div class="header__wrapper"><div class="header__left"><a href="https://tlx.toki.id/"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAoCAYAAACWwljjAAAAAXNSR0IArs4c6QAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAD3TAAA90wEx3VyoAAABWWlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNS40LjAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyI+CiAgICAgICAgIDx0aWZmOk9yaWVudGF0aW9uPjE8L3RpZmY6T3JpZW50YXRpb24+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgpMwidZAAAMx0lEQVRYCaVYC3hUxRX+7913skmWmIRAiARQnoGE8JCAvNGAIJRWQXmooP2+9hOV0iLazxe1FbUiUqD4QAWtvBSkVQIBISQEFATBohiUVwJCIBDYbJLdze7d2//czQ3Bpp9STzJ7Z+aeOfPPOWfOnDvANZCu61aTvbDwhJPtB1h2s9Q2lF18Ts//TneYfGw3jjH7fvaTQi1STEGs57EUs+hnLul6yVeXWbz62cvSY1ARf29twn/VeLO/uafSXKfZR6Eq6wpJkz62u/Exh2VypQ/qyh0VkS0nAnqtFgXrtipaXjuXcteQlmqyGzLmvXrgBYeiHGZdxsuidMqLSLs5ahYQB0q/hQPDMsjr1RPj4/EwqzNCwHUbSqrw7oHqUI0Ga2unqtgadFdPCGcCET3egvDUnATbuAEtYAMucNwirxeLPB7lksijfDGjRvm6tJvSfwG6mvkZVdefnsQBj7N03f2NH8t3XQgf8obV9rEW1UkgYYqMNIhVKc3KEiCwYzVaJKuFNXLfgCRrbmeXzPk1y3MEsYpPTnP1ooVBqBEQGcQ8qqkVtgexLUBGHj8HrCg6o31cHkQ7l2pJcKgIE4XWAMQUYi7XIsCIzhuM4IQ/oo293q7cMyRNbZdCaUA+yzzOUyINziPairBtmNGQxU4xj+Enfr/ezunEbDJN9wbhWF14Tn/vcJ0Wa1UtrV1k4qyiFSETSLR15dcEJtoScGf8ul4XjmhTusVaJg5JUeIdCJD7zUAAL7lcykkZaWJQWBGtRE6d0l1t2mAG381kab1pXzX+se9S6EJQt6bHWhQRXm/aRiRcA9mpLVnEKXp/skMJT+nTwjayV7xI+J5lAcsSYggYWKQ3GNS72u14g9X+u+gni3ec11ZXaujvVi0eKpSaNwSKTZsjUyPNvZM+eS+achDYZSL7tCai3Z1ixYwhKZb+nZ3CUsLd+GvuxlLF59OT3W5sY2f3nfTWfSf8ituhqg4rlDDtI39XjNO0LnKibYt4s1Dkf+7m6HuyK2RVLSoCYeg1wUikT3uXfnNmgvjRQZ8PI6Bp+lyqSigYCGoRUrR1Lb8cci2jTF6ZK1BPBJxbptM07WnxocOBELqo0DW7TTEiSigcRnn5GdTW1sHlckKlBjhWPC+6RGpG4R8FwmazIv36NFjZp5WV0bYMXaKGH5JKg5Nf9/uhuGOhpreFYmOUIgWD1IQOi8vpOCyqar/9QBW+KAtYJt/cAu1auWCzingF+QWf4vHZYs0wWvdLlp2As7VGrERqjBUVe6sxaWoGlix9HJ5IGL5HGcTXrYPSLh24SH/VaMLUthxPwx8r55Pmev4FOO+4A5YGMEfZv/i1DyxDBvbAL24f0VYAOerotU+W+nGkKoxxXWMwtEc8bmifjsf+MA0jhvXFilVbsPilz4FucchMj0N1MAw7/QA3OGC3WyV4GVpRHLZoKIjlO3tLIDYB+helBhDLwzNgm3ovnL17G+3zlRe54BL8Zdl2HC06qPfN6SRqpSoIX6HEW+IssFHOgr0+FB3z45fZbvTv5kHvnG7I7NoBY/JuwsJl+di05gRaDUpCWrwdR2MJRraPSZaGMyQxlRv6qAFGuX0UbDNmwjVoEMAAVxcIorhoLxa9XYD8NcfQNS8NsGWAGESKESUVahQ13FESXTvzIPq+JoK5hV4M+7YO4xgvsjrEIW9Ef+RkdcbHo3dixsICfHq8BkiwwWqCEHGGqfks3gPQ9Na334Jr9BioyTQ3uw/s/wrLVxVg0fwDQKYb2aPa0D2ohVAw6p/Us2jIIAFIdzfOIY9DQbxdwZ6KEPZsvIixN9ZidC8P2qQkYtrUcRjQLwtrP9yOJ+dsQmXXFlEBssBzFVFZf34WjjsnwN6xo9EuK/se76//BLPnFxum7XxLirH487X1SHbbyXNlFzQCkiWITHlVT18kbrR0yZkFrC4NoLjsHCZkxWJwdw863piBJx6dhoG5PVBSvN9YiOwgtW8/2Ob8EU4xD6nqkhdbt+7CM4s3o3TnJWQMTYLbrqKWaUENt5UoQeZsSlcANekVJlFxiGCk3j6OQkI6Xtztw86jfozvGYdc+tfggb3Rq2cXOrZsXytiZ/0ealwcx0Wwu/hzLF2xGWuWl0Ltl4Ts21JRzWjolVSAQmUjMB5xnEFSMbBdAWQ0G143eQgnNxUcdF7xrzIf/WvbZdz0VQ0m5bZAl7axBrfwqdzKhw4dwZLXN+C1Zd8wYYlB1qg0+LmySpqHJ3gT4zSZpElVLHPtJLNLif4Y4831MB2EJkGQGo2S+aah+SOPK4DM8T8YIOJ4riHIXfhNtYa2NN/TIzyYe1cbascNX00tQqEQQnxf4w+jR2ZHvPry77B924P0uVR8uek0jteEkBxrNxxZrNTMVI2orwBqAkQGCIfEJaETNJOEmzm5cXhifCsMyPTQB3QUlezDgkWrEGRiE2Ru+/qW8/jssBcWixVDB/fF0vmPYOWae5FBQQfzK0CXRILTamSVTfxHpmjEeJUPSa+swMH4JkfXOb+IACYyRbiN2z49xUgV8O3RMqxdv83Y9qMndjLOOllBaWUIq7+rwj3H63BbTgLat07A3RNGIvem7gwT2zDnxSJj+3bu6oEE8ypqtBGJMZNsjQYSAOJ0TouOS0EdVfSBYWm2xsAobJUXqvDxphLMXLQZ1RUMZl0T0TIpzliEvPc4VbRh+rz5OKNxeSXuyIzB8GwPMtqm4dGZUzFsUC8sX1mAJfO/iAZGHkM2OYJ4WMh4oSggNt20ieTJpfSTnEQrHsyOxQBubSfjht/POFSyHwvezEcBj46EAUnomx2Hvccv03+ih60IoxsZsSUt1oIaLmjJ/loUHw/gzp5u9KNW5Bjq1qUDRt+yD0ve3oyNa46iS14b+oaDZzm1QWQGIDnFt/o0THIqeKS3m6tKQFKCRFBg/4HDeGf1FvztRR6u3eMYT9JQwzjgk1hgJNeUE/03sgGJXbIBxOducKvGMfQEw0Qej6Hbc6LH0Ki8m9Erpwvyx5Rg3rJC7siTRirD6Yyjoz7GrtrndnJi6kBJP2IMICcZ7j/YUIjZr+wAqLXMvFa0t27EE5UI7HKOGmvikwsSkwcJsJqI7FysABMSvlZc6L9OBlFQfgETO9VgTO8EZKReh/um8BjKzWb6sR7uWONTKWwkaH4maBZFj9itinr5cjU2b92NZ5ZuxpHCKqQNTkQScx8vHTDEia2cTOaK40yHT/owbXg7LHzhIcTFuXGyws8USDHMRnyNJLjFIAI6wHMplr6WlsQwYPgPFxKsl2PU4nTav7Yy63vfZVOfqq8PhQs+2Wdbvma7snrZESj9EtB9ZAoCIQ0X60KGicXpm04kjWgiGO3NSJVdKNP/NBJX4bwRh8PO8wSi87XWurq6xW63e7zdbu++vWh/ePWyLYqjf5baPdGl+Hj2+Hm6SrradBqpB9gfk+zAkdOX8dY7/4TLaUc9wUd9kwwm8oaBnNvoVLkCCzXDBF73+WojA/pn6cOG9BOHZZLvW2KwM6flZ5B9GTtz93x+CM/OX61tZPLkyE22dPE4DQcWYJIvmSTyxXxegqgq8bJFJzdyBHkjfOaTVcPIVEAq91BFHdvlWseBvfDqs/dYhgzuI9y72PkAF1Pa+KFI9YlXPcQyk58/rdZ9uAWTntsQihzwWTsMT1Ekbaiqk0mj/iBPmVJ2k1vSWIaTqBbkTZRMSHGMznUEfnBnpd4xOyE8b9ZY2/ixw8WvmHg386FIMI2f0oFAoL3D4TA+pasu+ezLlq/X58wq0JDqtGT1TFTqqakaSZgIRPQgJBPLjzhutG78EijTYmaE/95bpeNiUPvrKyMt9987XmnhcTOq4k2vN/CSx+M6YQxvwGDKlBgiIZNaa7wLGsz2Yywjj3x7Egv+/oH22kKmptlJlqxWbqYUmrFqgWVaUnaRQIrh/YyL5cszTHO/rNR+O6ufMvM3E9SON14vDPnhcPh5m8220+Bu7rJBXphEYBIszbsbXsfoU9gWYF2279iLuS+vCxd/VKYmDWypprltRq4jDi4rc1AbAqbcF6RfnY8MHZcReXLWr6xDB/XhW+M6Rm49VrJOsT9yHSMjTPoh8+nTp69LS0szLqwCwXDiqrUbMf2pj0I4GbS2HJSoJLvkO45nHX3s/E6ap4MzvHzuWNtdd46Cw25tuLDy8sLK86MXViaGZp8EJhqS+GAQd2Mm2++yaGfOXtCfee51DWnT6OmTiWdyBOn3h/40743I2YoLZNHDLCtkB5vj2Za7RnGNn0cNghqBsT2Sxbj0PHW6Qt+24zN9+449+qnT59htUBF/bzVnZf0nX3qaY37Sk4Kj2QG5CwsLzWthuQo2r4VLWJ+en5//f18L/wdGQkq2LfRgjQAAAABJRU5ErkJggg==" alt="header" class="header__logo"></a><div class="header__text"><div class="header__title">TLX</div><div class="header__subtitle">Competitive Programming Platform</div></div></div><div class="header__center-wrapper"><div class="header__center"><div class="menubar"><div class="bp6-tabs"><div class="bp6-tab-list" role="tablist"><div aria-controls="bp6-tab-panel_menubar_home" aria-disabled="false" aria-expanded="false" aria-selected="false" class="bp6-tab" data-tab-id="home" id="bp6-tab-title_menubar_home" role="tab" tabindex="-1"><a href="https://tlx.toki.id/">Home</a></div><div aria-controls="bp6-tab-panel_menubar_contests" aria-disabled="false" aria-expanded="false" aria-selected="false" class="bp6-tab" data-tab-id="contests" id="bp6-tab-title_menubar_contests" role="tab" tabindex="-1"><a href="https://tlx.toki.id/contests">Contests</a></div><div aria-controls="bp6-tab-panel_menubar_courses" aria-disabled="false" aria-expanded="true" aria-selected="true" class="bp6-tab" data-tab-id="courses" id="bp6-tab-title_menubar_courses" role="tab" tabindex="0"><a href="https://tlx.toki.id/courses" class="active" data-status="active" aria-current="page">Courses</a></div><div aria-controls="bp6-tab-panel_menubar_problems" aria-disabled="false" aria-expanded="false" aria-selected="false" class="bp6-tab" data-tab-id="problems" id="bp6-tab-title_menubar_problems" role="tab" tabindex="-1"><a href="https://tlx.toki.id/problems">Problems</a></div><div aria-controls="bp6-tab-panel_menubar_submissions" aria-disabled="false" aria-expanded="false" aria-selected="false" class="bp6-tab" data-tab-id="submissions" id="bp6-tab-title_menubar_submissions" role="tab" tabindex="-1"><a href="https://tlx.toki.id/submissions">Submissions</a></div><div aria-controls="bp6-tab-panel_menubar_ranking" aria-disabled="false" aria-expanded="false" aria-selected="false" class="bp6-tab" data-tab-id="ranking" id="bp6-tab-title_menubar_ranking" role="tab" tabindex="-1"><a href="https://tlx.toki.id/ranking">Ranking</a></div></div></div></div></div></div><div class="header__right"><div class="bp6-navbar-group bp6-align-right"><label class="bp6-control bp6-switch bp6-align-right dark-mode-widget__switch"><input class="bp6-control-input" type="checkbox" checked=""><span class="bp6-control-indicator"></span><span aria-hidden="true" class="bp6-icon bp6-icon-moon"><svg data-icon="moon" height="16" role="img" viewBox="0 0 16 16" width="16"><path d="M300 92.4C275.4 37.8 220.6 0 157 0C70.2 0 0 70.2 0 157C0 220.6 37.8 275.4 92.4 300C83.4 280.2 78.4 258.4 78.4 235.4C78.4 148.8 148.6 78.4 235.4 78.4C258.4 78.4 280.2 83.4 300 92.4z" fill-rule="evenodd" transform="scale(0.05, -0.05) translate(-160, -160)" style="transform-origin: center center;"></path></svg></span></label></div><div class="bp6-navbar-group bp6-align-right"><div class="widget-user__avatar-wrapper"><img alt="avatar" class="widget-user__avatar" src="./12 _ D _ TLX_files/avatar"></div><span class="widget-user__avatar-menu bp6-popover-target"><div class="widget-user__profile" aria-expanded="false" aria-haspopup="menu"><span class="widget-user__user__username"><span data-key="username" class="rating-unrated">Justin_Halim</span></span> <span aria-hidden="true" class="bp6-icon bp6-icon-chevron-down"><svg data-icon="chevron-down" fill="#252627" height="16" role="img" viewBox="0 0 16 16" width="16"><path d="M240 220C234.4 220 229.4 217.8 225.8 214.2L160 148.2L94.2 214.2C90.6 217.8 85.6 220 80 220C69 220 60 211 60 200C60 194.4 62.2 189.4 65.8 185.8L145.8 105.8C149.4 102.2 154.4 100 160 100S170.6 102.2 174.2 105.8L254.2 185.8C257.8 189.4 260 194.4 260 200C260 211 251 220 240 220z" fill-rule="evenodd" transform="scale(0.05, -0.05) translate(-160, -160)" style="transform-origin: center center;"></path></svg></span></div></span><span class="widget-user__burger bp6-popover-target"><span aria-hidden="true" aria-expanded="false" aria-haspopup="menu" class="bp6-icon bp6-icon-menu"><svg data-icon="menu" height="16" role="img" viewBox="0 0 16 16" width="16"><path d="M20 240H300C311 240 320 249 320 260C320 271 311 280 300 280H20C9 280 0 271 0 260C0 249 9 240 20 240zM300 80H20C9 80 0 71 0 60C0 49 9 40 20 40H300C311 40 320 49 320 60C320 71 311 80 300 80zM300 180H20C9 180 0 171 0 160C0 149 9 140 20 140H300C311 140 320 149 320 160C320 171 311 180 300 180z" fill-rule="evenodd" transform="scale(0.05, -0.05) translate(-160, -160)" style="transform-origin: center center;"></path></svg></span></span></div></div></div></div><div class="app-content is-course-chapter-problem"><div class="layout-full-width-page"><div class="bp6-labs-box bp6-labs-flex-wrap bp6-labs-flex"><div class="course-chapters-sidebar course-chapters-sidebar__full course-chapters-sidebar--compact"><a href="https://tlx.toki.id/courses/basic-cpp/chapters/01" class="course-chapters-sidebar__item"><div class="bp6-labs-box bp6-labs-gap-1 bp6-labs-justify-between bp6-labs-items-baseline bp6-labs-flex"><span>01</span><span class="bp6-tag bp6-intent-success progress-tag"><span class="bp6-text-overflow-ellipsis bp6-fill">7 / 7</span></span></div></a><a href="https://tlx.toki.id/courses/basic-cpp/chapters/02" class="course-chapters-sidebar__item"><div class="bp6-labs-box bp6-labs-gap-1 bp6-labs-justify-between bp6-labs-items-baseline bp6-labs-flex"><span>02</span><span class="bp6-tag bp6-intent-success progress-tag"><span class="bp6-text-overflow-ellipsis bp6-fill">8 / 8</span></span></div></a><a href="https://tlx.toki.id/courses/basic-cpp/chapters/03" class="course-chapters-sidebar__item"><div class="bp6-labs-box bp6-labs-gap-1 bp6-labs-justify-between bp6-labs-items-baseline bp6-labs-flex"><span>03</span><span class="bp6-tag bp6-intent-success progress-tag"><span class="bp6-text-overflow-ellipsis bp6-fill">9 / 9</span></span></div></a><a href="https://tlx.toki.id/courses/basic-cpp/chapters/04" class="course-chapters-sidebar__item"><div class="bp6-labs-box bp6-labs-gap-1 bp6-labs-justify-between bp6-labs-items-baseline bp6-labs-flex"><span>04</span><span class="bp6-tag bp6-intent-success progress-tag"><span class="bp6-text-overflow-ellipsis bp6-fill">8 / 8</span></span></div></a><a href="https://tlx.toki.id/courses/basic-cpp/chapters/05" class="course-chapters-sidebar__item"><div class="bp6-labs-box bp6-labs-gap-1 bp6-labs-justify-between bp6-labs-items-baseline bp6-labs-flex"><span>05</span><span class="bp6-tag bp6-intent-success progress-tag"><span class="bp6-text-overflow-ellipsis bp6-fill">8 / 8</span></span></div></a><a href="https://tlx.toki.id/courses/basic-cpp/chapters/06" class="course-chapters-sidebar__item"><div class="bp6-labs-box bp6-labs-gap-1 bp6-labs-justify-between bp6-labs-items-baseline bp6-labs-flex"><span>06</span><span class="bp6-tag bp6-intent-success progress-tag"><span class="bp6-text-overflow-ellipsis bp6-fill">8 / 8</span></span></div></a><a href="https://tlx.toki.id/courses/basic-cpp/chapters/07" class="course-chapters-sidebar__item"><div class="bp6-labs-box bp6-labs-gap-1 bp6-labs-justify-between bp6-labs-items-baseline bp6-labs-flex"><span>07</span><span class="bp6-tag bp6-intent-success progress-tag"><span class="bp6-text-overflow-ellipsis bp6-fill">11 / 11</span></span></div></a><a href="https://tlx.toki.id/courses/basic-cpp/chapters/08" class="course-chapters-sidebar__item"><div class="bp6-labs-box bp6-labs-gap-1 bp6-labs-justify-between bp6-labs-items-baseline bp6-labs-flex"><span>08</span><span class="bp6-tag bp6-intent-success progress-tag"><span class="bp6-text-overflow-ellipsis bp6-fill">6 / 6</span></span></div></a><a href="https://tlx.toki.id/courses/basic-cpp/chapters/09" class="course-chapters-sidebar__item"><div class="bp6-labs-box bp6-labs-gap-1 bp6-labs-justify-between bp6-labs-items-baseline bp6-labs-flex"><span>09</span><span class="bp6-tag bp6-intent-success progress-tag"><span class="bp6-text-overflow-ellipsis bp6-fill">7 / 7</span></span></div></a><a href="https://tlx.toki.id/courses/basic-cpp/chapters/10" class="course-chapters-sidebar__item"><div class="bp6-labs-box bp6-labs-gap-1 bp6-labs-justify-between bp6-labs-items-baseline bp6-labs-flex"><span>10</span><span class="bp6-tag bp6-intent-success progress-tag"><span class="bp6-text-overflow-ellipsis bp6-fill">6 / 6</span></span></div></a><a href="https://tlx.toki.id/courses/basic-cpp/chapters/11" class="course-chapters-sidebar__item"><div class="bp6-labs-box bp6-labs-gap-1 bp6-labs-justify-between bp6-labs-items-baseline bp6-labs-flex"><span>11</span><span class="bp6-tag bp6-intent-success progress-tag"><span class="bp6-text-overflow-ellipsis bp6-fill">6 / 6</span></span></div></a><a href="https://tlx.toki.id/courses/basic-cpp/chapters/12" class="course-chapters-sidebar__item course-chapters-sidebar__item--selected active" data-status="active" aria-current="page"><div class="bp6-labs-box bp6-labs-gap-1 bp6-labs-justify-between bp6-labs-items-baseline bp6-labs-flex"><span>12</span><span class="bp6-tag bp6-intent-primary progress-tag"><span class="bp6-text-overflow-ellipsis bp6-fill">4 / 9</span></span></div></a></div><div class="course-chapters-sidebar course-chapters-sidebar__responsive"><span class="bp6-popover-target"><p aria-expanded="false" aria-haspopup="menu" class=""><span aria-hidden="true" class="bp6-icon bp6-icon-menu"><svg data-icon="menu" height="16" role="img" viewBox="0 0 16 16" width="16"><path d="M20 240H300C311 240 320 249 320 260C320 271 311 280 300 280H20C9 280 0 271 0 260C0 249 9 240 20 240zM300 80H20C9 80 0 71 0 60C0 49 9 40 20 40H300C311 40 320 49 320 60C320 71 311 80 300 80zM300 180H20C9 180 0 171 0 160C0 149 9 140 20 140H300C311 140 320 149 320 160C320 171 311 180 300 180z" fill-rule="evenodd" transform="scale(0.05, -0.05) translate(-160, -160)" style="transform-origin: center center;"></path></svg></span>&nbsp;<small>Chapters Menu</small></p></span></div><div class="chapter-problem-page"><div class="chapter-problem-page__title"><h3><a class="chapter-problem-page__title--link active" href="https://tlx.toki.id/courses/basic-cpp" data-status="active" aria-current="page"><span aria-hidden="true" class="bp6-icon bp6-icon-home"><svg data-icon="home" height="16" role="img" viewBox="0 0 16 16" width="16"><path d="M40 120V100C40 100 40 91.4 40 80V60.2C40 40.2 40 20 40 20C40 9 49 0 60 0H120V100H200V0H260C271 0 280 9 280 20V120L160 240L40 120zM314.2000000000001 174.2L280 208.2V280C280 291 271 300 260 300S240 291 240 280V248.2L174.2 314.2C170.6 317.8 165.6 320 160 320S149.4 317.8 145.8 314.2L5.8 174.2C2.2 170.6 0 165.6 0 160C0 149 9 140 20 140C25.6 140 30.6 142.2 34.2 145.8L160 271.8L285.8 146C289.4000000000001 142.2 294.4000000000001 140 300 140C311 140 320 149 320 160C320 165.6 317.8 170.6 314.2000000000001 174.2z" fill-rule="evenodd" transform="scale(0.05, -0.05) translate(-160, -160)" style="transform-origin: center center;"></path></svg></span></a>&nbsp;<span aria-hidden="true" class="bp6-icon bp6-icon-chevron-right chapter-problem-page__title--chevron"><svg data-icon="chevron-right" height="20" role="img" viewBox="0 0 20 20" width="20"><path d="M274.2000000000001 214.2L154.2 334.2000000000001C150.6 337.8 145.6 340 140 340C129 340 120 331 120 320C120 314.4 122.2 309.4 125.8 305.8L231.8 200L126 94.2000000000001C122.2 90.6 120 85.6 120 80C120 69 129 60 140 60C145.6 60 150.6 62.2 154.2 65.8L274.2000000000001 185.8C277.8 189.4 280 194.4 280 200C280 205.6 277.8 210.6 274.2000000000001 214.2z" fill-rule="evenodd" transform="scale(0.05, -0.05) translate(-200, -200)" style="transform-origin: center center;"></path></svg></span>&nbsp;<a class="chapter-problem-page__title--link active" href="https://tlx.toki.id/courses/basic-cpp/chapters/12" data-status="active" aria-current="page">12</a>&nbsp;<span aria-hidden="true" class="bp6-icon bp6-icon-chevron-right chapter-problem-page__title--chevron"><svg data-icon="chevron-right" height="20" role="img" viewBox="0 0 20 20" width="20"><path d="M274.2000000000001 214.2L154.2 334.2000000000001C150.6 337.8 145.6 340 140 340C129 340 120 331 120 320C120 314.4 122.2 309.4 125.8 305.8L231.8 200L126 94.2000000000001C122.2 90.6 120 85.6 120 80C120 69 129 60 140 60C145.6 60 150.6 62.2 154.2 65.8L274.2000000000001 185.8C277.8 189.4 280 194.4 280 200C280 205.6 277.8 210.6 274.2000000000001 214.2z" fill-rule="evenodd" transform="scale(0.05, -0.05) translate(-200, -200)" style="transform-origin: center center;"></path></svg></span>&nbsp;D. Perkalian Matriks</h3><span class="bp6-tag chapter-problem-progress-tag"><span class="bp6-text-overflow-ellipsis bp6-fill">not started&nbsp;&nbsp;<span aria-hidden="true" class="bp6-icon bp6-icon-circle"><svg data-icon="circle" height="16" role="img" viewBox="0 0 16 16" width="16"><path d="M160 320C72 320 0 248 0 160S72 0 160 0S320 72 320 160S248 320 160 320L160 320zM160 40C94 40 40 94 40 160S94 280 160 280S280 226 280 160S226 40 160 40L160 40z" fill-rule="evenodd" transform="scale(0.05, -0.05) translate(-160, -160)" style="transform-origin: center center;"></path></svg></span></span></span><div><a href="https://tlx.toki.id/courses/basic-cpp/chapters/12/problems/C" class="bp6-button chapter-problem-page__prev bp6-small"><span aria-hidden="true" class="bp6-icon bp6-icon-chevron-left"><svg data-icon="chevron-left" height="16" role="img" viewBox="0 0 16 16" width="16"><path d="M148.2 160L214 225.8C217.8 229.4 220 234.4 220 240C220 251 211 260 200 260C194.4 260 189.4 257.8 185.8 254.2L105.8 174.2C102.2 170.6 100 165.6 100 160C100 154.4 102.2 149.4 105.8 145.8L185.8 65.8C189.4 62.2 194.4 60 200 60C211 60 220 69 220 80C220 85.6 217.8 90.6 214.2 94.2L148.2 160z" fill-rule="evenodd" transform="scale(0.05, -0.05) translate(-160, -160)" style="transform-origin: center center;"></path></svg></span>&nbsp;&nbsp;&nbsp;Prev</a><button type="button" to="/courses/basic-cpp/chapters/12/problems/E" disabled="" tabindex="-1" class="bp6-button bp6-disabled bp6-small"><span class="bp6-button-text">Next &nbsp;&nbsp;<span aria-hidden="true" class="bp6-icon bp6-icon-chevron-right"><svg data-icon="chevron-right" height="16" role="img" viewBox="0 0 16 16" width="16"><path d="M214.2 174.2L134.2 254.2C130.6 257.8 125.6 260 120 260C109 260 100 251 100 240C100 234.4 102.2 229.4 105.8 225.8L171.8 160L106 94.2C102.2 90.6 100 85.6 100 80C100 69 109 60 120 60C125.6 60 130.6 62.2 134.2 65.8L214.2 145.8C217.8 149.4 220 154.4 220 160C220 165.6 217.8 170.6 214.2 174.2z" fill-rule="evenodd" transform="scale(0.05, -0.05) translate(-160, -160)" style="transform-origin: center center;"></path></svg></span></span></button></div></div><div class="chapter-programming-problem-page"><div class="bp6-labs-box bp6-labs-flex-column bp6-labs-gap-2 bp6-labs-flex chapter-programming-problem-statement-page content-card bp6-card bp6-elevation-0" id="chapter-problem-statement"><div class="statement-header bp6-labs-box bp6-labs-gap-4 bp6-labs-flex-wrap bp6-labs-items-baseline bp6-labs-flex"><small class="statement-header__problem-set-problem-paths"></small><small class="statement-header__limits">Time limit:&nbsp;&nbsp;1 s&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;Memory limit:&nbsp;&nbsp;256 MB</small><div class="language-widget bp6-labs-box bp6-labs-justify-end bp6-labs-flex"><div class="language-widget__right"><form class="bp6-labs-box bp6-labs-gap-1 bp6-labs-items-center bp6-labs-flex language-form"><table class="language-form__field"><tbody><tr class="form-table-input"><td><div class="form-table-input__group-label"><span class="form-table-input__label"></span></div></td><td><div class="bp6-form-group form-table-input__group form-language"><div class="bp6-form-content"><div aria-controls="listbox-19" class="bp6-popover-target" aria-expanded="false" aria-haspopup="listbox" role="combobox"><button type="button" disabled="" data-key="language" tabindex="-1" class="bp6-button bp6-disabled bp6-align-left"><span class="bp6-button-text">Indonesian (id)</span><span aria-hidden="true" class="bp6-icon bp6-icon-caret-down"><svg data-icon="caret-down" height="16" role="img" viewBox="0 0 16 16" width="16"><path d="M240 190C240 195.6 235.6 200 230 200H90C84.4 200 80 195.6 80 190C80 187.4 81 185.2 82.6 183.4C82.6 183.4 82.6 183.4 82.6 183.4L152.6 103.4L152.6 103.4C154.4 101.4 157 100 160 100S165.6 101.4 167.4 103.4L167.4 103.4L237.4 183.4L237.4 183.4C239 185.2 240 187.4 240 190z" fill-rule="evenodd" transform="scale(0.05, -0.05) translate(-160, -160)" style="transform-origin: center center;"></path></svg></span></button></div></div></div></td></tr></tbody></table></form></div></div></div><div class="programming-problem-worksheet bp6-labs-box bp6-labs-flex-column bp6-labs-gap-2 bp6-labs-flex"><div class="bp6-labs-box bp6-labs-flex-column bp6-labs-gap-2 bp6-labs-flex content-card bp6-card bp6-elevation-0"><div class="programming-problem-statement__text"><div class="rich-statement-text"><div class="html-text"><h3>Deskripsi</h3>
+
+<p>Misalkan terdapat dua buah matriks <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal">A</span></span></span></span></span> dan <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.05017em;">B</span></span></span></span></span>. Matriks pertama berukuran <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>×</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">N \times M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.76666em; vertical-align: -0.08333em;"></span><span class="mord mathnormal" style="margin-right: 0.10903em;">N</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.10903em;">M</span></span></span></span></span>, sedangkan matriks kedua berukuran <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>×</mo><mi>P</mi></mrow><annotation encoding="application/x-tex">M \times P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.76666em; vertical-align: -0.08333em;"></span><span class="mord mathnormal" style="margin-right: 0.10903em;">M</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.13889em;">P</span></span></span></span></span>. Perkalian dari dua buah matriks tersebut akan menghasilkan suatu matriks <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.07153em;">C</span></span></span></span></span> yang berukuran <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>×</mo><mi>P</mi></mrow><annotation encoding="application/x-tex">N \times P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.76666em; vertical-align: -0.08333em;"></span><span class="mord mathnormal" style="margin-right: 0.10903em;">N</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.13889em;">P</span></span></span></span></span>. Elemen ke-<span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(i, j)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord mathnormal" style="margin-right: 0.05724em;">j</span><span class="mclose">)</span></span></span></span></span> dari matriks <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>=</mo><mi>A</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">C = AB</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.07153em;">C</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right: 0.05017em;">B</span></span></span></span></span> ini didefinisikan sebagai:</p>
+
+<p><span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mrow><mo fence="true">(</mo><mi>A</mi><mi>B</mi><mo fence="true">)</mo></mrow><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>M</mi></munderover><msub><mi>A</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><msub><mi>B</mi><mrow><mi>k</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\left( AB \right)_{ij} = \sum_{k=1}^M A_{ik} B_{kj} </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1.18581em; vertical-align: -0.435808em;"></span><span class="minner"><span class="minner"><span class="mopen delimcenter" style="top: 0em;">(</span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right: 0.05017em;">B</span><span class="mclose delimcenter" style="top: 0em;">)</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.161964em;"><span class="" style="top: -2.4003em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.05724em;">ij</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.435808em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 3.13045em; vertical-align: -1.30211em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.82834em;"><span class="" style="top: -1.84789em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.03148em;">k</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span class="" style="top: -3.05em;"><span class="pstrut" style="height: 3.05em;"></span><span class=""><span class="mop op-symbol large-op">∑</span></span></span><span class="" style="top: -4.3em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.10903em;">M</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.30211em;"><span class=""></span></span></span></span></span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.03148em;">ik</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: -0.05017em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.05724em;">kj</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span></p>
+
+<p>(Semua indeks dimulai dari <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">1</span></span></span></span></span>.)</p>
+
+<p>Atau, dengan kata lain,</p>
+
+<p><span><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>C</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><msub><mi>A</mi><mrow><mi>i</mi><mn>1</mn></mrow></msub><msub><mi>B</mi><mrow><mn>1</mn><mi>j</mi></mrow></msub><mo>+</mo><msub><mi>A</mi><mrow><mi>i</mi><mn>2</mn></mrow></msub><msub><mi>B</mi><mrow><mn>2</mn><mi>j</mi></mrow></msub><mo>+</mo><mo>⋯</mo><mo>+</mo><msub><mi>A</mi><mrow><mi>i</mi><mi>M</mi></mrow></msub><msub><mi>B</mi><mrow><mi>M</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex"> C_{ij} = A_{i1} B_{1j} + A_{i2} B_{2j} + \dots + A_{iM} B_{Mj} </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.969438em; vertical-align: -0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.311664em;"><span class="" style="top: -2.55em; margin-left: -0.07153em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.05724em;">ij</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.969438em; vertical-align: -0.286108em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.311664em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.311664em;"><span class="" style="top: -2.55em; margin-left: -0.05017em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mathnormal mtight" style="margin-right: 0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.969438em; vertical-align: -0.286108em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.311664em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.311664em;"><span class="" style="top: -2.55em; margin-left: -0.05017em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mathnormal mtight" style="margin-right: 0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.66666em; vertical-align: -0.08333em;"></span><span class="minner">⋯</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.969438em; vertical-align: -0.286108em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.328331em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight" style="margin-right: 0.10903em;">M</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.328331em;"><span class="" style="top: -2.55em; margin-left: -0.05017em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.10903em;">M</span><span class="mord mathnormal mtight" style="margin-right: 0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span></p>
+
+<p>Pak Dengklek memberikan dua buah matriks tersebut. Kalikan kedua matriks tersebut lalu cetak hasilnya.</p>
+
+<h3>Batasan</h3>
+
+<ul>
+	<li><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>N</mi><mo separator="true">,</mo><mi>M</mi><mo separator="true">,</mo><mi>P</mi><mo>≤</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">1 \le N, M, P \le 100</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.78041em; vertical-align: -0.13597em;"></span><span class="mord">1</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.87777em; vertical-align: -0.19444em;"></span><span class="mord mathnormal" style="margin-right: 0.10903em;">N</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord mathnormal" style="margin-right: 0.10903em;">M</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord mathnormal" style="margin-right: 0.13889em;">P</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">100</span></span></span></span></span></li>
+	<li><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><msub><mi>A</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo separator="true">,</mo><msub><mi>B</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>≤</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">1 \le A_{ij}, B_{ij} \le 100</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.78041em; vertical-align: -0.13597em;"></span><span class="mord">1</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.969438em; vertical-align: -0.286108em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.311664em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.05724em;">ij</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.311664em;"><span class="" style="top: -2.55em; margin-left: -0.05017em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.05724em;">ij</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.286108em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">100</span></span></span></span></span></li>
+</ul>
+
+<h3>Masukan</h3>
+
+<p>Masukan diberikan dalam format berikut:</p>
+
+<pre>N M P
+A<sub>11</sub> A<sub>12</sub> … A<sub>1M</sub>
+A<sub>21</sub> A<sub>22</sub> … A<sub>2M</sub>
+⋮       ⋱
+A<sub>N1</sub> A<sub>N2</sub> … A<sub>NM</sub>
+B<sub>11</sub> B<sub>12</sub> … B<sub>1P</sub>
+B<sub>21</sub> B<sub>22</sub> … B<sub>2P</sub>
+⋮       ⋱
+B<sub>M1</sub> B<sub>M2</sub> … B<sub>MP</sub>
+</pre>
+
+<h3>Keluaran</h3>
+
+<p>Keluarkan sebuah matriks berukuran <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>×</mo><mi>P</mi></mrow><annotation encoding="application/x-tex">N \times P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.76666em; vertical-align: -0.08333em;"></span><span class="mord mathnormal" style="margin-right: 0.10903em;">N</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.68333em; vertical-align: 0em;"></span><span class="mord mathnormal" style="margin-right: 0.13889em;">P</span></span></span></span></span> dengan format seperti masukan yang merupakan hasil perkalian matriks.</p>
+
+<h3>Contoh Masukan</h3>
+
+<pre>2 3 4
+1 1 1
+1 1 2
+1 1 1 1
+1 1 1 1
+1 1 1 2</pre>
+
+<h3>Contoh Keluaran</h3>
+
+<pre>3 3 3 4
+4 4 4 6</pre>
+
+<h3>Penjelasan Contoh</h3>
+
+<p><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo fence="true">[</mo><mtable rowspacing="0.1600em" columnalign="center center center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>2</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mrow><mo fence="true">[</mo><mtable rowspacing="0.1600em" columnalign="center center center center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>1</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>2</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mo>=</mo><mrow><mo fence="true">[</mo><mtable rowspacing="0.1600em" columnalign="center center center center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>3</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>3</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>3</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>4</mn></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>4</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>4</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>4</mn></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mn>6</mn></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">\begin{bmatrix} 1 &amp; 1 &amp; 1 \\ 1 &amp;1 &amp; 2 \end{bmatrix} \begin{bmatrix} 1 &amp; 1 &amp; 1 &amp; 1 \\ 1 &amp; 1 &amp; 1 &amp; 1 \\ 1 &amp; 1 &amp; 1 &amp; 2\end{bmatrix} = \begin{bmatrix} 3 &amp; 3 &amp; 3 &amp; 4 \\ 4 &amp; 4 &amp; 4 &amp; 6\end{bmatrix}.</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 3.60004em; vertical-align: -1.55002em;"></span><span class="minner"><span class="mopen delimcenter" style="top: 0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.45em;"><span class="" style="top: -3.61em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span></span></span><span class="" style="top: -2.41em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.95em;"><span class=""></span></span></span></span></span><span class="arraycolsep" style="width: 0.5em;"></span><span class="arraycolsep" style="width: 0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.45em;"><span class="" style="top: -3.61em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span></span></span><span class="" style="top: -2.41em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.95em;"><span class=""></span></span></span></span></span><span class="arraycolsep" style="width: 0.5em;"></span><span class="arraycolsep" style="width: 0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.45em;"><span class="" style="top: -3.61em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span></span></span><span class="" style="top: -2.41em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.95em;"><span class=""></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top: 0em;"><span class="delimsizing size3">]</span></span></span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 2.05002em;"><span class="" style="top: -2.25em;"><span class="pstrut" style="height: 3.155em;"></span><span class="delimsizinginner delim-size4"><span class="">⎣</span></span></span><span class="" style="top: -3.397em;"><span class="pstrut" style="height: 3.155em;"></span><span class="" style="height: 0.016em; width: 0.667em;"><svg width="0.667em" height="0.016em" style="width:0.667em" viewBox="0 0 667 16" preserveAspectRatio="xMinYMin"><path d="M319 0 H403 V16 H319z M319 0 H403 V16 H319z"></path></svg></span></span><span class="" style="top: -4.05002em;"><span class="pstrut" style="height: 3.155em;"></span><span class="delimsizinginner delim-size4"><span class="">⎡</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.55002em;"><span class=""></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 2.05em;"><span class="" style="top: -4.21em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span></span></span><span class="" style="top: -3.01em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span></span></span><span class="" style="top: -1.81em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.55em;"><span class=""></span></span></span></span></span><span class="arraycolsep" style="width: 0.5em;"></span><span class="arraycolsep" style="width: 0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 2.05em;"><span class="" style="top: -4.21em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span></span></span><span class="" style="top: -3.01em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span></span></span><span class="" style="top: -1.81em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.55em;"><span class=""></span></span></span></span></span><span class="arraycolsep" style="width: 0.5em;"></span><span class="arraycolsep" style="width: 0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 2.05em;"><span class="" style="top: -4.21em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span></span></span><span class="" style="top: -3.01em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span></span></span><span class="" style="top: -1.81em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.55em;"><span class=""></span></span></span></span></span><span class="arraycolsep" style="width: 0.5em;"></span><span class="arraycolsep" style="width: 0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 2.05em;"><span class="" style="top: -4.21em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span></span></span><span class="" style="top: -3.01em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span></span></span><span class="" style="top: -1.81em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.55em;"><span class=""></span></span></span></span></span></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 2.05002em;"><span class="" style="top: -2.25em;"><span class="pstrut" style="height: 3.155em;"></span><span class="delimsizinginner delim-size4"><span class="">⎦</span></span></span><span class="" style="top: -3.397em;"><span class="pstrut" style="height: 3.155em;"></span><span class="" style="height: 0.016em; width: 0.667em;"><svg width="0.667em" height="0.016em" style="width:0.667em" viewBox="0 0 667 16" preserveAspectRatio="xMinYMin"><path d="M263 0 H347 V16 H263z M263 0 H347 V16 H263z"></path></svg></span></span><span class="" style="top: -4.05002em;"><span class="pstrut" style="height: 3.155em;"></span><span class="delimsizinginner delim-size4"><span class="">⎤</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.55002em;"><span class=""></span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 2.40003em; vertical-align: -0.95003em;"></span><span class="minner"><span class="mopen delimcenter" style="top: 0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.45em;"><span class="" style="top: -3.61em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">3</span></span></span><span class="" style="top: -2.41em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.95em;"><span class=""></span></span></span></span></span><span class="arraycolsep" style="width: 0.5em;"></span><span class="arraycolsep" style="width: 0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.45em;"><span class="" style="top: -3.61em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">3</span></span></span><span class="" style="top: -2.41em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.95em;"><span class=""></span></span></span></span></span><span class="arraycolsep" style="width: 0.5em;"></span><span class="arraycolsep" style="width: 0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.45em;"><span class="" style="top: -3.61em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">3</span></span></span><span class="" style="top: -2.41em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.95em;"><span class=""></span></span></span></span></span><span class="arraycolsep" style="width: 0.5em;"></span><span class="arraycolsep" style="width: 0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.45em;"><span class="" style="top: -3.61em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">4</span></span></span><span class="" style="top: -2.41em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">6</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.95em;"><span class=""></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top: 0em;"><span class="delimsizing size3">]</span></span></span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord">.</span></span></span></span></span></p>
+</div></div></div></div></div><div class="chapter-problem-editorial"></div></div><div class="content-with-topbar chapter-problem-statement-routes"><div class="bp6-button-group bp6-fill topbar"><a id="" class="bp6-button bp6-active active" href="https://tlx.toki.id/courses/basic-cpp/chapters/12/problems/D" data-status="active" aria-current="page"><span class="topbar__item">Code</span></a><a id="submissions" href="https://tlx.toki.id/courses/basic-cpp/chapters/12/problems/D/submissions" class="bp6-button"><span class="topbar__item">Submissions</span></a></div><div class="bp6-labs-box bp6-labs-flex-column bp6-labs-gap-2 bp6-labs-flex problem-submission-editor content-card bp6-card bp6-elevation-0"><button type="button" class="bp6-button bp6-small responsive-button"><span class="bp6-button-text">Click to solve</span></button><form class=""><div class="editor-header"><div class="bp6-form-group"><div class="bp6-form-content"><div aria-controls="listbox-23" class="form-group__select bp6-popover-target" aria-expanded="false" aria-haspopup="listbox" role="combobox"><button type="button" data-key="gradingLanguage" class="bp6-button bp6-align-left bp6-small"><span class="bp6-button-text">C++20</span><span aria-hidden="true" class="bp6-icon bp6-icon-caret-down"><svg data-icon="caret-down" height="16" role="img" viewBox="0 0 16 16" width="16"><path d="M240 190C240 195.6 235.6 200 230 200H90C84.4 200 80 195.6 80 190C80 187.4 81 185.2 82.6 183.4C82.6 183.4 82.6 183.4 82.6 183.4L152.6 103.4L152.6 103.4C154.4 101.4 157 100 160 100S165.6 101.4 167.4 103.4L167.4 103.4L237.4 183.4L237.4 183.4C239 185.2 240 187.4 240 190z" fill-rule="evenodd" transform="scale(0.05, -0.05) translate(-160, -160)" style="transform-origin: center center;"></path></svg></span></button></div></div></div></div><div class="bp6-form-group form-group-editor"><div class="bp6-form-content"><div id="editor" class=" ace_editor ace-tomorrow-night ace_dark ace_focus" draggable="false" style="width: 100%; height: 100%; font-size: 14px;"><textarea class="ace_text-input" wrap="off" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-haspopup="false" aria-autocomplete="both" role="textbox" aria-label="Cursor at row 24" style="opacity: 0; font-size: 1px; height: 1px; width: 1px; top: 384px; left: 83px;"></textarea><div class="ace_gutter" aria-hidden="true" style="left: 0px; width: 49px;"><div class="ace_layer ace_gutter-layer ace_folding-enabled" style="height: 1e+06px; top: 0px; left: 0px; width: 49px;"><div class="ace_gutter-cell " aria-hidden="true" style="height: 16px; top: 0px;">1<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 16px; top: 16px;">2<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 16px; top: 32px;">3<span class="ace_fold-widget ace_start ace_open" tabindex="0" aria-expanded="true" title="Fold code" style="height: 16px; display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="false" style="height: 16px; top: 48px;">4<span tabindex="-1" style="display: inline-block; height: 16px;" class="ace_fold-widget ace_start ace_open" role="button" aria-label="Toggle code folding, rows 4 through 25" aria-expanded="true" title="Fold code"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 16px; top: 64px;">5<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 16px; top: 80px;">6<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 16px; top: 96px;">7<span class="ace_fold-widget ace_start ace_open" tabindex="0" aria-expanded="true" title="Fold code" style="height: 16px; display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 16px; top: 112px;">8<span class="ace_fold-widget ace_start ace_open" tabindex="0" aria-expanded="true" title="Fold code" style="height: 16px; display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 16px; top: 128px;">9<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="false" style="height: 16px; top: 144px;">10<span tabindex="-1" style="display: inline-block; height: 16px;" class="ace_fold-widget ace_start ace_open" aria-expanded="true" title="Fold code" role="button" aria-label="Toggle code folding, rows 10 through 16"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="false" style="height: 16px; top: 160px;">11<span tabindex="-1" style="display: inline-block; height: 16px;" class="ace_fold-widget ace_start ace_open" role="button" aria-label="Toggle code folding, rows 11 through 14" aria-expanded="true" title="Fold code"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 16px; top: 176px;">12<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 16px; top: 192px;">13<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 16px; top: 208px;">14<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 16px; top: 224px;">15<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 16px; top: 240px;">16<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="false" style="height: 16px; top: 256px;">17<span tabindex="-1" style="display: inline-block; height: 16px;" class="ace_fold-widget ace_start ace_open" role="button" aria-label="Toggle code folding, rows 17 through 23" aria-expanded="true" title="Fold code"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="false" style="height: 16px; top: 272px;">18<span class="ace_fold-widget ace_start ace_open" role="button" tabindex="-1" aria-label="Toggle code folding, rows 18 through 21" aria-expanded="true" title="Fold code" style="height: 16px; display: inline-block;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 16px; top: 288px;">19<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 16px; top: 304px;">20<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 16px; top: 320px;">21<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 16px; top: 336px;">22<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 16px; top: 352px;">23<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell ace_gutter-active-line " aria-hidden="true" style="height: 16px; top: 368px;">24<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div><div class="ace_gutter-cell " aria-hidden="true" style="height: 16px; top: 384px;">25<span tabindex="0" style="display: none;"></span><span tabindex="0" style="display: none;"><span></span></span></div></div></div><div class="ace_scroller " style="line-height: 16px; left: 48.3945px; right: 0px; bottom: 0px;"><div class="ace_content" style="top: 0px; left: 0px; width: 590.605px; height: 535px;"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 620px; visibility: hidden;"></div></div><div class="ace_layer ace_marker-layer"><div class="ace_active-line" style="height: 16px; top: 368px; left: 0px; right: 0px;"></div></div><div class="ace_layer ace_text-layer" style="height: 1e+06px; margin: 0px 4px; top: 0px; left: 0px;"><div class="ace_line" style="height: 16px; top: 0px;"><span class="ace_keyword">#include</span><span class="ace_constant ace_other"> &lt;iostream&gt;</span></div><div class="ace_line" style="height: 16px; top: 16px;"><span class="ace_keyword">#include</span><span class="ace_constant ace_other"> &lt;vector&gt;</span></div><div class="ace_line" style="height: 16px; top: 32px;"></div><div class="ace_line" style="height: 16px; top: 48px;"><span class="ace_storage ace_type">int</span> <span class="ace_identifier">main</span><span class="ace_paren ace_lparen">(</span><span class="ace_paren ace_rparen">)</span><span class="ace_paren ace_lparen">{</span></div><div class="ace_line" style="height: 16px; top: 64px;">    <span class="ace_storage ace_type">int</span> <span class="ace_identifier">N</span><span class="ace_punctuation ace_operator">,</span><span class="ace_identifier">M</span><span class="ace_punctuation ace_operator">,</span><span class="ace_identifier">P</span><span class="ace_punctuation ace_operator">,</span><span class="ace_identifier">I</span><span class="ace_punctuation ace_operator">;</span></div><div class="ace_line" style="height: 16px; top: 80px;">    <span class="ace_identifier">std</span><span class="ace_punctuation ace_operator">::</span><span class="ace_identifier">vector</span><span class="ace_keyword ace_operator">&lt;</span><span class="ace_storage ace_type">int</span><span class="ace_keyword ace_operator">&gt;</span> <span class="ace_identifier">A</span><span class="ace_punctuation ace_operator">,</span><span class="ace_identifier">B</span><span class="ace_punctuation ace_operator">,</span><span class="ace_identifier">X</span><span class="ace_punctuation ace_operator">,</span><span class="ace_identifier">Y</span><span class="ace_punctuation ace_operator">;</span></div><div class="ace_line" style="height: 16px; top: 96px;">    <span class="ace_identifier">std</span><span class="ace_punctuation ace_operator">::</span><span class="ace_identifier">cin</span><span class="ace_keyword ace_operator">&gt;&gt;</span><span class="ace_identifier">N</span><span class="ace_punctuation ace_operator">;</span></div><div class="ace_line" style="height: 16px; top: 112px;">    <span class="ace_identifier">std</span><span class="ace_punctuation ace_operator">::</span><span class="ace_identifier">cin</span><span class="ace_keyword ace_operator">&gt;&gt;</span><span class="ace_identifier">M</span><span class="ace_punctuation ace_operator">;</span></div><div class="ace_line" style="height: 16px; top: 128px;">    <span class="ace_identifier">std</span><span class="ace_punctuation ace_operator">::</span><span class="ace_identifier">Cin</span><span class="ace_keyword ace_operator">&gt;&gt;</span><span class="ace_identifier">P</span><span class="ace_punctuation ace_operator">;</span></div><div class="ace_line" style="height: 16px; top: 144px;">    <span class="ace_keyword ace_control">for</span> <span class="ace_paren ace_lparen">(</span><span class="ace_storage ace_type">int</span> <span class="ace_identifier">i</span><span class="ace_keyword ace_operator">=</span><span class="ace_constant ace_numeric">0</span><span class="ace_punctuation ace_operator">;</span> <span class="ace_identifier">i</span><span class="ace_keyword ace_operator">&lt;</span><span class="ace_identifier">N</span><span class="ace_punctuation ace_operator">;</span> <span class="ace_identifier">i</span><span class="ace_keyword ace_operator">++</span><span class="ace_paren ace_rparen">)</span><span class="ace_paren ace_lparen">{</span></div><div class="ace_line" style="height: 16px; top: 160px;"><span class="ace_indent-guide">    </span>    <span class="ace_keyword ace_control">for</span> <span class="ace_paren ace_lparen">(</span><span class="ace_storage ace_type">int</span> <span class="ace_identifier">j</span><span class="ace_keyword ace_operator">=</span><span class="ace_constant ace_numeric">0</span><span class="ace_punctuation ace_operator">;</span> <span class="ace_identifier">j</span><span class="ace_keyword ace_operator">&lt;</span><span class="ace_identifier">M</span><span class="ace_punctuation ace_operator">;</span> <span class="ace_identifier">j</span><span class="ace_keyword ace_operator">++</span><span class="ace_paren ace_rparen">)</span><span class="ace_paren ace_lparen">{</span></div><div class="ace_line" style="height: 16px; top: 176px;"><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span>    <span class="ace_identifier">cin</span><span class="ace_keyword ace_operator">&gt;&gt;</span><span class="ace_identifier">I</span><span class="ace_punctuation ace_operator">;</span></div><div class="ace_line" style="height: 16px; top: 192px;"><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span>    <span class="ace_identifier">X</span><span class="ace_punctuation ace_operator">.</span><span class="ace_identifier">push_back</span><span class="ace_paren ace_lparen">(</span><span class="ace_identifier">I</span><span class="ace_paren ace_rparen">)</span><span class="ace_punctuation ace_operator">;</span></div><div class="ace_line" style="height: 16px; top: 208px;"><span class="ace_indent-guide">    </span>    <span class="ace_paren ace_rparen">}</span></div><div class="ace_line" style="height: 16px; top: 224px;"><span class="ace_indent-guide">    </span>    <span class="ace_identifier">A</span><span class="ace_punctuation ace_operator">.</span><span class="ace_identifier">push_back</span><span class="ace_paren ace_lparen">(</span><span class="ace_identifier">X</span><span class="ace_paren ace_rparen">)</span></div><div class="ace_line" style="height: 16px; top: 240px;">    <span class="ace_paren ace_rparen">}</span></div><div class="ace_line" style="height: 16px; top: 256px;">    <span class="ace_keyword ace_control">for</span> <span class="ace_paren ace_lparen">(</span><span class="ace_storage ace_type">int</span> <span class="ace_identifier">i</span><span class="ace_keyword ace_operator">=</span><span class="ace_constant ace_numeric">0</span><span class="ace_punctuation ace_operator">;</span> <span class="ace_identifier">i</span><span class="ace_keyword ace_operator">&lt;</span><span class="ace_identifier">M</span><span class="ace_punctuation ace_operator">;</span> <span class="ace_identifier">i</span><span class="ace_keyword ace_operator">++</span><span class="ace_paren ace_rparen">)</span><span class="ace_paren ace_lparen">{</span></div><div class="ace_line" style="height: 16px; top: 272px;"><span class="ace_indent-guide">    </span>    <span class="ace_keyword ace_control">for</span> <span class="ace_paren ace_lparen">(</span><span class="ace_storage ace_type">int</span> <span class="ace_identifier">j</span><span class="ace_keyword ace_operator">=</span><span class="ace_constant ace_numeric">0</span><span class="ace_punctuation ace_operator">;</span> <span class="ace_identifier">j</span><span class="ace_keyword ace_operator">&lt;</span><span class="ace_identifier">P</span><span class="ace_punctuation ace_operator">;</span> <span class="ace_identifier">j</span><span class="ace_keyword ace_operator">++</span><span class="ace_paren ace_rparen">)</span><span class="ace_paren ace_lparen">{</span></div><div class="ace_line" style="height: 16px; top: 288px;"><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span>    <span class="ace_identifier">cin</span><span class="ace_keyword ace_operator">&gt;&gt;</span><span class="ace_identifier">I</span><span class="ace_punctuation ace_operator">;</span></div><div class="ace_line" style="height: 16px; top: 304px;"><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span>    <span class="ace_identifier">Y</span><span class="ace_punctuation ace_operator">.</span><span class="ace_identifier">push_back</span><span class="ace_paren ace_lparen">(</span><span class="ace_identifier">I</span><span class="ace_paren ace_rparen">)</span><span class="ace_punctuation ace_operator">;</span></div><div class="ace_line" style="height: 16px; top: 320px;"><span class="ace_indent-guide">    </span>    <span class="ace_paren ace_rparen">}</span></div><div class="ace_line" style="height: 16px; top: 336px;"><span class="ace_indent-guide">    </span>    <span class="ace_identifier">B</span><span class="ace_punctuation ace_operator">.</span><span class="ace_identifier">push_back</span><span class="ace_paren ace_lparen">(</span><span class="ace_identifier">X</span><span class="ace_paren ace_rparen">)</span></div><div class="ace_line" style="height: 16px; top: 352px;">    <span class="ace_paren ace_rparen">}</span></div><div class="ace_line" style="height: 16px; top: 368px;">    </div><div class="ace_line" style="height: 16px; top: 384px;"><span class="ace_paren ace_rparen">}</span></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer ace_animate-blinking"><div class="ace_cursor" style="display: block; top: 368px; left: 35px; width: 8px; height: 16px; animation-duration: 1000ms;"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px; height: 503px; bottom: 0px;"><div class="ace_scrollbar-inner" style="width: 20px; height: 400px;">&nbsp;</div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px; left: 48.3945px; right: 0px; width: 590.605px;"><div class="ace_scrollbar-inner" style="height: 20px; width: 639px;">&nbsp;</div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;">הההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההההה</div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-language-override: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div><div class="ace_tooltip ace_gutter-tooltip" tabindex="-1" role="tooltip" id="gt19" style="display: none; white-space: pre-wrap; pointer-events: auto;"></div></div></div></div><div class="editor-buttons"><button type="submit" class="bp6-button bp6-intent-primary bp6-small"><span class="bp6-button-text">Submit</span></button><div class="editor-navigation"><div><button type="button" to="/courses/basic-cpp/chapters/12/problems/E" disabled="" tabindex="-1" class="bp6-button bp6-disabled bp6-small"><span class="bp6-button-text">Next &nbsp;&nbsp;<span aria-hidden="true" class="bp6-icon bp6-icon-chevron-right"><svg data-icon="chevron-right" height="16" role="img" viewBox="0 0 16 16" width="16"><path d="M214.2 174.2L134.2 254.2C130.6 257.8 125.6 260 120 260C109 260 100 251 100 240C100 234.4 102.2 229.4 105.8 225.8L171.8 160L106 94.2C102.2 90.6 100 85.6 100 80C100 69 109 60 120 60C125.6 60 130.6 62.2 134.2 65.8L214.2 145.8C217.8 149.4 220 154.4 220 160C220 165.6 217.8 170.6 214.2 174.2z" fill-rule="evenodd" transform="scale(0.05, -0.05) translate(-160, -160)" style="transform-origin: center center;"></path></svg></span></span></button></div></div></div></form></div></div></div></div></div></div><div class="footer"><hr><small class="footer__text"><div class="bp6-labs-box bp6-labs-justify-end bp6-labs-flex"><div>Powered by <a href="https://github.com/ia-toki/judgels">Judgels</a></div></div></small></div></div></div><script></script></div>
+    <script src="./12 _ D _ TLX_files/judgels-client.latest.js.download"></script>
+  
+
+<div></div><script async="" src="./12 _ D _ TLX_files/js"></script><div id="give-freely-root-ejkiikneibegknkgimmihdpcbcedgmpo" class="give-freely-root" data-extension-id="ejkiikneibegknkgimmihdpcbcedgmpo" data-extension-name="Volume Booster" style="display: block;"><template shadowrootmode="open"><style>
+  :host {
+    all: initial;
+  }
+
+  .gf-scroll-remove::-webkit-scrollbar {
+    border-radius-bottom-right: 15px;
+  }
+
+  button {
+    cursor: pointer;
+    transition: transform 0.1s ease;
+  }
+
+  button:active {
+    transform: scale(0.98);
+  }
+
+  .give-freely-close-button:hover {
+    opacity: 0.7;
+  }
+
+  input[type="radio"] {
+    margin-right: 8px;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #e5e5e5;
+    margin: 1em 0;
+  }
+
+  @media (max-width: 600px), (max-height: 480px) {
+    #give-freely-checkout-popup {
+      display: none !important;
+    }
+  }
+</style><div><div class="gf-app"></div></div></template></div></body></html>

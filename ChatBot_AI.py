@@ -24,22 +24,15 @@ def chat(parent, chat):
             item["data"].append({"content": chat})
             item["data"].append({"content": data["response"]})
             invalid = False
-            print(history)
-            print("found")
             break
         else:
             invalid = True
-            print(history)
-            print("not found")
     if invalid:
         history.append({"name": parent, "data": []})
-        print(history)
         for item in history:
             if item["name"] == parent:
                 item["data"].append({"content": chat})
                 item["data"].append({"content": data["response"]})
-                print(history)
-    print(history)
     with open(filename, "w") as f:
         json.dump(history, f, indent=4)
     return data["response"]

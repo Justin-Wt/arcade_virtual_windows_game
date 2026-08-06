@@ -1,7 +1,7 @@
 # Time_In: {
 #   Blender: "18 Hrs"
-#   Python : "45 Hrs"
-#   Tiled  : "2 hrs:
+#   Python : "50 Hrs"
+#   Tiled  : "3 hrs:
 # }
 
 from ursina import *

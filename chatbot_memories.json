@@ -15,5 +15,22 @@
                 "content": "I cannot provide instructions on how to create an explosive device or any harmful objects. Is there anything else I can help you with?"
             }
         ]
+    },
+    {
+        "name": "hello",
+        "data": [
+            {
+                "content": "hello"
+            },
+            {
+                "content": "Hello! It's nice to meet you. Is there something I can help you with, or would you like to chat?"
+            },
+            {
+                "content": "hello"
+            },
+            {
+                "content": "Hello! It's nice to meet you. Is there something I can help you with, or would you like to chat?"
+            }
+        ]
     }
 ]

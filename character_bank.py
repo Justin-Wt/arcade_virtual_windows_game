@@ -20,10 +20,10 @@ players (
 """)
 cursor.executemany(
     """
-INSERT OR IGNORE INTO players
-(name, level, hp, attack, type, rarity, faction, awaken)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-""",
+    INSERT OR IGNORE INTO players
+    (name, level, hp, attack, type, rarity, faction, awaken)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    """,
     [
         ("Yvonne", 1, 800, 200, "mage", 6, "player", 0),
         ("Ember", 1, 2300, 120, "defender", 6, "player", 0),

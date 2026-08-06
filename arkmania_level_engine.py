@@ -16,11 +16,11 @@ class Game:
         sub=False,
         condition=[],
         current_episode="Episode 1",
+        character="slot 1",
     ):
         self.episode = episode
         self.current_episode = current_episode
         self.buttons = []
-        self.Character_Name = ["Yvonne", "Ember", "Fluorite", "Last_Rite", "Mona"]
         self.end_ui = []
         self.indicator_list = []
         self.pathing = False
@@ -34,6 +34,7 @@ class Game:
         self.rotating = False
         self.showing_range = False
         self.dragging = False
+        self.squad_data_manager = Data_Manager("Arkmania_Squad.JSON")
         self.data_manager = Data_Manager(filename)
         for e in scene.entities:
             if isinstance(e, EditorCamera):
@@ -45,6 +46,7 @@ class Game:
         self.speed = 1
         self.sub = sub
         self.condition = condition
+        self.Character_Name = self.getting_character_name(character)
         self.reward_tags = []
 
         self.input_entity = Entity()
@@ -76,26 +78,34 @@ class Game:
                 index = grid[z][x]
                 height = 1 if index > 0 else -0.2
                 tile = Entity(
-                    model="cube",
+                    index=index,
+                    model=f"assets/3d/cube_structure.obj" if index < 3 else "cube",
                     scale=(1, (0.1 + height if height > 0 else 0.1), 1),
                     position=(x, height / 2, z),
-                    texture="white_cube",
-                    index=index,
-                    color=(
-                        color.rgba(0, 0, 0.8, 0.85)
-                        if index == 3
-                        else (color.rgba(0.8, 0, 0, 0.85) if index == 2 else color.gray)
+                    texture=(
+                        f"assets/3d/ground_texture_{self.current_episode}.png"
+                        if index == 0
+                        else (
+                            f"assets/3d/land_texture_{self.current_episode}.png"
+                            if index == 1
+                            else (
+                                f"assets/3d/enemy_spawn_texture.png"
+                                if index == 2
+                                else "white_cube"
+                            )
+                        )
                     ),
+                    color=color.rgba(0, 0, 0.8, 0.85) if index == 3 else color.white,
                     collider="box",
                 )
                 tiles.append(tile)
                 if index > 0:
                     tile = Entity(
-                        model="cube",
+                        index=index if index < 2 else 9,
+                        model=f"assets/3d/cube_structure.obj",
                         scale=(1, 0.1, 1),
                         position=(x, -0.1, z),
-                        texture="white_cube",
-                        index=index if index < 2 else 9,
+                        texture=f"assets/3d/ground_texture_{self.current_episode}.png",
                         color=color.gray,
                         collider="box",
                     )
@@ -105,6 +115,14 @@ class Game:
 
     def rotation(self, attack_range):
         return [list(row) for row in zip(*attack_range[::-1])]
+
+    def getting_character_name(self, character):
+        chars = []
+        character_data = self.squad_data_manager.open_file(character)
+        for name in character_data:
+            if name != "none":
+                chars.append(name)
+        return chars
 
     def restarting(self):
         if self.player_manager.players:
@@ -249,6 +267,9 @@ class Game:
 
     def cleanup(self):
         self.ui_manager.cleanup()
+        if self.player_manager.character_spawned_player:
+            destroy(self.player_manager.character_spawned_player)
+            self.player_manager.character_spawned_player = None
         for tile in self.tiles:
             destroy(tile)
 
@@ -334,14 +355,14 @@ class Game:
             )
             self.cleanup()
         if key == "left mouse up" and self.dragging:
-            if (
-                self.player_manager.character_spawned_player
-                not in self.player_manager.players
-            ):
-                self.player_manager.players.append(
-                    self.player_manager.character_spawned_player
-                )
+            preview = self.player_manager.character_spawned_player
+
+            if preview not in self.player_manager.players:
+                self.player_manager.players.append(preview)
                 self.deployed += 1
+
+            self.player_manager.character_spawned_player = None
+
             self.dragging = False
             self.rotating = False
             self.showing_range = False
@@ -610,6 +631,11 @@ class PlayerManager:
             self.show_range(self.character_spawned_player)
 
     def character_spawn(self, name):
+        if self.character_spawning and self.character_spawned_player:
+            destroy(self.character_spawned_player)
+            self.character_spawned_player = None
+
+        self.character_spawning = True
         data = self.game.data_manager.open_file("Characters", name)
         player_mdl = data["model"]
         player_range = data["attack_range"]
@@ -762,6 +788,7 @@ class UIManager:
         self.loot_panel_scroll_x = 0
         self.speed_button = None
         self.loot_panel = None
+        self.restart_button = None
         self.loot_content = None
 
     def create_hp_text(self, current_hp, max_hp):
@@ -794,6 +821,7 @@ class UIManager:
         self.loot_button.clear()
         self.loot_frame.clear()
         self.loot.clear()
+        destroy(self.restart_button)
         if self.loot_content:
             destroy(self.loot_content)
             self.loot_content = None
@@ -805,10 +833,10 @@ class UIManager:
             self.speed_button = None
 
     def draw_restart_button(self):
-        restart_button = Button(
+        self.restart_button = Button(
             model="quad", scale=(0.1, 0.1), position=(-0.9, 0.5), color=color.red
         )
-        restart_button.on_click = self.game.restarting
+        self.restart_button.on_click = self.game.restarting
 
     def show_reward(self, reward):
         datas = self.game.data_manager.open_file(
@@ -837,7 +865,6 @@ class UIManager:
             position=(0, -0.3),
             collider=None,
         )
-        print(self.loot)
         self.loot_content = Entity(parent=self.loot_panel, scale=(0.15, 2, 1))
         for i, (loot_type, loot, amount) in enumerate(self.loot):
             button = Button(
